@@ -1,0 +1,29 @@
+{
+    "name": "nikhil-kadapala-portfolio",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "oxlint",
+        "typecheck": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@fontsource/commit-mono": "^5.3.0",
+        "@mdx-js/loader": "^3.0.1",
+        "@mdx-js/react": "^3.0.1",
+        "clsx": "^2.1.1",
+        "next": "^15.4.6",
+        "next-mdx-remote": "^5.0.0",
+        "react": "^19.1.1",
+        "react-dom": "^19.1.1"
+    },
+    "devDependencies": {
+        "@types/node": "^22.15.0",
+        "@types/react": "^19.1.10",
+        "@types/react-dom": "^19.1.7",
+        "oxlint": "^1.79.0",
+        "typescript": "^5.8.3"
+    }
+}

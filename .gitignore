@@ -1,0 +1,7 @@
+node_modules/
+# Vendored external skills — re-fetchable from the pinned hashes in skills-lock.json
+.agents/
+.next/
+out/
+tsconfig.tsbuildinfo
+.DS_Store
