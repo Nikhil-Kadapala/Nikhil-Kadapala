@@ -66,7 +66,7 @@ Reset only if we explicitly restart the adoption.
 
 - `.agents/skills/**` including context-save / context-restore
 - `.github/workflows/ci.yml` (typecheck, lint, build on PR)
-- `AGENTS.md`, `CLAUDE.md`, `CONTRIBUTING.md`
+- `AGENTS.md`, `CLAUDE.md`
 - `.gitignore` host-state rules
 - `next.config.ts` Vercel preview (no static export)
 - `package.json` / `bun.lock` additions: Tailwind 4, gray-matter, Radix, CVA, lucide, tailwind-merge

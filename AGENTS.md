@@ -10,6 +10,10 @@ Personal site for Nikhil Kadapala. Next.js App Router on Vercel.
 - `/research` and `/projects` are catalogs (publications and shipped work), not a second essay tree.
 - A new page or post is a pull request: CI + Vercel preview, then merge.
 
+## Changelog
+
+Repo timeline: `CHANGELOG.md`. Fern adoption metrics: `artifacts/fern-template-adoption/CHANGELOG.md`.
+
 ## Fern adoption
 
 Tracker: `artifacts/fern-template-adoption/plan.mdx`. Changelog: `artifacts/fern-template-adoption/CHANGELOG.md`.

@@ -1,1 +1,13 @@
-import type { MetadataRoute } from "next"; export const dynamic="force-static"; export default function sitemap():MetadataRoute.Sitemap{const base="https://nikhil-kadapala.github.io";return ["","about","research","writing","projects","github"].map(path=>({url:`${base}/${path}`,lastModified:new Date()}))}
+import type { MetadataRoute } from "next";
+import { absoluteUrl } from "@/lib/site";
+
+export const dynamic = "force-static";
+
+const paths = ["", "about", "research", "writing", "projects", "github"];
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  return paths.map((path) => ({
+    url: absoluteUrl(path),
+    lastModified: new Date(),
+  }));
+}
