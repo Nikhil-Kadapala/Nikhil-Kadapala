@@ -6,15 +6,9 @@ Newest first. Add an entry when something ships (merge to `main`, or a notable u
 
 ## Unreleased
 
-On [`chore/fern-adoption-wave-0`](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/1).
-
 ### Changed
 
-- Canonical site URL is `https://nikhill.me` in the profile README. App origin is resolved at build time (`NEXT_PUBLIC_SITE_URL`, then Vercel production/preview host, then localhost). Layout, sitemap, robots, and RSS no longer hardcode `github.io` or the domain.
-
-### Removed
-
-- `CONTRIBUTING.md`. Solo site; operator rules stay in `AGENTS.md` and the adoption plan.
+- `next-mdx-remote` 5.0.0 → 6.0.0. Vercel refused production builds on CVE-2026-0969. Package is unused until wave 2; bump unblocks deploy.
 
 ## 2026-08-24 — Fern adoption wave 0
 
@@ -33,10 +27,12 @@ Baseline for borrowing Fern’s workflow, not its look. Live routes still match 
 
 - `next.config.ts` stays on Vercel preview (no static export)
 - Locked D1–D8: existing URLs, dark only, DESIGN.md token values, bun + Next 15, one `/writing` pipeline with `type` in a later wave
+- Canonical site URL is `https://nikhill.me` in the profile README. App origin is resolved at build time (`NEXT_PUBLIC_SITE_URL`, then Vercel production/preview host, then localhost). Layout, sitemap, robots, and RSS no longer hardcode `github.io` or the domain.
 
 ### Removed
 
 - Three-tree MDX page rewrite (would have been deleted in wave 2)
+- `CONTRIBUTING.md`. Solo site; operator rules stay in `AGENTS.md` and the adoption plan.
 
 ## 2026-08-23 — Portfolio site
 
