@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import "@fontsource/commit-mono/latin-400.css";
 import "@fontsource/commit-mono/latin-500.css";
 import "@fontsource/commit-mono/latin-600.css";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -18,5 +19,14 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><SiteHeader /><main>{children}</main><SiteFooter /></body></html>;
+  return (
+    <html lang="en">
+      <body>
+        <SiteHeader />
+        <main>{children}</main>
+        <SiteFooter />
+        <Analytics />
+      </body>
+    </html>
+  );
 }

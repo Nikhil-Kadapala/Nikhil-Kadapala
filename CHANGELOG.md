@@ -9,6 +9,7 @@ Newest first. Add an entry when something ships (merge to `main`, or a notable u
 ### Changed
 
 - `next-mdx-remote` 5.0.0 → 6.0.0. Vercel refused production builds on CVE-2026-0969. Package is unused until wave 2; bump unblocks deploy.
+- Vercel Web Analytics via `<Analytics />` in the root layout. No extra env vars.
 
 ## 2026-08-24 — Fern adoption wave 0
 
