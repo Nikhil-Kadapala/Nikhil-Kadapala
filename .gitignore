@@ -1,6 +1,9 @@
 node_modules/
-# Vendored external skills — re-fetchable from the pinned hashes in skills-lock.json
-.agents/
+# Host-specific agent/editor state. Track only the skills symlink in each.
+.claude/*
+!.claude/skills
+.cursor/*
+!.cursor/skills
 .next/
 out/
 tsconfig.tsbuildinfo

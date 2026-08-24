@@ -1,0 +1,111 @@
+---
+title: Fern template adoption
+status: baseline-resolved
+updated: 2026-08-24
+owner: Nikhil Kadapala
+html: ./migration-plan.html
+changelog: ./CHANGELOG.md
+---
+
+# Fern template adoption
+
+Living plan. Update this file when a decision, wave, or metric changes. The HTML briefing is the narrative snapshot; this MDX file is the tracker.
+
+**Process for every wave:** plan → review → implement → test → PR → review → merge.
+
+**Context:** `/context-save` at each meaningful boundary. Start the next session with `/context-restore`. Do not continue a wave across a compaction cliff.
+
+**Do not implement a wave in the same session that only planned it.** Fresh session after restore.
+
+## Settled decisions
+
+| ID | Call | Meaning |
+|---|---|---|
+| D1 | OS + token discipline | Steal Fern workflow and “tokens live once.” Keep DESIGN.md values (amber, 54px cap, dark). |
+| D2 | Existing URLs | `/writing`, `/research`, `/projects`, `/about`, `/github`. Never `/post`. |
+| D3 | Dark only | No `next-themes`. Skip theme-provider. |
+| D4 | DESIGN.md wins values | Fern wins the no-escape-hatch rule. Reconcile `app/globals.css` in wave 3. |
+| D5 | First-person research voice | Steal AGENTS.md structure. Rewrite every sentence. Em dashes stay if they earn their place. |
+| D6 | bun + oxlint + Next 15 | No `src/` move. No Next 16 as a template side effect. Add Zod in wave 2. |
+| D7 | One writing pipeline + `type` | See taxonomy below. Not three equal MDX trees. |
+| D8 | Discard contradicting WIP | Restored app pages to `main`. Kept only infra that the waves will use. |
+
+## D7 content taxonomy
+
+Fern uses one MDX pipeline and a `type`-like split (blog vs case study) rather than a `/blog` URL implying one genre. We do the same under `/writing/[slug]`.
+
+### Long-form (one pipeline)
+
+All essays, logs, explainers, and course notes are writing.
+
+| `type` | Folder | Use |
+|---|---|---|
+| `case-study` | `content/writing/case-studies/` | Finished project or research system. Problem → approach → result. |
+| `build-log` | `content/writing/build-logs/` | Numbered entries in a series (`series` + `part`). |
+| `research` | `content/writing/research/` | Explainer or opinion tied to a paper. Not the publication record itself. |
+| `teaching` | `content/writing/teaching/` | Course material while TAing. |
+
+Shared Zod fields: `title`, `date`, `description`, `type`, `tags`, `draft`. Optional: `series`, `part`, `paper` (DOI or URL), `course` (e.g. `CS 6xx · Fall 2026`).
+
+Index: `/writing` with filters by `type`. Series pages can group `build-log` parts.
+
+Voice: one `voice-nikhil.md` plus short overlays per `type` (narrative for case studies, citation-heavy for research, example-heavy for teaching).
+
+### Catalogs (not the writing pipeline)
+
+| Surface | URL | Role |
+|---|---|---|
+| Projects | `/projects`, `/projects/[slug]` | Shipped work cards. Links, status, repo. A case-study post may point here. |
+| Research | `/research`, `/research/[slug]` | Publication record: year, venue, PDF, arXiv. A `type: research` post may point here. |
+
+Do not flatten papers and repos into `/writing`. Do not create `/research/[slug]` MDX essays that duplicate `type: research` posts.
+
+### Seed content to recategorize in wave 2
+
+These files exist as drafts. They are not wired to routes after D8.
+
+- `content/writing/the-score-is-not-the-work.mdx` → `type: research` (or opinion)
+- `content/research/claim-extraction-checkthat-2025.mdx` → publication catalog, plus optional writing explainer
+- `content/projects/*.mdx` → project catalog records, not case-study posts until we write real case studies
+
+## Waves (one PR each)
+
+| Wave | PR title (working) | Status | Import | Edit |
+|---|---|---|---|---|
+| 0 | Baseline: artifacts, CI, agent skills, shadcn/cn, discard 3-tree MDX | **this change** | — | — |
+| 1 | Agent OS | not started | `AGENTS.md` shape, `write-writing` skill | Voice, paths, proof points. Skills live in `.agents/skills`. |
+| 2 | MDX pipeline | not started | Zod, `draft`, registry, remark-gfm, `generateMetadata` | One loader. `type` enum. Recategorize seed MDX. |
+| 3 | Tokens + `cn()` | not started | `extendTailwindMerge` once size tokens exist | DESIGN.md values. No Fern green / 64px / 86rem. |
+| 4 | Article chrome | not started | `.article-prose` idea | Map onto `.prose`. Dark, amber links, Commit Mono code. |
+| 5 | Optional skills | not started | file-bug → visual QA; case-study → `write-project` | Skip campaigns, SEO factory, employee profiles. |
+
+## PR checklist (every wave)
+
+- [ ] Plan written or updated in this file
+- [ ] Plan reviewed (human)
+- [ ] Implement only that wave
+- [ ] `bun run typecheck` && `bun run lint` && `bun run build`
+- [ ] Preview URL checked
+- [ ] `/context-save` after merge
+- [ ] Changelog entry (see CHANGELOG.md required fields)
+- [ ] Fresh session via `/context-restore` before the next wave
+
+## Explicit non-goals
+
+- Fern visual identity
+- `/post/[slug]`
+- `campaigns/` and launch-campaign
+- SEO blog factory
+- Employee profiles
+- Vale/CI prose lint (write 3–4 voice rules in AGENTS.md instead)
+- Light theme
+- `src/` directory move
+- Next 16 as a template side effect
+- Figma MCP as sole source of truth (code in the running app wins; paste screenshots when MCP drops assets)
+
+## How we will work
+
+- Outcome prompts, not step-by-step component prescriptions (Fern’s own lesson).
+- New page or post = pull request + Vercel preview, even solo.
+- `/components` and `/scrapyard` are optional later, not wave 1.
+- The “how I adopted Fern” post is itself a `build-log` series, published through this pipeline once wave 2 exists.

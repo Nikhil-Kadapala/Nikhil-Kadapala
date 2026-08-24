@@ -1,1 +1,19 @@
-import { writing } from "@/lib/content"; export const dynamic="force-static"; export function GET(){const items=writing.map(w=>`<item><title>${w.title}</title><link>https://nikhil-kadapala.github.io/writing/${w.slug}</link><description>${w.excerpt}</description><pubDate>${new Date(w.date).toUTCString()}</pubDate></item>`).join("");return new Response(`<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Nikhil Kadapala</title><link>https://nikhil-kadapala.github.io</link><description>Research notes on agents and evaluation.</description>${items}</channel></rss>`,{headers:{"Content-Type":"application/rss+xml"}})}
+import { writing } from "@/lib/content";
+import { absoluteUrl, site } from "@/lib/site";
+
+export const dynamic = "force-static";
+
+export function GET() {
+  const items = writing
+    .map(
+      (post) =>
+        `<item><title>${post.title}</title><link>${absoluteUrl(`writing/${post.slug}`)}</link><description>${post.excerpt}</description><pubDate>${new Date(post.date).toUTCString()}</pubDate></item>`,
+    )
+    .join("");
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>${site.name}</title><link>${site.url}</link><description>${site.description}</description>${items}</channel></rss>`;
+
+  return new Response(xml, {
+    headers: { "Content-Type": "application/rss+xml" },
+  });
+}

@@ -7,14 +7,14 @@ import "@fontsource/commit-mono/latin-600.css";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nikhil-kadapala.github.io"),
-  title: { default: "Nikhil Kadapala — Researcher & builder", template: "%s — Nikhil Kadapala" },
-  description: "Researcher and builder working on agent evaluations, memory, and knowledge systems.",
-  authors: [{ name: "Nikhil Kadapala" }],
-  openGraph: { title: "Nikhil Kadapala", description: "Researcher and builder working on agent evaluations, memory, and knowledge systems.", type: "website" },
+  metadataBase: new URL(site.url),
+  title: { default: `${site.name} — Researcher & builder`, template: `%s — ${site.name}` },
+  description: site.description,
+  authors: [{ name: site.name }],
+  openGraph: { title: site.name, description: site.description, type: "website" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

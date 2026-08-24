@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fern template → nikhilkadapala.com — migration briefing</title>
+  <style>
+    :root {
+      --bg: #080808;
+      --surface: #0f0f0f;
+      --elev: #171717;
+      --hover: #262626;
+      --inset: #020202;
+      --border: #1f1f1f;
+      --border-strong: #383838;
+      --text: #f0f0f0;
+      --secondary: #939393;
+      --muted: #6e6e6e;
+      --faint: #424242;
+      --accent: #f0a35a;
+      --accent-dim: #3d2a18;
+      --green: #7aff78;
+      --red: #ff4758;
+      --blue: #6ccdfb;
+      --sans: "TASA Orbiter", ui-sans-serif, system-ui, sans-serif;
+      --mono: "Commit Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --radius: 10px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    code, .mono {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      letter-spacing: 0.02em;
+    }
+    code {
+      background: var(--elev);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.1em 0.4em;
+    }
+    .wrap { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; }
+    header.top {
+      position: sticky; top: 0; z-index: 20;
+      background: color-mix(in oklab, var(--bg) 88%, transparent);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .top-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; height: 64px;
+    }
+    .brand { color: var(--text); font-weight: 600; letter-spacing: -0.02em; }
+    .brand:hover { text-decoration: none; color: var(--text); }
+    nav.toc { display: flex; gap: 18px; flex-wrap: wrap; }
+    nav.toc a {
+      color: var(--secondary);
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    nav.toc a:hover { color: var(--text); text-decoration: none; }
+    .hero { padding: 72px 0 48px; border-bottom: 1px solid var(--border); }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 16px;
+    }
+    h1 {
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      font-weight: 600;
+      max-width: 18ch;
+      margin: 0 0 20px;
+    }
+    .lede {
+      max-width: 62ch;
+      color: var(--secondary);
+      font-size: 18px;
+      line-height: 1.45;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border);
+      background: var(--border);
+      gap: 1px;
+      margin-top: 40px;
+    }
+    .stats div {
+      background: var(--surface);
+      padding: 16px 18px;
+    }
+    .stats span {
+      display: block;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .stats strong { font-size: 15px; font-weight: 500; }
+    section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+    h2 {
+      font-size: 28px;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      margin: 0 0 12px;
+    }
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      margin: 28px 0 10px;
+    }
+    p { color: var(--secondary); max-width: 72ch; }
+    .callout {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--accent);
+      padding: 16px 20px;
+      margin: 20px 0 0;
+      max-width: 76ch;
+    }
+    .callout p { margin: 0; color: var(--text); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+    }
+    .card h3 { margin-top: 0; }
+    .card p { margin-bottom: 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      background: var(--surface);
+    }
+    td { color: var(--secondary); }
+    td:first-child, td.keep { color: var(--text); }
+    .pill {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+    .borrow { color: var(--accent); border-color: var(--accent-dim); background: var(--accent-dim); }
+    .keep { color: var(--green); border-color: #1a3a1a; background: #102410; }
+    .skip { color: var(--muted); }
+    .decide { color: var(--blue); border-color: #163040; background: #101820; }
+    .conflict { color: var(--red); border-color: #3a1518; background: #1a0c0e; }
+    .edit { color: var(--accent); }
+    ol.waves { padding-left: 0; list-style: none; counter-reset: wave; }
+    ol.waves > li {
+      counter-increment: wave;
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 16px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    ol.waves > li:last-child { border-bottom: 0; }
+    .wave-n {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      padding-top: 4px;
+    }
+    .wave-n::before { content: "0" counter(wave) " /"; }
+    ul.tight { margin: 8px 0 0; padding-left: 18px; color: var(--secondary); }
+    ul.tight li { margin: 4px 0; }
+    .q {
+      border: 1px solid var(--border);
+      background: var(--inset);
+      padding: 16px 18px;
+      margin: 12px 0 0;
+    }
+    .q strong { display: block; color: var(--text); margin-bottom: 6px; }
+    footer.foot {
+      padding: 28px 0 48px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+    @media (max-width: 800px) {
+      .stats, .grid-2 { grid-template-columns: 1fr; }
+      nav.toc { display: none; }
+      ol.waves > li { grid-template-columns: 1fr; }
+      .wrap { width: min(100% - 32px, var(--max)); }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href="#top">Fern → this site</a>
+      <nav class="toc">
+        <a href="#thesis">Thesis</a>
+        <a href="#decisions">Decide first</a>
+        <a href="#waves">Import waves</a>
+        <a href="#overlap">Overlap</a>
+        <a href="#conflicts">Conflicts</a>
+        <a href="#skip">Skip</a>
+        <a href="#files">Files</a>
+        <a href="#flux">Current flux</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="hero wrap">
+      <p class="eyebrow">Settled briefing · 24 Aug 2026 · D1–D8 locked · wave 0 in progress</p>
+      <h1>Borrow the operating system, not the marketing look.</h1>
+      <p class="lede">
+        <code>fern-marketing-site-template</code> is a seed of how Fern runs a content site with agents:
+        rules, skills, validated MDX, and token discipline. This repo is already a darker, more specific
+        personal research site. The useful move is to import Fern’s <em>workflow</em>, then retune every
+        file to Nikhil’s voice, URLs, and Mastra-disciplined design. Do not paste Fern’s colors, type scale, or <code>/post</code> routes.
+      </p>
+      <div class="stats">
+        <div><span>Fern is</span><strong>Agent OS + MDX seed</strong></div>
+        <div><span>This site is</span><strong>Personal research surface</strong></div>
+        <div><span>Import first</span><strong>AGENTS.md, then Zod MDX</strong></div>
+        <div><span>Do not import</span><strong>Campaigns, SEO factory, look</strong></div>
+      </div>
+      <div class="callout" style="margin-top:28px">
+        <p>
+          <strong>Settled 24 Aug 2026.</strong> D1–D6 as recommended. D7 is one writing pipeline with a
+          <code>type</code> field (see <code>plan.mdx</code>). D8 discarded the three-tree MDX WIP.
+          Living tracker: <code>artifacts/fern-template-adoption/plan.mdx</code>.
+          Changelog: <code>CHANGELOG.md</code> in this folder.
+        </p>
+      </div>
+    </div>
+
+    <section id="thesis">
+      <div class="wrap">
+        <p class="eyebrow">01 / Thesis</p>
+        <h2>Fern’s own README is the plan.</h2>
+        <p>
+          Their usage instructions, in order: start with <code>AGENTS.md</code>, copy skills, copy
+          <code>campaigns/</code> only if you run paid ads, use the MDX examples as format references,
+          then grow the seed. For a personal PhD / builder site, that list collapses. Paid campaigns
+          and Fern SEO posts are out. The agent OS and the MDX pipeline are in.
+        </p>
+        <div class="grid-2">
+          <div class="card">
+            <h3>What Fern is actually giving away</h3>
+            <p>
+              A miniature of <a href="https://buildwithfern.com">buildwithfern.com</a>: Tailwind v4 tokens,
+              <code>cn()</code> that does not eat custom type classes, Zod-validated frontmatter so a bad
+              field fails the build, posts at a sacred URL, and skills that encode repeatable jobs.
+              The seed is deliberately missing shadcn, Shiki, and the real post components.
+            </p>
+          </div>
+          <div class="card">
+            <h3>What this repo already is</h3>
+            <p>
+              Next App Router on Vercel, bun, Tailwind v4, shadcn button + sheet, three MDX kinds
+              (<code>writing</code>, <code>research</code>, <code>projects</code>), dark-only Mastra-inspired
+              visual language, a knowledge graph on the home page, sitemap / robots / RSS. Identity and
+              IA are further along than Fern’s seed. The gap is agent authoring rules, schema validation,
+              and metadata hygiene.
+            </p>
+          </div>
+        </div>
+        <div class="callout">
+          <p>
+            Working rule: if a Fern file encodes <em>how agents behave</em>, import it and rewrite the
+            voice and paths. If it encodes <em>how Fern looks or sells</em>, read it, then leave it.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="decisions">
+      <div class="wrap">
+        <p class="eyebrow">02 / Decide before any copy</p>
+        <h2>Eight questions that unblock import.</h2>
+        <p>
+          These are one-way or expensive to reverse. Answer them in chat before Wave 1. Recommendations
+          are stated so we can disagree, not so they become silent defaults.
+        </p>
+
+        <div class="q">
+          <strong>D1. What are we adopting?</strong>
+          <span class="pill decide">Decide</span>
+          <p>A) Operating system only (AGENTS.md, skills, Zod MDX, metadata rules). B) OS + token <em>discipline</em> (keep Mastra values, steal Fern’s “no raw hex” enforcement). C) Visual restyle toward Fern (light, green, 64px display).</p>
+          <p><b>Recommend B.</b> C fights DESIGN.md and the shipped dark homepage. A leaves the CSS dump in <code>globals.css</code> ungoverned.</p>
+        </div>
+
+        <div class="q">
+          <strong>D2. Freeze URLs?</strong>
+          <span class="pill decide">Decide</span>
+          <p>Fern treats <code>/post/[slug]</code> as sacred. This site already has <code>/writing</code>, <code>/research</code>, <code>/projects</code>, plus <code>/about</code> and <code>/github</code>, with sitemap and RSS. Fern’s “don’t rename URLs” rule should be applied <em>here</em>, not copied from Fern.</p>
+          <p><b>Recommend:</b> keep current paths. Never import <code>/post</code>.</p>
+        </div>
+
+        <div class="q">
+          <strong>D3. Dark-only, or light + dark?</strong>
+          <span class="pill decide">Decide</span>
+          <p>Fern ships <code>next-themes</code> and a light-first <code>:root</code> with a <code>.dark</code> override. DESIGN.md says dark canvas is the default, not an option. Importing the theme provider without a light palette would be empty complexity.</p>
+          <p><b>Recommend:</b> stay dark-only. Skip <code>theme-provider.tsx</code> and <code>next-themes</code> unless you explicitly want a light research paper mode later.</p>
+        </div>
+
+        <div class="q">
+          <strong>D4. Token source of truth?</strong>
+          <span class="pill conflict">Internal conflict</span>
+          <p>DESIGN.md specifies measured Mastra greys, amber <code>#f0a35a</code>, 54px display cap, Commit Mono. <code>app/globals.css</code> currently maps accent to Tailwind <code>orange-400</code> and uses a large class dump (<code>.hero-lab</code>, <code>.artifact-row</code>, …) instead of utility tokens. AGENTS.md says <code>@theme inline</code>; the file uses <code>@theme</code>.</p>
+          <p><b>Recommend:</b> DESIGN.md wins for values. Fern wins for the rule “tokens live once, no escape hatches.” Reconcile CSS as a later targeted edit, not as a Fern paste.</p>
+        </div>
+
+        <div class="q">
+          <strong>D5. Voice?</strong>
+          <span class="pill decide">Decide</span>
+          <p>Fern: second-person, first-person plural, no em dashes, present indicative, CTA verbs. This site: first-person singular, argumentative, research cadence (“the score is not the work”). README.md is already a long personal bio, not a project README.</p>
+          <p><b>Recommend:</b> steal Fern’s <em>structure</em> (principles, anti-patterns, punctuation, “if you can’t write the why, it isn’t ready”) and rewrite every sentence for Nikhil. Keep em dashes if that is your voice; Fern’s ban is house style, not a law.</p>
+        </div>
+
+        <div class="q">
+          <strong>D6. Next 15 + bun + oxlint, or Fern’s Next 16 + npm + eslint?</strong>
+          <span class="pill decide">Decide</span>
+          <p>Stack drift is real but orthogonal to the template’s value. Fern uses <code>next-mdx-remote</code> 6 and Zod 4; this repo uses next-mdx-remote 5, no Zod, plus unused <code>@mdx-js/loader</code>.</p>
+          <p><b>Recommend:</b> stay on bun / oxlint / App Router at repo root (no <code>src/</code> move). Add Zod. Bump <code>next-mdx-remote</code> only when the MDX wave lands. Do not take Next 16 as part of “adopting the template.”</p>
+        </div>
+
+        <div class="q">
+          <strong>D7. One writing pipeline with a type field. Settled.</strong>
+          <span class="pill borrow">Settled</span>
+          <p>All long-form uses one MDX pipeline and <code>/writing/[slug]</code>. Frontmatter <code>type</code>: <code>case-study</code>, <code>build-log</code>, <code>research</code>, <code>teaching</code>. Folders under <code>content/writing/</code>. Extra fields: <code>series</code>, <code>paper</code>, <code>course</code>. <code>/research</code> stays a publication catalog. <code>/projects</code> stays a shipped-work catalog. Essays do not live in those trees.</p>
+          <p><b>Locked:</b> one Zod schema (discriminated union on <code>type</code>), one loader, filtered <code>/writing</code> index. Do not ship three equal MDX route trees.</p>
+        </div>
+
+        <div class="q">
+          <strong>D8. Discard contradicting WIP. Settled.</strong>
+          <span class="pill keep">Settled</span>
+          <p>The unpublished three-tree MDX rewrite (pages + untyped loader + CSS dump) would be deleted in waves 2–3. It is not on <code>main</code>.</p>
+          <p><b>Locked:</b> restore app pages to <code>main</code>. Keep CI, agent skills, shadcn primitives, <code>cn()</code>, Vercel preview config, and seed MDX as inventory. Land each Fern wave as its own PR.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="waves">
+      <div class="wrap">
+        <p class="eyebrow">03 / Import waves</p>
+        <h2>Copy few files. Edit all of them.</h2>
+        <p>
+          Each wave is “import the skeleton, then retune.” Later waves should not start until the
+          previous wave’s edits exist, otherwise agents will follow Fern paths that are wrong here.
+        </p>
+
+        <ol class="waves">
+          <li>
+            <div class="wave-n"></div>
+            <div>
+              <h3>Agent OS — import first, heaviest rewrite</h3>
+              <p>Fern says this is the highest-leverage file. They are right. This repo’s <code>AGENTS.md</code> is four stack bullets. Fern’s is authoring rules plus a full writing-style contract.</p>
+              <ul class="tight">
+                <li><span class="pill borrow">Import</span> structure of Fern <code>AGENTS.md</code>: token rule, <code>cn()</code> rule, metadata + sacred URLs, no surprise deps.</li>
+                <li><span class="pill edit">Edit all</span> writing style: first person, evals / memory / RAG vocabulary, proof points (CheckThat!, ResAlign, HarnessBox), anti-patterns (“AI-powered”, empty adjectives).</li>
+                <li><span class="pill borrow">Import</span> <code>.claude/skills/write-post/</code> as the model for a <code>write-writing</code> skill.</li>
+                <li><span class="pill edit">Edit all</span> skill paths: <code>content/writing/</code>, <code>lib/mdx.ts</code>, no Kapil voice, no Fern customer links, no <code>src/lib/authors.ts</code> (that file is not even in the seed).</li>
+                <li><span class="pill keep">Keep</span> existing animation / prototype skills. They do not overlap.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="wave-n"></div>
+            <div>
+              <h3>MDX pipeline — import the pattern, not the single-blog shape</h3>
+              <p>This is the first code import. Today <code>lib/mdx.ts</code> casts frontmatter with <code>as</code>. Fern parses with Zod and drops drafts in production. Slug pages here have no <code>generateMetadata</code>.</p>
+              <ul class="tight">
+                <li><span class="pill borrow">Import</span> Zod + <code>draft</code> flag + fail-the-build parse from <code>src/lib/posts.ts</code>.</li>
+                <li><span class="pill edit">Edit all</span> generalize to three schemas in <code>lib/content.ts</code> / a new <code>lib/schemas.ts</code>. Map <code>excerpt</code> vs Fern <code>description</code>.</li>
+                <li><span class="pill borrow">Import</span> MDX component registry idea from <code>src/lib/mdx.tsx</code> (<code>Eyebrow</code>, <code>Quote</code>, remark-gfm).</li>
+                <li><span class="pill edit">Edit</span> restyle those components to amber / mono eyebrows; do not use Fern’s green quote rule.</li>
+                <li><span class="pill borrow">Import</span> <code>generateMetadata</code> + <code>generateStaticParams</code> pattern from <code>post/[slug]/page.tsx</code> onto writing / research / projects slug pages.</li>
+                <li><span class="pill keep">Keep</span> <code>compileMDX</code> vs Fern’s <code>MDXRemote</code> until you bump next-mdx-remote. Same job, different call.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="wave-n"></div>
+            <div>
+              <h3>Token + <code>cn()</code> discipline — steal the mechanism</h3>
+              <p>Fern’s <code>utils.ts</code> registers <code>text-display</code> … <code>text-p-x-small</code> so tailwind-merge does not treat them as colors. This repo already has a plain <code>cn()</code>. The type scale here is CSS classes and clamps, not Tailwind font-size tokens.</p>
+              <ul class="tight">
+                <li><span class="pill borrow">Import</span> <code>extendTailwindMerge</code> once you actually have custom <code>text-*</code> size tokens.</li>
+                <li><span class="pill edit">Edit all</span> do not copy Fern’s 64px display, 20px body, brand green, or <code>--grid-max-w: 86rem</code>. DESIGN.md already chose 54px cap, 14.5px body floor, 1224px wrap.</li>
+                <li><span class="pill edit">Edit</span> fold the globals class dump toward utilities over time. That is a rewrite, not an import.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="wave-n"></div>
+            <div>
+              <h3>Article chrome — import after tokens exist</h3>
+              <ul class="tight">
+                <li><span class="pill borrow">Import</span> <code>.article-prose</code> idea (Fern’s minimal MDX stylesheet).</li>
+                <li><span class="pill edit">Edit all</span> retarget to <code>.prose</code> already on this site; dark surfaces, amber links, Commit Mono code.</li>
+                <li><span class="pill borrow">Later</span> rehype-pretty-code / dual-theme Shiki only if writing grows real code samples. Fern’s seed does not include it.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="wave-n"></div>
+            <div>
+              <h3>Optional skills — retarget or skip</h3>
+              <ul class="tight">
+                <li><span class="pill borrow">Maybe</span> <code>file-bug</code> → visual QA reports during design-review sessions. Retarget <code>testing/</code> paths; this repo has no that folder.</li>
+                <li><span class="pill edit">Rewrite heavily</span> <code>write-case-study</code> → <code>write-project</code> (problem → system → result, first person, no customer metrics theater).</li>
+                <li><span class="pill skip">Skip</span> SEO writer/editor, launch-campaign, employee-profile, <code>campaigns/</code>.</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="overlap">
+      <div class="wrap">
+        <p class="eyebrow">04 / Overlap</p>
+        <h2>Same stack. Different product.</h2>
+        <table>
+          <thead>
+            <tr><th>Layer</th><th>Fern seed</th><th>This repo</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Framework</td>
+              <td>Next 16 App Router, <code>src/app</code></td>
+              <td>Next 15, <code>app/</code> at root, bun</td>
+              <td><span class="pill keep">Keep ours</span></td>
+            </tr>
+            <tr>
+              <td>Styling</td>
+              <td>Tailwind v4, <code>@theme inline</code>, utility pages</td>
+              <td>Tailwind v4, <code>@theme</code> + large hand CSS</td>
+              <td><span class="pill edit">Steal discipline</span></td>
+            </tr>
+            <tr>
+              <td>Primitives</td>
+              <td>Seed omits shadcn; real Fern site has it</td>
+              <td>Already has button + sheet, New York, Radix</td>
+              <td><span class="pill keep">Keep ours</span></td>
+            </tr>
+            <tr>
+              <td>MDX</td>
+              <td><code>content/blog</code>, Zod, <code>MDXRemote</code>, registry</td>
+              <td>Three folders, untyped casts, <code>compileMDX</code>, no registry</td>
+              <td><span class="pill borrow">Import pattern</span></td>
+            </tr>
+            <tr>
+              <td><code>cn()</code></td>
+              <td>Extended merge for type tokens</td>
+              <td>Plain clsx + tailwind-merge</td>
+              <td><span class="pill borrow">Import when tokens exist</span></td>
+            </tr>
+            <tr>
+              <td>Metadata</td>
+              <td>Every page exports title + description</td>
+              <td>Root layout yes; slug pages no</td>
+              <td><span class="pill borrow">Import rule</span></td>
+            </tr>
+            <tr>
+              <td>Theme</td>
+              <td>next-themes, light first</td>
+              <td>Dark only, no provider</td>
+              <td><span class="pill skip">Skip</span></td>
+            </tr>
+            <tr>
+              <td>Home</td>
+              <td>Template pitch + post list</td>
+              <td>Hero, knowledge graph, thesis, featured work</td>
+              <td><span class="pill keep">Keep ours</span></td>
+            </tr>
+            <tr>
+              <td>Agent docs</td>
+              <td>Rich AGENTS.md + 7 skills</td>
+              <td>Thin AGENTS.md + animation/design skills + blog-to-build</td>
+              <td><span class="pill borrow">Import OS</span></td>
+            </tr>
+            <tr>
+              <td>Ship path</td>
+              <td>PR + preview (described)</td>
+              <td>CI workflow + CONTRIBUTING.md already say this</td>
+              <td><span class="pill keep">Already aligned</span></td>
+            </tr>
+            <tr>
+              <td>SEO surface</td>
+              <td>Not in seed (real site has it)</td>
+              <td>sitemap, robots, RSS, metadataBase</td>
+              <td><span class="pill keep">Ahead of seed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="conflicts">
+      <div class="wrap">
+        <p class="eyebrow">05 / Contradictions</p>
+        <h2>Do not merge these blindly.</h2>
+        <table>
+          <thead>
+            <tr><th>Topic</th><th>Fern</th><th>This site</th><th>Resolution</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Brand</td>
+              <td>Light, green <code>#218358</code>, GT Planar, 64px display</td>
+              <td>Dark, amber, TASA Orbiter + Commit Mono, 54px cap</td>
+              <td>Never import Fern tokens. DESIGN.md is the look.</td>
+            </tr>
+            <tr>
+              <td>Audience</td>
+              <td>Enterprise API teams, second person, CTAs</td>
+              <td>Researchers and builders, first person, no product to sell</td>
+              <td>Rewrite voice. Fern CTAs become “read the paper / open the repo.”</td>
+            </tr>
+            <tr>
+              <td>URLs</td>
+              <td><code>/post/[slug]</code>, not <code>/blog</code></td>
+              <td><code>/writing</code>, <code>/research</code>, <code>/projects</code></td>
+              <td>Sacred here means keep the existing sitemap.</td>
+            </tr>
+            <tr>
+              <td>Content model</td>
+              <td>Blog + case studies + employee profiles</td>
+              <td>Notes, papers, systems</td>
+              <td>Three schemas. Case-study skill can become project writeups later.</td>
+            </tr>
+            <tr>
+              <td>Typography tokens</td>
+              <td><code>text-h1</code> utilities</td>
+              <td>Element styles + <code>.eyebrow</code> / <code>.wrap</code> classes</td>
+              <td>Either promote a type scale into <code>@theme</code> or keep classes. Don’t mix both.</td>
+            </tr>
+            <tr>
+              <td>Em dashes</td>
+              <td>Banned in AGENTS.md</td>
+              <td>Used in live copy (“That distance — between…”)</td>
+              <td>Taste call. Don’t import the ban unless you want it.</td>
+            </tr>
+            <tr>
+              <td>README</td>
+              <td>How to use the template</td>
+              <td>GitHub-profile bio</td>
+              <td>Leave README as bio. Put operator docs in AGENTS.md + CONTRIBUTING.md.</td>
+            </tr>
+            <tr>
+              <td>write-post vs blog-to-build</td>
+              <td>Drafts a public MDX post</td>
+              <td>Amazon working-backwards feature brief (product, not publishing)</td>
+              <td>Different jobs. Keep both. Do not merge.</td>
+            </tr>
+            <tr>
+              <td>Fern skills vs seed</td>
+              <td>Skills reference <code>authors.ts</code>, <code>seo/</code>, <code>content/blog</code> on the full site</td>
+              <td>Those files do not exist in the seed you cloned</td>
+              <td>Treat skills as examples of <em>jobs</em>, not drop-in folders.</td>
+            </tr>
+            <tr>
+              <td>DESIGN.md vs CSS</td>
+              <td>—</td>
+              <td>Document claims measured Mastra values; CSS uses Tailwind orange / mixed tokens</td>
+              <td>Fix internally before or during Wave 3. Fern does not resolve this.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="skip">
+      <div class="wrap">
+        <p class="eyebrow">06 / Do not import</p>
+        <h2>Noise that would fight the site.</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Skip entirely</h3>
+            <p>
+              <code>campaigns/</code> and <code>launch-campaign</code> (paid acquisition).
+              <code>seo-blog-writer</code> / <code>seo-blog-editor</code> (Fern vs Speakeasy listicles).
+              <code>write-employee-profile</code> (customer → employee arc).
+              Fern homepage, header, footer, brand green, light theme, <code>/post</code> route,
+              <code>src/</code> directory move, npm lockfile, Next 16 as a template side effect.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Read, then rewrite later if ever</h3>
+            <p>
+              Case-study MDX as a <em>shape</em> for long project pages (problem → system → result),
+              not as customer proof. File-bug JSON schema if you start structured visual QA.
+              Fern’s “feature body: 8–18 words” rhythm is for marketing cards, not research prose.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="files">
+      <div class="wrap">
+        <p class="eyebrow">07 / File map</p>
+        <h2>What to copy, what to retune, what already exists.</h2>
+        <table>
+          <thead>
+            <tr><th>Fern path</th><th>This-repo home</th><th>Edit load</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>AGENTS.md</code></td>
+              <td><code>AGENTS.md</code> (thin today)</td>
+              <td>Rewrite</td>
+              <td>Highest leverage. Keep stack commands. Add authoring + voice. Point at real files: <code>app/globals.css</code>, <code>lib/utils.ts</code>.</td>
+            </tr>
+            <tr>
+              <td><code>.claude/skills/write-post/</code></td>
+              <td><code>.agents/skills/write-writing/</code> (new)</td>
+              <td>Rewrite</td>
+              <td>Skills live under <code>.agents/skills</code> here, not <code>.claude/skills</code>. Retarget folders and schema. Drop Kapil / authors registry.</td>
+            </tr>
+            <tr>
+              <td><code>src/lib/posts.ts</code></td>
+              <td><code>lib/mdx.ts</code> + <code>lib/content.ts</code></td>
+              <td>Heavy</td>
+              <td>Add Zod, drafts, date transform. Three kinds. Do not replace the three-folder layout.</td>
+            </tr>
+            <tr>
+              <td><code>src/lib/mdx.tsx</code></td>
+              <td><code>lib/mdx.ts</code> (split components)</td>
+              <td>Medium</td>
+              <td>Registry + remark-gfm. Components should use this site’s tokens.</td>
+            </tr>
+            <tr>
+              <td><code>src/lib/utils.ts</code></td>
+              <td><code>lib/utils.ts</code></td>
+              <td>Small</td>
+              <td>Only after custom font-size utilities exist.</td>
+            </tr>
+            <tr>
+              <td><code>src/app/globals.css</code></td>
+              <td><code>app/globals.css</code></td>
+              <td>Do not paste</td>
+              <td>Read for the token comment and <code>@theme inline</code> pattern. Values stay Mastra/amber.</td>
+            </tr>
+            <tr>
+              <td><code>src/components/eyebrow.tsx</code></td>
+              <td>New, or CSS <code>.eyebrow</code></td>
+              <td>Small</td>
+              <td>You already have an eyebrow class. A component is only needed if MDX should emit <code>&lt;Eyebrow&gt;</code>.</td>
+            </tr>
+            <tr>
+              <td><code>src/components/quote.tsx</code></td>
+              <td>New MDX component</td>
+              <td>Small</td>
+              <td>Useful for papers and posts. Restyle the left rule to accent, not Fern green.</td>
+            </tr>
+            <tr>
+              <td><code>src/app/post/[slug]/page.tsx</code></td>
+              <td><code>app/writing/[slug]/page.tsx</code> (and research/projects)</td>
+              <td>Medium</td>
+              <td>Steal metadata + notFound + article shell. Keep routes.</td>
+            </tr>
+            <tr>
+              <td><code>content/blog/example-post.mdx</code></td>
+              <td><code>content/writing/</code> as a commented template, not a published post</td>
+              <td>Rewrite</td>
+              <td>Frontmatter comments are the useful part. Do not ship the Fern example.</td>
+            </tr>
+            <tr>
+              <td><code>src/components/theme-provider.tsx</code></td>
+              <td>—</td>
+              <td>Skip</td>
+              <td>Unless D3 chooses light mode.</td>
+            </tr>
+            <tr>
+              <td><code>src/app/layout.tsx</code> / <code>page.tsx</code></td>
+              <td>Already richer</td>
+              <td>Skip</td>
+              <td>Home and chrome are not the bottleneck. Knowledge graph stays.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="flux">
+      <div class="wrap">
+        <p class="eyebrow">08 / This repo, right now</p>
+        <h2>Import onto a frozen baseline.</h2>
+        <p>
+          Git status at the start of this session already shows a large unpublished move: MDX content,
+          shadcn, CI, DESIGN.md, deleted CodeWorkbench / ResearchMap, new knowledge graph. Some files
+          also disagree with each other (layout imports <code>SiteHeader</code> from a file that exports
+          <code>SiteHeader</code>; index pages vs loader names). That is a local consistency pass, not a Fern issue.
+        </p>
+        <div class="callout">
+          <p>
+            Suggested sequence: (1) answer D1–D8, (2) land or stash the current redesign so names compile,
+            (3) Wave 1 AGENTS.md + write-writing skill only, (4) Wave 2 Zod + metadata with no visual change,
+            (5) Wave 3 tokens against DESIGN.md. Visual restyle is optional and last.
+          </p>
+        </div>
+        <h3>What I would not do</h3>
+        <ul class="tight">
+          <li>Replace this app with the Fern seed and port content over. You would lose the graph, the thesis homepage, and the three-kind IA.</li>
+          <li>Copy <code>globals.css</code> from Fern. You would lighten the site and throw away DESIGN.md.</li>
+          <li>Install Fern skills verbatim. They will write to <code>content/blog</code> and cite authors that do not exist.</li>
+        </ul>
+        <h3>Follow-ups that are useful next</h3>
+        <p>
+          Reply with letters for D1–D8, or pick a wave to specify in more detail (exact file diffs, still no
+          implementation). Highest signal: D1 (OS vs look) and D5 (voice / em dashes).
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      Local review artifact · sources: fern-marketing-site-template README, AGENTS.md, seed app/lib · nikhilkadapala.com DESIGN.md, AGENTS.md, app/, lib/, content/ · no files in either repo were modified
+    </div>
+  </footer>
+</body>
+</html>

@@ -50,7 +50,7 @@ Earlier: Teaching [Neural nets to rationalize](https://github.com/Nikhil-Kadapal
 
 > Inference engineering, lately a bit of an obsession. Disaggregated prefill/decode, speculative decoding, prompt caching, prefix caching. Making serving cheaper and faster without pretending that's the same as making the model smarter. KV cache, continuous batching, the whole rabbit hole.
 
-Always happy to talk about research, agents, or a weird eval problem. [LinkedIn](https://www.linkedin.com/in/nikhil-kadapala) or [X](https://x.com/Nikhil_Kadapala) is the easiest ping · [site](https://nikhil-kadapala.github.io) has the longer version.
+Always happy to talk about research, agents, or a weird eval problem. [LinkedIn](https://www.linkedin.com/in/nikhil-kadapala) or [X](https://x.com/Nikhil_Kadapala) is the easiest ping · [site](https://nikhill.me) has the longer version.
 
 <br/>
 
