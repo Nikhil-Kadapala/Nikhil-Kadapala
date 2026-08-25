@@ -6,6 +6,14 @@ Newest first. Add an entry when something ships (merge to `main`, or a notable u
 
 ## Unreleased
 
+### Added
+
+- Wave 1 agent OS: expanded `AGENTS.md` with authoring rules, voice principles, proof points, and anti-patterns
+- `writing` skill (`.agents/skills/writing/`) adapted from Fern's `write-post` workflow, with pre-Wave-2 readiness guard
+- `voice-nikhil.md` — long-form voice contract with four type overlays and verified proof points
+- Wave 2 placeholder checklist in `artifacts/fern-template-adoption/plan.mdx` so the loader wave rewrites “until wave 2” lines with live paths and schema
+- Fern adoption series part 1: `content/writing/build-logs/borrow-the-os-not-the-look.mdx` (`draft: true`). Claim ledger: `artifacts/fern-template-adoption/build-log-sources.md`
+
 ### Changed
 
 - `next-mdx-remote` 5.0.0 → 6.0.0. Vercel refused production builds on CVE-2026-0969. Package is unused until wave 2; bump unblocks deploy.

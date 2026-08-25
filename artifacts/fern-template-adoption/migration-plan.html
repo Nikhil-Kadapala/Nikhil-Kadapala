@@ -397,7 +397,7 @@
               <ul class="tight">
                 <li><span class="pill borrow">Import</span> structure of Fern <code>AGENTS.md</code>: token rule, <code>cn()</code> rule, metadata + sacred URLs, no surprise deps.</li>
                 <li><span class="pill edit">Edit all</span> writing style: first person, evals / memory / RAG vocabulary, proof points (CheckThat!, ResAlign, HarnessBox), anti-patterns (“AI-powered”, empty adjectives).</li>
-                <li><span class="pill borrow">Import</span> <code>.claude/skills/write-post/</code> as the model for a <code>write-writing</code> skill.</li>
+                <li><span class="pill borrow">Import</span> <code>.claude/skills/write-post/</code> as the model for a <code>writing</code> skill.</li>
                 <li><span class="pill edit">Edit all</span> skill paths: <code>content/writing/</code>, <code>lib/mdx.ts</code>, no Kapil voice, no Fern customer links, no <code>src/lib/authors.ts</code> (that file is not even in the seed).</li>
                 <li><span class="pill keep">Keep</span> existing animation / prototype skills. They do not overlap.</li>
               </ul>
@@ -654,7 +654,7 @@
             </tr>
             <tr>
               <td><code>.claude/skills/write-post/</code></td>
-              <td><code>.agents/skills/write-writing/</code> (new)</td>
+              <td><code>.agents/skills/writing/</code> (new)</td>
               <td>Rewrite</td>
               <td>Skills live under <code>.agents/skills</code> here, not <code>.claude/skills</code>. Retarget folders and schema. Drop Kapil / authors registry.</td>
             </tr>
@@ -736,7 +736,7 @@
         <div class="callout">
           <p>
             Suggested sequence: (1) answer D1–D8, (2) land or stash the current redesign so names compile,
-            (3) Wave 1 AGENTS.md + write-writing skill only, (4) Wave 2 Zod + metadata with no visual change,
+            (3) Wave 1 AGENTS.md + writing skill only, (4) Wave 2 Zod + metadata with no visual change,
             (5) Wave 3 tokens against DESIGN.md. Visual restyle is optional and last.
           </p>
         </div>
