@@ -1,15 +1,13 @@
 ---
-title: "Borrow the OS, not the look"
-date: "2026-08-24"
-description: "I imported Fern's agent workflow onto this site and left their palette, campaigns, and post URLs behind. The first merge was mostly deletion."
-type: build-log
-tags:
-  - Agents
-  - Writing
-draft: true
-series: "Fern adoption"
-part: 1
+title: Wave 1 — borrow the OS, not the look
+wave: 1
+date: 2026-08-24
+status: internal
 ---
+
+# Wave 1 notes (internal)
+
+Not a site page. Prose scrap for the one public post that ships after Fern adoption is finished. Metrics live in [CHANGELOG.md](../CHANGELOG.md). Claims that need a source go in [build-log-sources.md](../build-log-sources.md).
 
 I am stealing Fern's agent operating system and refusing their site.
 
@@ -21,7 +19,7 @@ That second list transfers to a one-person research site. The first list does no
 
 Their published totals: five weeks, 640 commits to `main`, about $4,225 of Claude Code spend, 81 commits touching the hero. Those figures describe a two-designer marketing rebuild with campaigns and a visual identity. They are not a benchmark for this repo.
 
-This series will cite `artifacts/fern-template-adoption/CHANGELOG.md` or say the field is empty. Hours so far are estimates logged there: about three for wave 0 (briefing, D1–D8, the baseline merge) and about two for wave 1 (authoring rules and the writing skill). Spend is not logged. Commit counts for this slice are still marked pending. If a later part of this series sounds like Fern's post, it should be because I started counting, not because I borrowed their arithmetic.
+The public post will cite `artifacts/fern-template-adoption/CHANGELOG.md` or say the field is empty. Hours so far are estimates logged there: about three for wave 0 (briefing, D1–D8, the baseline merge) and about two for wave 1 (authoring rules and the writing skill). Spend is not logged. Commit counts for this slice were still marked pending when this note was written. If the finished post sounds like Fern's, it should be because I started counting, not because I borrowed their arithmetic.
 
 What I did take from them is the shape of `AGENTS.md`: tokens live once, URLs are sacred, every page exports metadata, do not add a dependency without asking. I rewrote every sentence. Their second-person marketing voice, Vale prose lint, and `/post/[slug]` routes stay in their repo.
 
@@ -48,14 +46,12 @@ What I skipped on purpose is also the point: campaigns, SEO factory, employee pr
 
 ## Authoring rules shipped. The loader did not.
 
-Wave 1 is the agent OS, not a visual change. `AGENTS.md` now has authoring rules and four voice principles. The long contract lives in `.agents/skills/writing/voice-nikhil.md`. The `writing` skill drafts one MDX file under `content/writing/<type-folder>/` and stops. It does not invent metrics, and it does not promise a live URL until wave 2 wires `/writing/[slug]` to that folder.
+Wave 1 is the agent OS, not a visual change. `AGENTS.md` now has authoring rules and four voice principles. The long contract lives in `.agents/skills/writing/voice-nikhil.md`. The `writing` skill drafts one MDX file under `content/writing/<type-folder>/` and stops. It does not invent metrics.
 
-Four types. This series is `build-log` (`series` + `part`). A one-off engineering post is `case-study`. A paper explainer is `research` and links the catalog; it is not the catalog. Teaching notes are `teaching`. I am not adding a fifth "blog" type to make this file feel more official.
+Four types on the public site: a one-off engineering post is `case-study`. A paper explainer is `research` and links the catalog. Teaching notes are `teaching`. Numbered public series are `build-log`. Fern adoption waves are none of those. They stay in this artifacts folder until the work is done, then one `case-study`.
 
-`date` in frontmatter is the publication day. Git is created and updated. The writing index and page metadata read `description`, not a CMS timestamp.
+`date` in public frontmatter is the publication day. Git is created and updated. The writing index and page metadata read `description`, not a CMS timestamp.
 
-A side fix landed while the pipeline is still empty: Vercel refused production builds on CVE-2026-0969 in `next-mdx-remote` 5, so the package is at 6.0.0 before anything compiles MDX. That is not wave 1. It is the cost of a dependency sitting unused.
+A side fix landed while the pipeline was still empty: Vercel refused production builds on CVE-2026-0969 in `next-mdx-remote` 5, so the package is at 6.0.0 before anything compiles MDX. That is not wave 1. It is the cost of a dependency sitting unused.
 
-Wave 2 is the first time this file can be a page: Zod on the schema, one loader, `generateMetadata`, seed files moved into type folders. Until then this is inventory in `content/writing/build-logs/`. Claims for the series are logged next to the tracker in `artifacts/fern-template-adoption/build-log-sources.md` so a later entry can fill spend and commit counts instead of reconstructing them.
-
-The open question is whether I will actually log those two fields before wave 2, or keep publishing estimates and "not logged" while telling myself the changelog is honest enough.
+The open question at the time: whether I would actually log spend and commit counts before later waves, or keep publishing estimates and "not logged" while telling myself the changelog is honest enough.

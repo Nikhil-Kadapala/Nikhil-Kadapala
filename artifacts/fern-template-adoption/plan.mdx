@@ -1,7 +1,7 @@
 ---
 title: Fern template adoption
 status: baseline-resolved
-updated: 2026-08-24
+updated: 2026-08-25
 owner: Nikhil Kadapala
 html: ./migration-plan.html
 changelog: ./CHANGELOG.md
@@ -29,6 +29,7 @@ Living plan. Update this file when a decision, wave, or metric changes. The HTML
 | D6 | bun + oxlint + Next 15 | No `src/` move. No Next 16 as a template side effect. Add Zod in wave 2. |
 | D7 | One writing pipeline + `type` | See taxonomy below. Not three equal MDX trees. |
 | D8 | Discard contradicting WIP | Restored app pages to `main`. Kept only infra that the waves will use. |
+| D9 | Internal waves, one public post | Per-wave metrics and notes stay in `artifacts/fern-template-adoption/`. One `/writing` `case-study` after adoption finishes. No numbered public Fern series. |
 
 ## D7 content taxonomy
 
@@ -45,9 +46,9 @@ All essays, logs, explainers, and course notes are writing.
 | `research` | `content/writing/research/` | Explainer or opinion tied to a paper. Not the publication record itself. |
 | `teaching` | `content/writing/teaching/` | Course material while TAing. |
 
-Shared Zod fields: `title`, `date` (publication day `YYYY-MM-DD`, not a timestamp), `description`, `type`, `tags`, `draft`. Optional: `series`, `part`, `paper` (DOI or URL), `course` (e.g. `CS 6xx · Fall 2026`). Git history is created/updated. Optional `updated` is a wave-2 call if a post is materially revised.
+Shared Zod fields (`lib/schemas.ts` `writingFrontmatterSchema`): `title`, `date` (publication day `YYYY-MM-DD`, not a timestamp), `description`, `type`, `tags`, `draft`. Optional: `series`, `part`, `paper` (DOI or URL), `course` (e.g. `CS 6xx · Fall 2026`). Git history is created/updated. No `updated` field — git is enough; the index does not show “updated”.
 
-Index: `/writing` with filters by `type`. Series pages can group `build-log` parts.
+Index: `/writing` with filters by `type`. Series pages can group `build-log` parts. Fern adoption is **not** a public `build-log` series.
 
 Voice: one `voice-nikhil.md` plus short overlays per `type` (narrative for case studies, citation-heavy for research, example-heavy for teaching).
 
@@ -60,12 +61,11 @@ Voice: one `voice-nikhil.md` plus short overlays per `type` (narrative for case 
 
 Do not flatten papers and repos into `/writing`. Do not create `/research/[slug]` MDX essays that duplicate `type: research` posts.
 
-### Seed content to recategorize in wave 2
+### Seed content
 
-These files exist as drafts. They are not wired to routes after D8.
-
-- `content/writing/the-score-is-not-the-work.mdx` → `type: research` (or opinion)
-- `content/research/claim-extraction-checkthat-2025.mdx` → publication catalog, plus optional writing explainer
+- `content/writing/research/the-score-is-not-the-work.mdx` — `type: research`, `description`, live at `/writing/the-score-is-not-the-work`
+- Fern wave notes: `artifacts/fern-template-adoption/CHANGELOG.md` (metrics) and `artifacts/fern-template-adoption/notes/` (prose). Not under `content/writing/`.
+- `content/research/claim-extraction-checkthat-2025.mdx` → still a catalog seed; the live catalog record is `lib/content.ts`. Optional writing explainer is the research post above.
 - `content/projects/*.mdx` → project catalog records, not case-study posts until we write real case studies
 
 ## Waves (one PR each)
@@ -73,30 +73,25 @@ These files exist as drafts. They are not wired to routes after D8.
 | Wave | PR title (working) | Status | Import | Edit |
 |---|---|---|---|---|
 | 0 | Baseline: artifacts, CI, agent skills, shadcn/cn, discard 3-tree MDX | merged | — | — |
-| 1 | Agent OS | **this change** | `AGENTS.md` shape, `writing` skill | Voice, paths, proof points. Skills live in `.agents/skills`. |
-| 2 | MDX pipeline | not started | Zod, `draft`, registry, remark-gfm, `generateMetadata` | One loader. `type` enum. Recategorize seed MDX. Replace every wave-1 placeholder in the table below with concrete data. |
+| 1 | Agent OS | merged ([PR #3](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/3)) | `AGENTS.md` shape, `writing` skill | Voice, paths, proof points. Skills live in `.agents/skills`. |
+| 2 | MDX pipeline | **this change** | Zod, `draft`, registry, remark-gfm, `generateMetadata` | One loader (`lib/writing.ts`). `type` enum in `lib/schemas.ts`. Recategorize seed MDX. |
 | 3 | Tokens + `cn()` | not started | `extendTailwindMerge` once size tokens exist | DESIGN.md values. No Fern green / 64px / 86rem. |
 | 4 | Article chrome | not started | `.article-prose` idea | Map onto `.prose`. Dark, amber links, Commit Mono code. |
 | 5 | Optional skills | not started | file-bug → visual QA; case-study → `write-project` | Skip campaigns, SEO factory, employee profiles. |
 
-## Wave 2 — replace placeholders with concrete data
+## Wave 2 — live paths
 
-Wave 1 skills still talk about a future loader. When wave 2 ships, rewrite these so they describe the live system. Do not leave “until wave 2” in the writing skill.
+| Location | Live value |
+|---|---|
+| Schema | `lib/schemas.ts` → `writingFrontmatterSchema` |
+| Loader | `lib/writing.ts` (`listWritingPosts`, `getWritingPost`, `compileWritingPost`) |
+| MDX registry | `components/mdx-components.tsx` — `a` only (internal `Link`, external new tab). Standard Markdown + `remark-gfm`. |
+| Teaching course example | Keep `CS 6xx · Fall 2026` as a format example in `voice-nikhil.md` |
+| Index / RSS | `app/writing/page.tsx`, `app/rss.xml/route.ts` read `description` from the loader |
+| Seed research post | `/writing/the-score-is-not-the-work` |
+| Fern wave notes | Internal: `CHANGELOG.md` + `notes/wave-1.md`. No `/writing` URL until adoption ends. |
 
-| Location | Placeholder now | Replace with |
-|---|---|---|
-| `.agents/skills/writing/SKILL.md` Step 3 | “enforced by Zod in wave 2” | Actual schema module path (likely `lib/schemas.ts` or wherever it lands) |
-| `.agents/skills/writing/SKILL.md` Step 3 | “seed inventory may still use `excerpt`” | Delete after seed files use `description` |
-| `.agents/skills/writing/SKILL.md` Step 4 | “legacy seed files at root” | Delete after `content/writing/*.mdx` is recategorized into type folders |
-| `.agents/skills/writing/SKILL.md` Step 5 | “MDX components and a full registry arrive in wave 2” | The real component names, or “standard Markdown only” if none shipped |
-| `.agents/skills/writing/SKILL.md` internal links | “once wave 2 wires routes” | Live `/writing/<slug>` routes |
-| `.agents/skills/writing/SKILL.md` Step 7–8 + checklist | Pre-Wave-2 inventory guard | Delete. Handback is a live URL. |
-| `.agents/skills/writing/voice-nikhil.md` teaching | Example `CS 6xx · Fall 2026` | Real course code if known; otherwise keep as a format example |
-| `lib/content.ts` + `app/writing/page.tsx` + RSS | Hardcoded `excerpt` array | Loader + `description` |
-| `content/writing/the-score-is-not-the-work.mdx` | Root seed, `excerpt` frontmatter | Move to `content/writing/research/`, `description`, `type: research` |
-| This file | “published through this pipeline once wave 2 exists” | Series slug `borrow-the-os-not-the-look`; rewrite this row when the live URL exists |
-
-Optional `updated` field: decide in wave 2 whether a materially revised post gets `updated: YYYY-MM-DD` alongside `date`. Default is no — git history is enough unless the index needs to show “updated”.
+Optional `updated` field: **no**. Git history is enough. The schema rejects unknown keys, including `updated`.
 
 ## PR checklist (every wave)
 
@@ -121,10 +116,11 @@ Optional `updated` field: decide in wave 2 whether a materially revised post get
 - `src/` directory move
 - Next 16 as a template side effect
 - Figma MCP as sole source of truth (code in the running app wins; paste screenshots when MCP drops assets)
+- Public per-wave Fern adoption series (`/writing` stays empty of this work until the final `case-study`)
 
 ## How we will work
 
 - Outcome prompts, not step-by-step component prescriptions (Fern’s own lesson).
 - New page or post = pull request + Vercel preview, even solo.
 - `/components` and `/scrapyard` are optional later, not wave 1.
-- The “how I adopted Fern” series is a `build-log`. Part 1 draft: `content/writing/build-logs/borrow-the-os-not-the-look.mdx`. Citeable claims: `./build-log-sources.md`. Live `/writing/[slug]` waits on wave 2.
+- Fern adoption tracking is internal: [CHANGELOG.md](./CHANGELOG.md) per wave, optional prose in [notes/](./notes/). One public `case-study` after the last wave. Citeable claims: [build-log-sources.md](./build-log-sources.md).

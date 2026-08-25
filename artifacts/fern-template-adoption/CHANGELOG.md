@@ -1,6 +1,8 @@
 # Fern template adoption — changelog
 
-Log **from day one**. Fern’s post is credible because it has numbers (weeks, commits, spend, iterations on one animation). Reconstructing that later is guesswork. Series claims map to sources in [build-log-sources.md](./build-log-sources.md).
+Log **from day one**. Fern’s post is credible because it has numbers (weeks, commits, spend, iterations on one animation). Reconstructing that later is guesswork. Claims for the eventual public post map to sources in [build-log-sources.md](./build-log-sources.md).
+
+This file is the per-wave build log. It is **not** a site page. Optional prose scraps live in [notes/](./notes/). One `/writing` `case-study` ships after adoption finishes.
 
 Update this file at the end of every wave PR, and whenever a tracked metric moves.
 
@@ -33,54 +35,71 @@ Reset only if we explicitly restart the adoption.
 
 | Metric | Value |
 |---|---|
-| Wave PRs merged | 1 (wave 0) |
-| Commits since adoption start | pending (wave 1 in progress) |
-| Estimated hours | ~5 (briefing + D7/D8 + wave 1) |
+| Wave PRs merged | 2 (wave 0 PR #1, wave 1 PR #3) |
+| Commits since adoption start | 7 (`a8a53aa`..`416da33`, including merges) |
+| Estimated hours | ~5 (briefing + D7/D8 + wave 1); wave 2 in this PR |
 | AI spend | not logged yet |
 | AGENTS.md rewrites | 2 (wave 0 thin stack; wave 1 full authoring + voice) |
-| Zod schema versions | 0 (pipeline not imported) |
+| Zod schema versions | 1 (`lib/schemas.ts` `writingFrontmatterSchema`) |
 | Hero / graph polish passes | 0 this adoption (pre-adoption work on `main`) |
 
 ## Log
 
-### 2026-08-24 — Wave 1 agent OS (this change)
+### 2026-08-25 — Wave 2 MDX pipeline (this change)
 
-- Wave / PR: wave 1, branch `chore/fern-adoption-wave-1` (not yet a PR)
-- Commits in this slice (count + range): pending
+- Wave / PR: wave 2, branch `chore/fern-adoption-wave-2` (not yet a PR)
+- Commits in this slice (count + range): pending until PR
+- Wall-clock (hours): pending
+- AI tool spend (USD, optional but preferred): not logged
+- AGENTS.md edits (what rule landed): n/a (pipeline, not voice)
+- Voice rules added or changed: n/a
+- Zod / frontmatter schema changes: `writingFrontmatterSchema` in `lib/schemas.ts` (strict; `description`; no `updated`; `build-log` requires `series`+`part`; `teaching` requires `course`)
+- Hard component iterations (name + hero / graph): n/a
+- Design loop (Figma / MCP / hand polish in `bun dev`): article body gets minimal `.prose h2/ul/code` so MDX is readable; full chrome is wave 4
+- Prompting note (outcome vs prescription; what worked): one loader, one schema, existing `/writing/[slug]` URL. Drafts stay off production.
+- Preview URL reviewed (yes/no): pending CI
+- Skipped on purpose: catalog MDX wiring, `updated` field, custom MDX tags beyond `a`, article chrome, tokens, public Fern wave series
+- Content taxonomy change: `the-score-is-not-the-work` moved to `content/writing/research/` with `type: research`. Fern wave-1 prose moved from `content/writing/build-logs/` to `artifacts/fern-template-adoption/notes/wave-1.md` (D9).
+- Context checkpoint: restore pointed at this wave; save after merge
+
+### 2026-08-25 — Wave 1 agent OS (merged)
+
+- Wave / PR: wave 1, [PR #3](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/3), merge `416da33`
+- Commits in this slice (count + range): 2 (`8683e18`..`416da33`)
 - Wall-clock (hours): ~2
 - AI tool spend (USD, optional but preferred): not logged
 - AGENTS.md edits (what rule landed): authoring rules (tokens, cn(), metadata, sacred URLs, deps, pipeline/catalog boundary); four voice principles; verified proof points; anti-patterns; skills pointer
 - Voice rules added or changed: first-person thesis voice; claims before setup; evidence over hype; metrics tied to human usefulness; em dashes allowed when earned; full contract in `.agents/skills/writing/voice-nikhil.md`; dropped unnamed “Fern/Kapil” voice bans; documented that standalone eng posts are `case-study` and that `date` is publication day, not a timestamp
-- Zod / frontmatter schema changes: none (D7 target documented in writing skill; loader is wave 2)
+- Zod / frontmatter schema changes: none (D7 target documented in writing skill; loader was wave 2)
 - Hard component iterations (name + hero / graph): n/a
 - Design loop (Figma / MCP / hand polish in `bun dev`): n/a
-- Prompting note (outcome vs prescription; what worked): adapted Fern write-post structure; renamed skill to `writing`; pre-Wave-2 inventory guard prevents false preview promises
-- Preview URL reviewed (yes/no): pending CI
+- Prompting note (outcome vs prescription; what worked): adapted Fern write-post structure; renamed skill to `writing`; pre-Wave-2 inventory guard prevented false preview promises
+- Preview URL reviewed (yes/no): yes (PR #3 preview)
 - Skipped on purpose: MDX loader, Zod, routes, tokens, article chrome, catalog edits, seed recategorization
 - Content taxonomy change: none (D7 unchanged; type overlays documented in voice contract)
-- Context checkpoint: saved at wave 1 implementation boundary
+- Context checkpoint: `20260825-154039-wave-1-merged.md`
 
-### 2026-08-24 — Series part 1 drafted (inventory)
+### 2026-08-24 — Wave 1 prose note (internal)
 
-- Wave / PR: wave 1 working tree; file is not a page until wave 2
-- Commits in this slice (count + range): pending
+- Wave / PR: wave 1; later relocated in wave 2
+- Commits in this slice (count + range): folded into wave 1 (`8683e18`), path corrected in wave 2
 - Wall-clock (hours): n/a (folded into wave 1 ~2h)
 - AI tool spend (USD, optional but preferred): not logged
 - AGENTS.md edits (what rule landed): n/a
 - Voice rules added or changed: n/a
-- Zod / frontmatter schema changes: none
+- Zod / frontmatter schema changes: none at draft time
 - Hard component iterations (name + hero / graph): n/a
 - Design loop (Figma / MCP / hand polish in `bun dev`): n/a
-- Prompting note (outcome vs prescription; what worked): part 1 cites Fern's published totals as theirs; ours come from this changelog or are marked empty
-- Preview URL reviewed (yes/no): no (inventory)
-- Skipped on purpose: live `/writing/[slug]`; inventing spend or commit counts
-- Content taxonomy change: first `build-log` file, series "Fern adoption", slug `borrow-the-os-not-the-look`
+- Prompting note (outcome vs prescription; what worked): cites Fern's published totals as theirs; ours come from this changelog or are marked empty
+- Preview URL reviewed (yes/no): n/a (not a page)
+- Skipped on purpose: publishing it as `/writing` `build-log` parts
+- Content taxonomy change: internal note at `notes/wave-1.md`. D9: no public per-wave series.
 - Context checkpoint: claim ledger `build-log-sources.md`
 
 ### 2026-08-24 — Wave 0 baseline
 
-- Wave / PR: wave 0, on `main` (PR number not recorded in this log)
-- Commits in this slice (count + range): pending
+- Wave / PR: wave 0, [PR #1](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/1), merge `516dd60`
+- Commits in this slice (count + range): 2 (`a8a53aa`..`516dd60`)
 - Wall-clock (hours): ~3
 - AI tool spend (USD, optional but preferred): not logged
 - AGENTS.md edits (what rule landed): kept thin stack + pointer to this folder; full Fern-shaped voice is wave 1
