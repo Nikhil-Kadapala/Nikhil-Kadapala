@@ -1,1 +1,40 @@
-import Link from "next/link"; import { writing } from "@/lib/content"; export const metadata={title:"Writing"}; export default function Writing(){return <><section className="page-head wrap"><p className="eyebrow mono">Writing</p><h1>Notes from the edge of the system.</h1><p>Short observations on agents, evaluation, retrieval, and the gap between a demo and useful work.</p></section><section className="section"><div className="wrap"><div className="list">{writing.map(w=><Link className="list-item" href={`/writing/${w.slug}`} key={w.slug}><span className="mono muted">{w.date}</span><div><h3>{w.title}</h3><p>{w.excerpt}</p><div className="mono muted" style={{marginTop:12}}>{w.tags.join(" · ")}</div></div><span className="link-arrow">Read</span></Link>)}</div></div></section></>}
+import { WritingIndexView, parseWritingTypeParam } from "@/components/writing-list";
+import { listWritingPosts } from "@/lib/writing";
+
+export const metadata = {
+  title: "Writing",
+  description: "Notes on agents, evaluation, retrieval, and the gap between a demo and useful work.",
+};
+
+export default async function Writing({
+  searchParams,
+}: {
+  searchParams: Promise<{ type?: string | string[] }>;
+}) {
+  const posts = listWritingPosts().map(({ slug, title, date, description, type, tags, draft }) => ({
+    slug,
+    title,
+    date,
+    description,
+    type,
+    tags,
+    draft,
+  }));
+  const { type } = await searchParams;
+  const activeType = parseWritingTypeParam(type);
+
+  return (
+    <>
+      <section className="page-head wrap">
+        <p className="eyebrow mono">Writing</p>
+        <h1>Notes from the edge of the system.</h1>
+        <p>Short observations on agents, evaluation, retrieval, and the gap between a demo and useful work.</p>
+      </section>
+      <section className="section">
+        <div className="wrap">
+          <WritingIndexView posts={posts} activeType={activeType} />
+        </div>
+      </section>
+    </>
+  );
+}

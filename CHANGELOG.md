@@ -8,15 +8,28 @@ Newest first. Add an entry when something ships (merge to `main`, or a notable u
 
 ### Added
 
-- Wave 1 agent OS: expanded `AGENTS.md` with authoring rules, voice principles, proof points, and anti-patterns
-- `writing` skill (`.agents/skills/writing/`) adapted from Fern's `write-post` workflow, with pre-Wave-2 readiness guard
-- `voice-nikhil.md` — long-form voice contract with four type overlays and verified proof points
-- Wave 2 placeholder checklist in `artifacts/fern-template-adoption/plan.mdx` so the loader wave rewrites “until wave 2” lines with live paths and schema
-- Fern adoption series part 1: `content/writing/build-logs/borrow-the-os-not-the-look.mdx` (`draft: true`). Claim ledger: `artifacts/fern-template-adoption/build-log-sources.md`
+- Wave 2 MDX pipeline: Zod frontmatter schema (`lib/schemas.ts`), one loader (`lib/writing.ts`), `generateMetadata` on `/writing/[slug]`, GFM via `remark-gfm`
+- Writing index filters by `type`; RSS and sitemap read published posts from the loader (`description`, not `excerpt`)
+- `the-score-is-not-the-work` recategorized to `content/writing/research/` (`type: research`)
 
 ### Changed
 
-- `next-mdx-remote` 5.0.0 → 6.0.0. Vercel refused production builds on CVE-2026-0969. Package is unused until wave 2; bump unblocks deploy.
+- Draft posts (`draft: true`) render on local/preview only. Production index, RSS, and sitemap omit them.
+- Fern adoption is tracked in `artifacts/fern-template-adoption/` (changelog + `notes/`). No public per-wave series. One `case-study` after the last wave.
+
+## 2026-08-25 — Fern adoption wave 1
+
+Agent OS. No visual import.
+
+### Added
+
+- Expanded `AGENTS.md` with authoring rules, voice principles, proof points, and anti-patterns
+- `writing` skill (`.agents/skills/writing/`) adapted from Fern's `write-post` workflow
+- `voice-nikhil.md` — long-form voice contract with four type overlays and verified proof points
+
+### Changed
+
+- `next-mdx-remote` 5.0.0 → 6.0.0. Vercel refused production builds on CVE-2026-0969. Package unused until wave 2; bump unblocked deploy.
 - Vercel Web Analytics via `<Analytics />` in the root layout. No extra env vars.
 
 ## 2026-08-24 — Fern adoption wave 0

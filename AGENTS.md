@@ -14,11 +14,19 @@ Personal site for Nikhil Kadapala. Next.js App Router on Vercel.
 
 Repo timeline: `CHANGELOG.md`. Fern adoption metrics: `artifacts/fern-template-adoption/CHANGELOG.md`.
 
+## Before a task
+
+After `/context-restore`, scan `artifacts/` for files related to the work and read anything that could fill a gap. The checkpoint is the start; those files hold detail a restore can miss.
+
+Refuse a second atomic task until the current one is implemented, reviewed, and committed. One unit of work at a time.
+
 ## Fern adoption
 
 Tracker: `artifacts/fern-template-adoption/plan.mdx`. Changelog: `artifacts/fern-template-adoption/CHANGELOG.md`.
 
 Waves are separate PRs: plan → review → implement → test → PR → review → merge. `/context-save` at each boundary. Next session starts with `/context-restore`.
+
+Per-wave logs stay in `artifacts/fern-template-adoption/` (changelog + optional `notes/`). Do not publish a `/writing` series for each wave. One `case-study` after adoption is finished.
 
 Do not import Fern’s look, `/post` URLs, campaigns, or SEO factory.
 
