@@ -40,12 +40,12 @@ All essays, logs, explainers, and course notes are writing.
 
 | `type` | Folder | Use |
 |---|---|---|
-| `case-study` | `content/writing/case-studies/` | Finished project or research system. Problem → approach → result. |
+| `case-study` | `content/writing/case-studies/` | Finished project or research system. Problem → approach → result. Standalone engineering posts land here; there is no `blog` / `eng-blog` type. |
 | `build-log` | `content/writing/build-logs/` | Numbered entries in a series (`series` + `part`). |
 | `research` | `content/writing/research/` | Explainer or opinion tied to a paper. Not the publication record itself. |
 | `teaching` | `content/writing/teaching/` | Course material while TAing. |
 
-Shared Zod fields: `title`, `date`, `description`, `type`, `tags`, `draft`. Optional: `series`, `part`, `paper` (DOI or URL), `course` (e.g. `CS 6xx · Fall 2026`).
+Shared Zod fields: `title`, `date` (publication day `YYYY-MM-DD`, not a timestamp), `description`, `type`, `tags`, `draft`. Optional: `series`, `part`, `paper` (DOI or URL), `course` (e.g. `CS 6xx · Fall 2026`). Git history is created/updated. Optional `updated` is a wave-2 call if a post is materially revised.
 
 Index: `/writing` with filters by `type`. Series pages can group `build-log` parts.
 
@@ -72,12 +72,31 @@ These files exist as drafts. They are not wired to routes after D8.
 
 | Wave | PR title (working) | Status | Import | Edit |
 |---|---|---|---|---|
-| 0 | Baseline: artifacts, CI, agent skills, shadcn/cn, discard 3-tree MDX | **this change** | — | — |
-| 1 | Agent OS | not started | `AGENTS.md` shape, `write-writing` skill | Voice, paths, proof points. Skills live in `.agents/skills`. |
-| 2 | MDX pipeline | not started | Zod, `draft`, registry, remark-gfm, `generateMetadata` | One loader. `type` enum. Recategorize seed MDX. |
+| 0 | Baseline: artifacts, CI, agent skills, shadcn/cn, discard 3-tree MDX | merged | — | — |
+| 1 | Agent OS | **this change** | `AGENTS.md` shape, `writing` skill | Voice, paths, proof points. Skills live in `.agents/skills`. |
+| 2 | MDX pipeline | not started | Zod, `draft`, registry, remark-gfm, `generateMetadata` | One loader. `type` enum. Recategorize seed MDX. Replace every wave-1 placeholder in the table below with concrete data. |
 | 3 | Tokens + `cn()` | not started | `extendTailwindMerge` once size tokens exist | DESIGN.md values. No Fern green / 64px / 86rem. |
 | 4 | Article chrome | not started | `.article-prose` idea | Map onto `.prose`. Dark, amber links, Commit Mono code. |
 | 5 | Optional skills | not started | file-bug → visual QA; case-study → `write-project` | Skip campaigns, SEO factory, employee profiles. |
+
+## Wave 2 — replace placeholders with concrete data
+
+Wave 1 skills still talk about a future loader. When wave 2 ships, rewrite these so they describe the live system. Do not leave “until wave 2” in the writing skill.
+
+| Location | Placeholder now | Replace with |
+|---|---|---|
+| `.agents/skills/writing/SKILL.md` Step 3 | “enforced by Zod in wave 2” | Actual schema module path (likely `lib/schemas.ts` or wherever it lands) |
+| `.agents/skills/writing/SKILL.md` Step 3 | “seed inventory may still use `excerpt`” | Delete after seed files use `description` |
+| `.agents/skills/writing/SKILL.md` Step 4 | “legacy seed files at root” | Delete after `content/writing/*.mdx` is recategorized into type folders |
+| `.agents/skills/writing/SKILL.md` Step 5 | “MDX components and a full registry arrive in wave 2” | The real component names, or “standard Markdown only” if none shipped |
+| `.agents/skills/writing/SKILL.md` internal links | “once wave 2 wires routes” | Live `/writing/<slug>` routes |
+| `.agents/skills/writing/SKILL.md` Step 7–8 + checklist | Pre-Wave-2 inventory guard | Delete. Handback is a live URL. |
+| `.agents/skills/writing/voice-nikhil.md` teaching | Example `CS 6xx · Fall 2026` | Real course code if known; otherwise keep as a format example |
+| `lib/content.ts` + `app/writing/page.tsx` + RSS | Hardcoded `excerpt` array | Loader + `description` |
+| `content/writing/the-score-is-not-the-work.mdx` | Root seed, `excerpt` frontmatter | Move to `content/writing/research/`, `description`, `type: research` |
+| This file | “published through this pipeline once wave 2 exists” | Series slug `borrow-the-os-not-the-look`; rewrite this row when the live URL exists |
+
+Optional `updated` field: decide in wave 2 whether a materially revised post gets `updated: YYYY-MM-DD` alongside `date`. Default is no — git history is enough unless the index needs to show “updated”.
 
 ## PR checklist (every wave)
 
@@ -108,4 +127,4 @@ These files exist as drafts. They are not wired to routes after D8.
 - Outcome prompts, not step-by-step component prescriptions (Fern’s own lesson).
 - New page or post = pull request + Vercel preview, even solo.
 - `/components` and `/scrapyard` are optional later, not wave 1.
-- The “how I adopted Fern” post is itself a `build-log` series, published through this pipeline once wave 2 exists.
+- The “how I adopted Fern” series is a `build-log`. Part 1 draft: `content/writing/build-logs/borrow-the-os-not-the-look.mdx`. Citeable claims: `./build-log-sources.md`. Live `/writing/[slug]` waits on wave 2.
