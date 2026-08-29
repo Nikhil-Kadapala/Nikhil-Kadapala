@@ -1,7 +1,7 @@
 ---
 title: Fern template adoption
-status: baseline-resolved
-updated: 2026-08-25
+status: wave-2-merged
+updated: 2026-08-28
 owner: Nikhil Kadapala
 html: ./migration-plan.html
 changelog: ./CHANGELOG.md
@@ -74,7 +74,7 @@ Do not flatten papers and repos into `/writing`. Do not create `/research/[slug]
 |---|---|---|---|---|
 | 0 | Baseline: artifacts, CI, agent skills, shadcn/cn, discard 3-tree MDX | merged | — | — |
 | 1 | Agent OS | merged ([PR #3](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/3)) | `AGENTS.md` shape, `writing` skill | Voice, paths, proof points. Skills live in `.agents/skills`. |
-| 2 | MDX pipeline | **this change** | Zod, `draft`, registry, remark-gfm, `generateMetadata` | One loader (`lib/writing.ts`). `type` enum in `lib/schemas.ts`. Recategorize seed MDX. |
+| 2 | MDX pipeline | merged ([PR #4](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/4)) | Zod, `draft`, registry, remark-gfm, `generateMetadata` | One loader (`lib/writing.ts`). `type` enum in `lib/schemas.ts`. Recategorize seed MDX. |
 | 3 | Tokens + `cn()` | not started | `extendTailwindMerge` once size tokens exist | DESIGN.md values. No Fern green / 64px / 86rem. |
 | 4 | Article chrome | not started | `.article-prose` idea | Map onto `.prose`. Dark, amber links, Commit Mono code. |
 | 5 | Optional skills | not started | file-bug → visual QA; case-study → `write-project` | Skip campaigns, SEO factory, employee profiles. |

@@ -35,7 +35,7 @@ Do not copy Fern's spend, weeks, or commit totals into our running totals.
 | CI runs `typecheck`, `lint`, `build` | `.github/workflows/ci.yml` | verified (also on `push` to `main`) |
 | Wave 0 hours ~3; wave 1 hours ~2; total ~5 | Fern `CHANGELOG.md` running totals + log entries | **estimate**, labeled as such |
 | AI spend | Fern `CHANGELOG.md` | **not logged** |
-| Commits since adoption start | Fern `CHANGELOG.md` running totals | 7 (`a8a53aa`..`416da33`) as of wave 1 merge |
+| Commits since adoption start | Fern `CHANGELOG.md` running totals | 9 (`a8a53aa`..`b5fe9ef`) as of wave 2 merge |
 | AGENTS.md rewrites: 2 | Fern `CHANGELOG.md` running totals | verified (count of rewrites, not git commits) |
 | Zod schema versions | Fern `CHANGELOG.md` | **1** as of wave 2 (`lib/schemas.ts`) |
 | Wave 0 GitHub PR number | Fern `CHANGELOG.md` | [PR #1](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/1) |
@@ -43,14 +43,12 @@ Do not copy Fern's spend, weeks, or commit totals into our running totals.
 | Four writing types; standalone eng posts = `case-study` | `plan.mdx` D7; `.agents/skills/writing/SKILL.md` | verified |
 | `next-mdx-remote` 5 → 6.0.0 for CVE-2026-0969 | `/CHANGELOG.md` 2026-08-25 Wave 1 | verified (wave 2 compiles MDX) |
 | Non-goals: campaigns, SEO factory, employee profiles, `/post`, light theme, Vale, public per-wave series | `plan.mdx` Explicit non-goals + D9 | verified |
-| Wave 2 MDX pipeline | `plan.mdx` Waves table; `lib/writing.ts` | **this change** |
+| Wave 2 MDX pipeline | `plan.mdx` Waves table; `lib/writing.ts` | verified; merged as [PR #4](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/4) (`b5fe9ef`) |
 | Public Fern post | — | **not yet**. Draft from `notes/` after the last wave. |
 
 ## Still empty (do not invent)
 
 - AI tool spend (USD)
-- Exact commit count and SHA range for later waves
-- Wave 2 GitHub PR number (this change, not yet a PR)
-- Preview URL reviewed for wave 2
+- Exact commit count and SHA range for waves 3+
 
 Fill these in the Fern `CHANGELOG.md` required-fields block when they exist. Then update this table before writing the public `case-study`.
