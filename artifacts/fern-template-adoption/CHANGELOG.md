@@ -35,15 +35,33 @@ Reset only if we explicitly restart the adoption.
 
 | Metric | Value |
 |---|---|
-| Wave PRs merged | 3 (wave 0 PR #1, wave 1 PR #3, wave 2 PR #4) |
-| Commits since adoption start | 9 (`a8a53aa`..`b5fe9ef`, including merges) |
-| Estimated hours | ~8 (briefing + D7/D8 + wave 1 + wave 2) |
+| Wave PRs merged | 4 (wave 0 PR #1, wave 1 PR #3, wave 2 PR #4, wave 3 PR #6) |
+| Commits since adoption start | 13 (`a8a53aa`..`4cfe859`, including merges) |
+| Estimated hours | ~10 (briefing + D7/D8 + waves 1-3) |
 | AI spend | not logged yet |
 | AGENTS.md rewrites | 2 (wave 0 thin stack; wave 1 full authoring + voice) |
 | Zod schema versions | 1 (`lib/schemas.ts` `writingFrontmatterSchema`) |
 | Hero / graph polish passes | 0 this adoption (pre-adoption work on `main`) |
+| Color system revisions | 1 (D10 two-accent; green scope corrected once after over-application) |
 
 ## Log
+
+### 2026-08-29 — Wave 3 two-accent color system (merged)
+
+- Wave / PR: wave 3, [PR #6](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/6), merge `4cfe859`
+- Commits in this slice (count + range): 4 (`6279c85`..`4cfe859`, including merges; 2 feature commits, one of them the out-of-band hydration fix in [PR #7](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/7))
+- Wall-clock (hours): ~2 (planning session + implementation session)
+- AI tool spend (USD, optional but preferred): not logged
+- AGENTS.md edits (what rule landed): n/a
+- Voice rules added or changed: n/a
+- Zod / frontmatter schema changes: n/a
+- Hard component iterations (name + how many passes): color system, 2 passes. First pass put `--green` on h2/h3 and nav; rejected. Second pass narrowed it to small mono labels only.
+- Design loop (Figma / MCP / hand polish in `bun dev`): hand polish in `bun dev`, then contrast checked in oklch. Green sits at L=0.47 for AA Large (3:1) on the `#080808` canvas; L=0.43 measured only ~2.5:1 and was rejected.
+- Prompting note (outcome vs prescription; what worked): prescription beat outcome here. "Two-accent system" alone produced green on headings. The rule that fixed it was mechanical: white is the default for anything the reader reads, green marks only the small uppercase mono elements that organize the page.
+- Preview URL reviewed (yes/no): yes (PR #6 Vercel preview)
+- Skipped on purpose: article chrome (wave 4), Tailwind `extendTailwindMerge` (radius tokens are CSS custom properties, not utility classes), `::selection` still a literal amber rgba rather than `var(--accent)`
+- Content taxonomy change: n/a
+- Context checkpoint: `20260829-024637-wave-3-d10-revised-green-labels-only.md`
 
 ### 2026-08-28 — Wave 2 MDX pipeline (merged)
 

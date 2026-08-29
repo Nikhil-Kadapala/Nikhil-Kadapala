@@ -6,6 +6,27 @@ Newest first. Add an entry when something ships (merge to `main`, or a notable u
 
 ## Unreleased
 
+## 2026-08-29 — Fern adoption wave 3
+
+Two-accent color system and token reconciliation. [PR #6](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/6).
+
+### Added
+
+- `--green` (`oklch(0.4684 0.0905 147.75)`) for structural labels: `.eyebrow`, `.tag`, `.section-index`, `.run-summary .mono`, `.primitive-grid span`, `.artifact-row .tag`, `.paper-meta` and `.kgraph-foot` first spans, `.inspector-tabs .active::after`
+- Radius tokens `--radius-sm` (6px), `--radius` (10px), `--radius-lg` (20px), and `--ease-drawer`
+
+### Changed
+
+- `--accent` (`#f0a35a`) is now attention-only: links, focus rings, selection, blockquote accent, hover, active filters, kgraph interactive states
+- `--ease-out` and `--ease-in-out` updated to the measured Mastra curves in `DESIGN.md`
+- `.page-head .eyebrow` added so the eyebrow beats `.page-head p` on specificity
+
+Headings, nav items, and card titles stay white. Green marks only the small uppercase mono elements that organize a page, never anything the reader reads. `--green` is distinct from `--success` (`#4ade80`).
+
+### Fixed
+
+- Hydration mismatch on `<html>`. `html{scroll-behavior:smooth}` made Next write an inline `scroll-behavior:auto` during route transitions that the server never rendered. Root element now carries `data-scroll-behavior="smooth"` (required by Next 16 to keep the behavior) and `suppressHydrationWarning`. [PR #7](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/7).
+
 ## 2026-08-28 — Fern adoption wave 2
 
 MDX writing pipeline. One loader, one schema, four content types. [PR #4](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/4).
