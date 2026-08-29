@@ -1,7 +1,7 @@
 ---
 title: Fern template adoption
-status: wave-2-merged
-updated: 2026-08-28
+status: wave-3-in-progress
+updated: 2026-08-29
 owner: Nikhil Kadapala
 html: ./migration-plan.html
 changelog: ./CHANGELOG.md
@@ -30,6 +30,7 @@ Living plan. Update this file when a decision, wave, or metric changes. The HTML
 | D7 | One writing pipeline + `type` | See taxonomy below. Not three equal MDX trees. |
 | D8 | Discard contradicting WIP | Restored app pages to `main`. Kept only infra that the waves will use. |
 | D9 | Internal waves, one public post | Per-wave metrics and notes stay in `artifacts/fern-template-adoption/`. One `/writing` `case-study` after adoption finishes. No numbered public Fern series. |
+| D10 | Two-accent system: green + amber | `--green: oklch(0.4684 0.0905 147.75)` for small structural labels only (eyebrow, tag, section-index, mono labels, paper-meta, kgraph footer, inspector tab underline). Headings and nav stay white. `--accent: #f0a35a` restricted to attention (links, focus rings, selection, borders, highlights, active states). |
 
 ## D7 content taxonomy
 
@@ -75,7 +76,7 @@ Do not flatten papers and repos into `/writing`. Do not create `/research/[slug]
 | 0 | Baseline: artifacts, CI, agent skills, shadcn/cn, discard 3-tree MDX | merged | — | — |
 | 1 | Agent OS | merged ([PR #3](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/3)) | `AGENTS.md` shape, `writing` skill | Voice, paths, proof points. Skills live in `.agents/skills`. |
 | 2 | MDX pipeline | merged ([PR #4](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/4)) | Zod, `draft`, registry, remark-gfm, `generateMetadata` | One loader (`lib/writing.ts`). `type` enum in `lib/schemas.ts`. Recategorize seed MDX. |
-| 3 | Tokens + `cn()` | not started | `extendTailwindMerge` once size tokens exist | DESIGN.md values. No Fern green / 64px / 86rem. |
+| 3 | Tokens + `cn()` + D10 two-accent | in progress | `extendTailwindMerge` once size tokens exist | DESIGN.md values + D10 green/amber split. No Fern green / 64px / 86rem. |
 | 4 | Article chrome | not started | `.article-prose` idea | Map onto `.prose`. Dark, amber links, Commit Mono code. |
 | 5 | Optional skills | not started | file-bug → visual QA; case-study → `write-project` | Skip campaigns, SEO factory, employee profiles. |
 
