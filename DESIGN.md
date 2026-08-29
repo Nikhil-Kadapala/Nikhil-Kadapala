@@ -219,8 +219,10 @@ The dominant curve is a **strong ease-out**, consistent with UI that should feel
   --text-muted: #6e6e6e;
   --text-faint: #424242;
 
-  /* accent */
-  --accent: #7aff78;
+  /* accent — Mastra uses green for everything; this site splits into two roles */
+  --accent: #7aff78;         /* Mastra's single accent */
+  /* --accent: #f0a35a;      — this site: amber for attention (links, focus, selection) */
+  /* --green: oklch(0.4684 0.0905 147.75); — this site: structural hierarchy */
 
   /* extended */
   --blue: #6ccdfb;  --purple: #b588fe;  --orange: #fdac53;
@@ -255,7 +257,8 @@ This site borrows Mastra's *discipline*, not its identity. Deliberate divergence
 
 | Aspect | Mastra | This site | Rationale |
 |---|---|---|---|
-| **Accent** | `#7aff78` green | `#f0a35a` amber | Green-on-black is strongly Mastra's. Amber keeps the same one-accent restraint without reading as a clone. It's now the only warm element in a pure-neutral system, so it carries more deliberately than before. |
+| **Accent (attention)** | `#7aff78` green | `#f0a35a` amber | Green-on-black is strongly Mastra's. Amber keeps the same one-accent restraint without reading as a clone. Restricted to attention use: links, focus rings, selection, borders, highlights, active states. |
+| **Green (structural)** | n/a (single accent) | `oklch(0.4684 0.0905 147.75)` | Two-accent system (D10). Dark, muted green (L=0.47, C=0.09) for small structural labels only: `.eyebrow`, `.tag`, `.section-index`, `.mono` section labels, paper-meta first span, kgraph footer label, inspector tab underline. Headings and nav stay white. Passes AA Large (3:1) on `#080808`. Not `--success` (`#4ade80`). |
 | **Sans** | Greed (commercial) | TASA Orbiter (OFL, Google Fonts) | Greed requires a license. TASA Orbiter is a free neutral grotesque; it lacks Greed's width axis, so headline weight sits at 600 rather than 520. |
 | **Mono** | Commit Mono | **Commit Mono** ✅ | Exact match. Self-hosted via `@fontsource/commit-mono` (OFL-1.1) since it isn't on Google Fonts. Most of the "engineered" character lives here. |
 | **Neutrals** | pure greys | **pure greys** ✅ | Adopted verbatim. |
