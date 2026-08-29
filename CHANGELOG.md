@@ -6,6 +6,10 @@ Newest first. Add an entry when something ships (merge to `main`, or a notable u
 
 ## Unreleased
 
+## 2026-08-28 — Fern adoption wave 2
+
+MDX writing pipeline. One loader, one schema, four content types. [PR #4](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/4).
+
 ### Added
 
 - Wave 2 MDX pipeline: Zod frontmatter schema (`lib/schemas.ts`), one loader (`lib/writing.ts`), `generateMetadata` on `/writing/[slug]`, GFM via `remark-gfm`

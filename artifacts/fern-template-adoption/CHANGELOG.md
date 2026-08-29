@@ -35,9 +35,9 @@ Reset only if we explicitly restart the adoption.
 
 | Metric | Value |
 |---|---|
-| Wave PRs merged | 2 (wave 0 PR #1, wave 1 PR #3) |
-| Commits since adoption start | 7 (`a8a53aa`..`416da33`, including merges) |
-| Estimated hours | ~5 (briefing + D7/D8 + wave 1); wave 2 in this PR |
+| Wave PRs merged | 3 (wave 0 PR #1, wave 1 PR #3, wave 2 PR #4) |
+| Commits since adoption start | 9 (`a8a53aa`..`b5fe9ef`, including merges) |
+| Estimated hours | ~8 (briefing + D7/D8 + wave 1 + wave 2) |
 | AI spend | not logged yet |
 | AGENTS.md rewrites | 2 (wave 0 thin stack; wave 1 full authoring + voice) |
 | Zod schema versions | 1 (`lib/schemas.ts` `writingFrontmatterSchema`) |
@@ -45,11 +45,11 @@ Reset only if we explicitly restart the adoption.
 
 ## Log
 
-### 2026-08-25 — Wave 2 MDX pipeline (this change)
+### 2026-08-28 — Wave 2 MDX pipeline (merged)
 
-- Wave / PR: wave 2, branch `chore/fern-adoption-wave-2` (not yet a PR)
-- Commits in this slice (count + range): pending until PR
-- Wall-clock (hours): pending
+- Wave / PR: wave 2, [PR #4](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/4), merge `b5fe9ef`
+- Commits in this slice (count + range): 2 (`8e5f0e4`..`b5fe9ef`, including merge)
+- Wall-clock (hours): ~3
 - AI tool spend (USD, optional but preferred): not logged
 - AGENTS.md edits (what rule landed): n/a (pipeline, not voice)
 - Voice rules added or changed: n/a
@@ -57,10 +57,10 @@ Reset only if we explicitly restart the adoption.
 - Hard component iterations (name + hero / graph): n/a
 - Design loop (Figma / MCP / hand polish in `bun dev`): article body gets minimal `.prose h2/ul/code` so MDX is readable; full chrome is wave 4
 - Prompting note (outcome vs prescription; what worked): one loader, one schema, existing `/writing/[slug]` URL. Drafts stay off production.
-- Preview URL reviewed (yes/no): pending CI
+- Preview URL reviewed (yes/no): yes (PR #4 Vercel preview)
 - Skipped on purpose: catalog MDX wiring, `updated` field, custom MDX tags beyond `a`, article chrome, tokens, public Fern wave series
 - Content taxonomy change: `the-score-is-not-the-work` moved to `content/writing/research/` with `type: research`. Fern wave-1 prose moved from `content/writing/build-logs/` to `artifacts/fern-template-adoption/notes/wave-1.md` (D9).
-- Context checkpoint: restore pointed at this wave; save after merge
+- Context checkpoint: `20260828-104910-wave-2-merged.md`
 
 ### 2026-08-25 — Wave 1 agent OS (merged)
 

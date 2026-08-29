@@ -10,6 +10,6 @@ This folder is the record of adopting [fern-marketing-site-template](https://git
 | [build-log-sources.md](./build-log-sources.md) | Claim → source table for the eventual public post |
 | [notes/](./notes/) | Optional per-wave prose. Not routed. |
 
-**Now:** D1–D9 settled. Waves 0–1 merged (PR #1, PR #3). Wave 2 (MDX pipeline) is the current change. No public Fern series; one `case-study` at the end.
+**Now:** D1–D9 settled. Waves 0–2 merged (PR #1, PR #3, PR #4). Wave 3 (tokens + `cn()`) is next. No public Fern series; one `case-study` at the end.
 
 **Cadence:** one wave per PR. `/context-save` at the boundary. Next session `/context-restore`.
