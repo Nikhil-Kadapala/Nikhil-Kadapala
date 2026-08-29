@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { WRITING_TYPES, WRITING_TYPE_LABELS, isWritingType, type WritingType } from "@/lib/schemas";
+import {
+  PUBLIC_WRITING_TYPES,
+  WRITING_TYPE_LABELS,
+  isUnlistedWritingType,
+  writingTypePath,
+  type WritingType,
+} from "@/lib/schemas";
+import { listWritingPosts } from "@/lib/writing";
 
 export type WritingListItem = {
   slug: string;
@@ -12,10 +19,19 @@ export type WritingListItem = {
   draft: boolean;
 };
 
-export function parseWritingTypeParam(value: string | string[] | undefined): WritingType | undefined {
-  const raw = Array.isArray(value) ? value[0] : value;
-  if (!raw || !isWritingType(raw)) return undefined;
-  return raw;
+export function loadWritingListItems(options?: { includeUnlisted?: boolean }): WritingListItem[] {
+  const includeUnlisted = options?.includeUnlisted ?? false;
+  return listWritingPosts()
+    .filter((post) => includeUnlisted || !isUnlistedWritingType(post.type))
+    .map(({ slug, title, date, description, type, tags, draft }) => ({
+      slug,
+      title,
+      date,
+      description,
+      type,
+      tags,
+      draft,
+    }));
 }
 
 export function WritingIndexView({
@@ -33,10 +49,10 @@ export function WritingIndexView({
         <Link href="/writing" aria-current={!activeType ? "page" : undefined} className={cn(!activeType && "is-active")}>
           All
         </Link>
-        {WRITING_TYPES.map((type) => (
+        {PUBLIC_WRITING_TYPES.map((type) => (
           <Link
             key={type}
-            href={`/writing?type=${type}`}
+            href={writingTypePath(type)}
             aria-current={activeType === type ? "page" : undefined}
             className={cn(activeType === type && "is-active")}
           >

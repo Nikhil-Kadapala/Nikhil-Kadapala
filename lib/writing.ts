@@ -11,6 +11,7 @@ import { remarkCodeFilename } from "@/lib/remark-code-filename";
 import {
   WRITING_DIR_TO_TYPE,
   WRITING_TYPE_DIRS,
+  isUnlistedWritingType,
   writingFrontmatterSchema,
   type WritingFrontmatter,
   type WritingType,
@@ -40,6 +41,9 @@ function parseWritingFile(filepath: string, raw: string): { post: WritingPost; b
   }
 
   const slug = path.basename(filepath, ".mdx");
+  if (slug === "type") {
+    throw new Error(`${filepath}: slug "type" is reserved for /writing/type/[type] indexes`);
+  }
   const folder = path.basename(path.dirname(filepath));
   const expectedType = WRITING_DIR_TO_TYPE[folder as keyof typeof WRITING_DIR_TO_TYPE];
   if (!expectedType) {
@@ -90,6 +94,10 @@ export const listWritingPosts = cache((options?: { includeDrafts?: boolean }): W
 
 export function listPublishedWritingPosts(): WritingPost[] {
   return listWritingPosts({ includeDrafts: false });
+}
+
+export function listDiscoverableWritingPosts(): WritingPost[] {
+  return listPublishedWritingPosts().filter((post) => !isUnlistedWritingType(post.type));
 }
 
 export const getWritingPost = cache((slug: string): WritingPost | null => {

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
+import { PUBLIC_WRITING_TYPES } from "@/lib/schemas";
 import { absoluteUrl } from "@/lib/site";
-import { listPublishedWritingPosts } from "@/lib/writing";
+import { listDiscoverableWritingPosts } from "@/lib/writing";
 
 export const dynamic = "force-static";
 
@@ -12,10 +13,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  const posts = listPublishedWritingPosts().map((post) => ({
+  const typeIndexes = PUBLIC_WRITING_TYPES.map((type) => ({
+    url: absoluteUrl(`writing/type/${type}`),
+    lastModified: new Date(),
+  }));
+
+  const posts = listDiscoverableWritingPosts().map((post) => ({
     url: absoluteUrl(`writing/${post.slug}`),
     lastModified: new Date(`${post.date}T00:00:00.000Z`),
   }));
 
-  return [...pages, ...posts];
+  return [...pages, ...typeIndexes, ...posts];
 }

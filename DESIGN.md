@@ -16,7 +16,7 @@
 
 **Precise · engineered · alive · restrained.**
 
-What it is **not**: playful, rounded, pastel, gradient-heavy, or decorative. The surface is near-monochrome; the energy comes from typographic rhythm, mono detailing, and one disciplined accent — never from color noise. **[interpreted]**
+What it is **not**: playful, rounded, pastel, gradient-heavy, or decorative. The surface is near-monochrome; the energy comes from typographic rhythm, mono detailing, and one disciplined accent. The black canvas gives the gray cards and header a clear elevation without adding color noise. **[interpreted]**
 
 - Dark canvas as the default, not an option.
 - Monospace is a first-class citizen — labels, metrics, timings, tags, nav, and code.
@@ -45,7 +45,20 @@ Every Mastra neutral is a **pure grey — R = G = B**. There is no hue cast in t
 | `--color-ds-main-gray` | `#939393` | Body, descriptions **[measured]** |
 | `--color-ds-dark-gray` | `#424242` | Disabled, placeholder, faint rules **[measured]** |
 
-**The counter-intuitive part:** `#020202` is *not* the page background — it's the **deepest inset**. The canvas sits at `#080808` and surfaces rise *lighter* from there, while borders (`#1a1a1a`–`#1c1c1c`) stay *darker than the surfaces they sit on*. Panels therefore read as softly filled shapes, not as outlined wireframes. Getting this relationship backwards — light borders on dark fills — is the single easiest way to make a copy of this system look wrong.
+### 2.1a Portfolio overrides
+
+The portfolio keeps Mastra's neutral ramp but uses a true-black page canvas. These are the live tokens in `app/globals.css`, not Mastra source values:
+
+| Portfolio token | Value | Role |
+|---|---|---|
+| `--bg` | `#000000` | Page canvas |
+| `--canvas-gradient` | `var(--bg)` → `var(--surface-inset)` | Subtle page-depth gradient |
+| `--surface-header` | `var(--surface-2)` → `var(--surface-1)` | Sticky navbar and mobile menu |
+| `--surface-1` | `#0f0f0f` | Cards and first elevation |
+| `--surface-2` | `#171717` | Raised card hover and header start |
+| `--surface-3` | `#262626` | Hover surfaces and active details |
+
+**Mastra source relationship:** `#020202` is *not* the page background — it's the **deepest inset**. Mastra's canvas sits at `#080808` and surfaces rise *lighter* from there, while borders (`#1a1a1a`–`#1c1c1c`) stay *darker than the surfaces they sit on*. This portfolio shifts only the canvas to `#000000`; the same gray surfaces still provide the elevation hierarchy.
 
 ### 2.2 Accent — the 10%
 
@@ -176,6 +189,7 @@ Small, uppercase, lightly tracked mono does most of the "developer tool" work. N
 | Primary button | **Inverted**: light fill, near-black label, `~10px` radius |
 | Secondary button | Transparent, gradient hairline stroke, light label; hover → `#262626` |
 | Link | Accent green, no underline at rest, underline on hover |
+| Sticky navbar | `--surface-header`: vertical gradient from `#171717` to `#0f0f0f`, with blur and a `--border` bottom rule |
 | Card | `#171717` fill, `#1a1a1a` border, `16–20px` radius |
 | Tag / chip | `#262626` fill, mono label, small radius |
 | Input | `#0f0f0f` fill, hairline border, focus → accent ring |
@@ -206,11 +220,12 @@ The dominant curve is a **strong ease-out**, consistent with UI that should feel
   color-scheme: dark;
 
   /* neutrals — pure greys, no hue cast */
-  --bg: #080808;
+  --bg: #000000;             /* portfolio canvas; Mastra source is #080808 */
   --surface-1: #0f0f0f;
   --surface-2: #171717;
   --surface-3: #262626;
   --surface-inset: #020202;   /* recessed, darker than canvas */
+  --surface-header: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
   --border: #1c1c1c;
   --border-elevation: #1a1a1a;
   --border-strong: #383838;

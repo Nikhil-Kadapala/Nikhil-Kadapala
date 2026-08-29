@@ -1,4 +1,4 @@
-import { listPublishedWritingPosts } from "@/lib/writing";
+import { listDiscoverableWritingPosts } from "@/lib/writing";
 import { absoluteUrl, site } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -13,7 +13,7 @@ function escapeXml(value: string): string {
 }
 
 export function GET() {
-  const items = listPublishedWritingPosts()
+  const items = listDiscoverableWritingPosts()
     .map((post) => {
       const pubDate = new Date(`${post.date}T00:00:00.000Z`).toUTCString();
       return `<item><title>${escapeXml(post.title)}</title><link>${absoluteUrl(`writing/${post.slug}`)}</link><description>${escapeXml(post.description)}</description><pubDate>${pubDate}</pubDate></item>`;

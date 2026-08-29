@@ -21,6 +21,40 @@ export const WRITING_TYPE_LABELS: Record<WritingType, string> = {
   teaching: "Teaching",
 };
 
+export const WRITING_TYPE_INDEX: Record<WritingType, { heading: string; description: string }> = {
+  "case-study": {
+    heading: "Finished work, written up.",
+    description: "Problem, approach, result. A case study is the argument after the system shipped, not a catalog card.",
+  },
+  "build-log": {
+    heading: "The work as it happened.",
+    description: "Numbered entries in a series. Part by part, while the decisions are still cheap to reverse.",
+  },
+  research: {
+    heading: "An argument next to a paper.",
+    description: "Explainers and opinions tied to a paper. The publication record itself lives on /research.",
+  },
+  teaching: {
+    heading: "Notes from the other side of the classroom.",
+    description: "Course material from TAing, written so it still works after the semester ends.",
+  },
+};
+
+export function writingTypePath(type: WritingType): string {
+  return `/writing/type/${type}`;
+}
+
+/** Reachable by URL, never linked, sitemapped, or indexed. */
+export const UNLISTED_WRITING_TYPES = ["teaching"] as const satisfies ReadonlyArray<WritingType>;
+
+export function isUnlistedWritingType(type: WritingType): boolean {
+  return (UNLISTED_WRITING_TYPES as readonly WritingType[]).includes(type);
+}
+
+export const PUBLIC_WRITING_TYPES = WRITING_TYPES.filter((type) => !isUnlistedWritingType(type));
+
+export const UNLISTED_PAGE_ROBOTS = { index: false, follow: false } as const;
+
 export const WRITING_DIR_TO_TYPE = Object.fromEntries(
   Object.entries(WRITING_TYPE_DIRS).map(([type, dir]) => [dir, type]),
 ) as Record<(typeof WRITING_TYPE_DIRS)[WritingType], WritingType>;

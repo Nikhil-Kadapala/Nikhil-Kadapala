@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { ArticleToc } from "@/components/article/ArticleToc";
-import { WRITING_TYPE_LABELS } from "@/lib/schemas";
+import { UNLISTED_PAGE_ROBOTS, WRITING_TYPE_LABELS, isUnlistedWritingType } from "@/lib/schemas";
 import { contentAssetUrl, resolveContentAsset } from "@/lib/content-assets";
 import { compileWritingPost, getWritingPost, listWritingPosts } from "@/lib/writing";
 import { cn } from "@/lib/utils";
@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: post.title,
     description: post.description,
+    ...(isUnlistedWritingType(post.type) ? { robots: UNLISTED_PAGE_ROBOTS } : {}),
   };
 }
 
