@@ -64,6 +64,7 @@ draft: true
 # part: 1
 # paper: "https://arxiv.org/abs/2509.06883"
 # course: "CS 6xx · Fall 2026"
+# cover: "the-score-is-not-the-work.jpg"  # file under content/assets/
 ---
 ```
 
@@ -78,6 +79,7 @@ draft: true
 | `series` / `part` | Required for `build-log`. |
 | `paper` | DOI or URL for `research` posts tied to a publication. |
 | `course` | Required for `teaching` posts. Format example: `CS 6xx · Fall 2026`. |
+| `cover` | Optional. Relative path under `content/assets/` (no `..`, no leading slash). Served at `/content-assets/...`. Omit the field if there is no banner. |
 
 Unknown keys (including `excerpt`) fail Zod `.strictObject`.
 

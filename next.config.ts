@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   // deployments get a URL per pull request.
   trailingSlash: false,
   outputFileTracingRoot: import.meta.dirname,
+  outputFileTracingIncludes: {
+    "/content-assets/[...path]": ["./content/assets/**/*"],
+  },
 };
 
 export default nextConfig;

@@ -1,6 +1,6 @@
 ---
 title: Fern template adoption
-status: wave-4-not-started
+status: wave-4-in-progress
 updated: 2026-08-29
 owner: Nikhil Kadapala
 html: ./migration-plan.html
@@ -47,7 +47,7 @@ All essays, logs, explainers, and course notes are writing.
 | `research` | `content/writing/research/` | Explainer or opinion tied to a paper. Not the publication record itself. |
 | `teaching` | `content/writing/teaching/` | Course material while TAing. |
 
-Shared Zod fields (`lib/schemas.ts` `writingFrontmatterSchema`): `title`, `date` (publication day `YYYY-MM-DD`, not a timestamp), `description`, `type`, `tags`, `draft`. Optional: `series`, `part`, `paper` (DOI or URL), `course` (e.g. `CS 6xx · Fall 2026`). Git history is created/updated. No `updated` field — git is enough; the index does not show “updated”.
+Shared Zod fields (`lib/schemas.ts` `writingFrontmatterSchema`): `title`, `date` (publication day `YYYY-MM-DD`, not a timestamp), `description`, `type`, `tags`, `draft`. Optional: `series`, `part`, `paper` (DOI or URL), `course` (e.g. `CS 6xx · Fall 2026`), `cover` (relative path under `content/assets/`). Git history is created/updated. No `updated` field — git is enough; the index does not show “updated”.
 
 Index: `/writing` with filters by `type`. Series pages can group `build-log` parts. Fern adoption is **not** a public `build-log` series.
 
@@ -77,7 +77,7 @@ Do not flatten papers and repos into `/writing`. Do not create `/research/[slug]
 | 1 | Agent OS | merged ([PR #3](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/3)) | `AGENTS.md` shape, `writing` skill | Voice, paths, proof points. Skills live in `.agents/skills`. |
 | 2 | MDX pipeline | merged ([PR #4](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/4)) | Zod, `draft`, registry, remark-gfm, `generateMetadata` | One loader (`lib/writing.ts`). `type` enum in `lib/schemas.ts`. Recategorize seed MDX. |
 | 3 | Tokens + `cn()` + D10 two-accent | merged ([PR #6](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/6)) | `extendTailwindMerge` once size tokens exist | DESIGN.md values + D10 green/amber split. No Fern green / 64px / 86rem. |
-| 4 | Article chrome | not started | `.article-prose` idea | Map onto `.prose`. Dark, amber links, Commit Mono code. |
+| 4 | Article chrome | **this change** | `.article-prose` idea mapped onto `/writing/[slug]` | D10 green labels. Cover files in `content/assets/`. |
 | 5 | Optional skills | not started | file-bug → visual QA; case-study → `write-project` | Skip campaigns, SEO factory, employee profiles. |
 
 ## Wave 2 — live paths
@@ -86,7 +86,7 @@ Do not flatten papers and repos into `/writing`. Do not create `/research/[slug]
 |---|---|
 | Schema | `lib/schemas.ts` → `writingFrontmatterSchema` |
 | Loader | `lib/writing.ts` (`listWritingPosts`, `getWritingPost`, `compileWritingPost`) |
-| MDX registry | `components/mdx-components.tsx` — `a` only (internal `Link`, external new tab). Standard Markdown + `remark-gfm`. |
+| MDX registry | `components/mdx-components.tsx` — article blocks (`Callout`, `Figure`, `MediaEmbed`, `IframeEmbed`, `Footnotes`, `CtaRow`) plus Markdown `pre`/`table`/`h2`/`h3`/`blockquote`/`a`. |
 | Teaching course example | Keep `CS 6xx · Fall 2026` as a format example in `voice-nikhil.md` |
 | Index / RSS | `app/writing/page.tsx`, `app/rss.xml/route.ts` read `description` from the loader |
 | Seed research post | `/writing/the-score-is-not-the-work` |

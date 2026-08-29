@@ -40,11 +40,28 @@ Reset only if we explicitly restart the adoption.
 | Estimated hours | ~10 (briefing + D7/D8 + waves 1-3) |
 | AI spend | not logged yet |
 | AGENTS.md rewrites | 2 (wave 0 thin stack; wave 1 full authoring + voice) |
-| Zod schema versions | 1 (`lib/schemas.ts` `writingFrontmatterSchema`) |
+| Zod schema versions | 2 (`cover` optional path under `content/assets/`) |
 | Hero / graph polish passes | 0 this adoption (pre-adoption work on `main`) |
 | Color system revisions | 1 (D10 two-accent; green scope corrected once after over-application) |
 
 ## Log
+
+### 2026-08-29 — Wave 4 article chrome (this change)
+
+- Wave / PR: wave 4, branch `chore/fern-adoption-wave-4` (not yet a PR)
+- Commits in this slice (count + range): pending until PR
+- Wall-clock (hours): pending
+- AI tool spend (USD, optional but preferred): not logged
+- AGENTS.md edits (what rule landed): n/a
+- Voice rules added or changed: n/a
+- Zod / frontmatter schema changes: optional `cover` (relative path under `content/assets/`)
+- Hard component iterations (name + how many passes): n/a this slice
+- Design loop (Figma / MCP / hand polish in `bun dev`): pending preview
+- Prompting note (outcome vs prescription; what worked): D10 green labels; no GIF blur; `--radius-lg` stays 20px. Design HTML was used as a reference then removed.
+- Preview URL reviewed (yes/no): pending CI
+- Skipped on purpose: catalog `/research/[slug]` restyle; stock cover photo; `backdrop-filter` on GIF pill; colorful Shiki themes; overwriting `--radius-lg`
+- Content taxonomy change: n/a
+- Context checkpoint: pending after merge
 
 ### 2026-08-29 — Wave 3 two-accent color system (merged)
 

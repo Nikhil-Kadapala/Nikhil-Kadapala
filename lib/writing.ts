@@ -6,6 +6,8 @@ import { cache } from "react";
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { mdxComponents } from "@/components/mdx-components";
+import { extractArticleHeadings, type ArticleHeading } from "@/lib/article-headings";
+import { remarkCodeFilename } from "@/lib/remark-code-filename";
 import {
   WRITING_DIR_TO_TYPE,
   WRITING_TYPE_DIRS,
@@ -94,7 +96,9 @@ export const getWritingPost = cache((slug: string): WritingPost | null => {
   return listWritingPosts().find((post) => post.slug === slug) ?? null;
 });
 
-export async function compileWritingPost(slug: string): Promise<{ post: WritingPost; content: ReactElement } | null> {
+export async function compileWritingPost(
+  slug: string,
+): Promise<{ post: WritingPost; content: ReactElement; headings: ArticleHeading[] } | null> {
   const post = getWritingPost(slug);
   if (!post) return null;
 
@@ -105,10 +109,10 @@ export async function compileWritingPost(slug: string): Promise<{ post: WritingP
     components: mdxComponents,
     options: {
       mdxOptions: {
-        remarkPlugins: [remarkGfm],
+        remarkPlugins: [remarkGfm, remarkCodeFilename],
       },
     },
   });
 
-  return { post, content };
+  return { post, content, headings: extractArticleHeadings(body) };
 }
