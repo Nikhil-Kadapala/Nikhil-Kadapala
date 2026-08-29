@@ -57,7 +57,7 @@ Reset only if we explicitly restart the adoption.
 - Zod / frontmatter schema changes: optional `cover` (relative path under `content/assets/`)
 - Hard component iterations (name + how many passes): n/a this slice
 - Design loop (Figma / MCP / hand polish in `bun dev`): pending preview
-- Prompting note (outcome vs prescription; what worked): HTML handoff as reference only; D10 green labels; no GIF blur; `--radius-lg` stays 20px
+- Prompting note (outcome vs prescription; what worked): D10 green labels; no GIF blur; `--radius-lg` stays 20px. Design HTML was used as a reference then removed.
 - Preview URL reviewed (yes/no): pending CI
 - Skipped on purpose: catalog `/research/[slug]` restyle; stock cover photo; `backdrop-filter` on GIF pill; colorful Shiki themes; overwriting `--radius-lg`
 - Content taxonomy change: n/a
