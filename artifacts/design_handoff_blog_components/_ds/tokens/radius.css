@@ -1,0 +1,9 @@
+:root{
+  --radius-xs:4px;
+  --radius-sm:6px;   /* header CTA, small controls */
+  --radius-md:8px;   /* buttons, code blocks */
+  --radius-lg:12px;  /* cards */
+  --radius-xl:14px;  /* instrument panels */
+  --radius-2xl:16px; /* paper card */
+  --radius-pill:999px;
+}

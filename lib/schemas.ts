@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isContentAssetId } from "@/lib/content-assets";
 
 export const WRITING_TYPES = ["case-study", "build-log", "research", "teaching"] as const;
 
@@ -43,6 +44,11 @@ export const writingFrontmatterSchema = z
     part: z.number().int().positive().optional(),
     paper: z.string().min(1).optional(),
     course: z.string().min(1).optional(),
+    cover: z
+      .string()
+      .min(1)
+      .refine(isContentAssetId, "cover must be a relative path under content/assets")
+      .optional(),
   })
   .superRefine((value, ctx) => {
     if (value.type === "build-log") {

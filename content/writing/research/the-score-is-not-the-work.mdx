@@ -12,6 +12,32 @@ paper: "https://arxiv.org/abs/2509.06883"
 
 Automatic scores are useful fixtures. They are a terrible definition of success when the system is meant to help a person make a decision.
 
+## A benchmark is a fixture, not a verdict
+
 That is the thread I keep returning to: an evaluation has to preserve the shape of the work. A claim that wins a benchmark but cannot be checked is not a successful claim. An agent that completes a scripted trace but misses intent has not done the job.
 
-The publication record lives at [/research/claim-extraction-checkthat-2025](/research/claim-extraction-checkthat-2025).
+<Callout label="Note">
+
+<p>"It felt pretty good" is not a metric. The number has to stay attached to a check a person can run.</p>
+
+</Callout>
+
+## Useful is a harder target than accurate
+
+The publication record lives at [/research/claim-extraction-checkthat-2025](/research/claim-extraction-checkthat-2025). FLAN-T5 won on METEOR. Iterative self-refinement sometimes produced claims a person could actually use, even when the automatic score did not move the same way.
+
+A scoring function that fails closed is the smallest version of that idea — no evidence span, no credit:
+
+```python filename="eval/score.py"
+def score_response(answer, evidence):
+    # fails closed: no evidence span, no credit
+    if not evidence:
+        return 0.0
+
+    covered = [e for e in evidence if e.span in answer.citations]
+    return len(covered) / len(evidence)
+```
+
+That sketch is a harness shape, not a leaderboard result. Coverage of citations is still not correctness of the citation.[^1]
+
+[^1]: The CheckThat! paper is the catalog record: [arXiv:2509.06883](https://arxiv.org/abs/2509.06883).

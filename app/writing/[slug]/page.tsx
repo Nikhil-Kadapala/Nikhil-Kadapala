@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
+import { ArticleToc } from "@/components/article/ArticleToc";
 import { WRITING_TYPE_LABELS } from "@/lib/schemas";
+import { contentAssetUrl, resolveContentAsset } from "@/lib/content-assets";
 import { compileWritingPost, getWritingPost, listWritingPosts } from "@/lib/writing";
+import { cn } from "@/lib/utils";
+import { site } from "@/lib/site";
 
 export const dynamic = "force-static";
 
@@ -25,7 +30,12 @@ export default async function WritingPost({ params }: { params: Promise<{ slug: 
   const compiled = await compileWritingPost(slug);
   if (!compiled) notFound();
 
-  const { post, content } = compiled;
+  const { post, content, headings } = compiled;
+  if (post.cover && !resolveContentAsset(post.cover)) {
+    throw new Error(`Missing cover file at content/assets/${post.cover}`);
+  }
+
+  const coverSrc = post.cover ? contentAssetUrl(post.cover) : null;
   const eyebrow = [
     post.draft ? "Draft" : null,
     WRITING_TYPE_LABELS[post.type],
@@ -36,29 +46,42 @@ export default async function WritingPost({ params }: { params: Promise<{ slug: 
     .join(" · ");
 
   return (
-    <article className="prose-page">
-      <div className="wrap prose">
-        <p className="eyebrow mono">{eyebrow}</p>
-        <h1>{post.title}</h1>
-        <p className="lead">{post.description}</p>
-        <p className="meta mono muted">
-          {post.tags.join(" · ")}
-          {post.paper ? (
-            <>
-              {post.tags.length ? " · " : null}
-              <a href={post.paper} target="_blank" rel="noopener noreferrer">
+    <article>
+      {coverSrc ? (
+        <div className="cover-wrap">
+          <figure className="cover-banner">
+            <Image src={coverSrc} alt="" width={1224} height={524} unoptimized />
+          </figure>
+        </div>
+      ) : null}
+      <div className={cn("article-shell", coverSrc && "article-shell-after-cover")}>
+        <ArticleToc headings={headings} />
+        <div className="content-col">
+          <p className="eyebrow mono">{eyebrow}</p>
+          <h1 className="article-title">{post.title}</h1>
+          <div className="byline-row">
+            {post.tags.map((tag) => (
+              <span key={tag} className="tag">
+                {tag}
+              </span>
+            ))}
+            <span>
+              {site.name} · {post.date}
+            </span>
+            {post.paper ? (
+              <a className="inline-link" href={post.paper} target="_blank" rel="noopener noreferrer">
                 Paper
               </a>
-            </>
-          ) : null}
-          {post.course ? `${post.tags.length || post.paper ? " · " : ""}${post.course}` : null}
-        </p>
-        {content}
-        <p>
-          <Link className="link-arrow" href="/writing">
-            Back to writing
-          </Link>
-        </p>
+            ) : null}
+          </div>
+          <p className="lead">{post.description}</p>
+          {content}
+          <p>
+            <Link className="link-arrow" href="/writing">
+              Back to writing
+            </Link>
+          </p>
+        </div>
       </div>
     </article>
   );

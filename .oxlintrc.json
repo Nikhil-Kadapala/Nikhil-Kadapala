@@ -15,5 +15,5 @@
   "env": {
     "builtin": true
   },
-  "ignorePatterns": ["next-env.d.ts", ".next/**", "out/**"]
+  "ignorePatterns": ["next-env.d.ts", ".next/**", "out/**", "artifacts/**"]
 }

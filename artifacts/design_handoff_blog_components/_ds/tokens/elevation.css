@@ -1,0 +1,9 @@
+/* Elevation reads through a hairline plus a one-step-lighter surface. The only
+   real shadow in the system is the deep drop under floating instrument panels. */
+:root{
+  --shadow-none:none;
+  --shadow-panel:0 30px 80px rgba(0,0,0,.48);
+  --glow-live:0 0 12px rgba(74,222,128,.6);
+  --header-blur:blur(10px); /* @kind other */
+  --header-bg:rgba(2,2,2,.92);
+}
