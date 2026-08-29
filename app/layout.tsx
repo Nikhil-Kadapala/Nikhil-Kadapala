@@ -20,7 +20,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    // globals.css sets `html{scroll-behavior:smooth}`, so Next writes an inline
+    // `scroll-behavior:auto` onto <html> during route transitions and React reports a
+    // hydration mismatch. The data attribute marks the smooth scroll as deliberate
+    // (Next 16 requires it); suppressHydrationWarning covers the style Next writes.
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>
         <SiteHeader />
         <main>{children}</main>
