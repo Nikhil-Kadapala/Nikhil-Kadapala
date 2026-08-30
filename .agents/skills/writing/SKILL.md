@@ -10,7 +10,7 @@ Draft one long-form MDX essay for [nikhill.me](https://nikhill.me). Output: a si
 
 This skill writes site essays. It does **not** plan product features, draft catalog records, or edit app routes. For working-backwards product briefs, use `blog-to-build`.
 
-The live pipeline is Zod + one loader. Schema: [`lib/schemas.ts`](../../../lib/schemas.ts) (`writingFrontmatterSchema`). Loader: [`lib/writing.ts`](../../../lib/writing.ts). Routes: `/writing` and `/writing/[slug]`.
+The live pipeline is Zod + one loader. Schema: [`src/lib/schemas.ts`](../../../src/lib/schemas.ts) (`writingFrontmatterSchema`). Loader: [`src/lib/writing.ts`](../../../src/lib/writing.ts). Routes: `/writing` and `/writing/[slug]`.
 
 ## Step 0 — Read the voice contract
 
@@ -47,7 +47,7 @@ Do not draft into `content/research/` or `content/projects/`. Those are catalogs
 
 ## Step 3 — Pick frontmatter
 
-Schema: `writingFrontmatterSchema` in `lib/schemas.ts`. The loader will fail the build on invalid files. Use this shape:
+Schema: `writingFrontmatterSchema` in `src/lib/schemas.ts`. The loader will fail the build on invalid files. Use this shape:
 
 ```yaml
 ---
@@ -116,7 +116,7 @@ Universal rules:
 - **Link catalogs, do not duplicate them.** Point to `/research/[slug]` or `/projects/[slug]` for records; explain in the essay.
 - **Close with action or an open question.** No recap paragraph.
 
-Write standard Markdown plus GitHub-Flavored Markdown (tables, strikethrough, autolinks via `remark-gfm`). The MDX registry in `components/mdx-components.tsx` maps `a` only: internal `/` paths use Next.js `Link`; `http(s)` links open in a new tab. Do not invent custom tags (`<Callout>`, `<Tweet>`, and so on).
+Write standard Markdown plus GitHub-Flavored Markdown (tables, strikethrough, autolinks via `remark-gfm`). The MDX registry in `src/components/mdx-components.tsx` maps `a` only: internal `/` paths use Next.js `Link`; `http(s)` links open in a new tab. Do not invent custom tags (`<Callout>`, `<Tweet>`, and so on).
 
 ### Internal link targets
 
@@ -132,7 +132,7 @@ Never link to `/post/<slug>`.
 
 Write to `content/writing/<type-folder>/<slug>.mdx`. One file, one source of truth.
 
-Do not also write a draft to `.context/` or elsewhere. Do not touch catalog files, app routes, or `lib/content.ts`.
+Do not also write a draft to `.context/` or elsewhere. Do not touch catalog files, app routes, or `src/lib/content.ts`.
 
 ## Step 7 — Publishing
 
@@ -167,7 +167,7 @@ Keep it terse. The user wants to read the post, not a summary of it.
 Before handing back, verify:
 
 - [ ] `type` matches folder
-- [ ] Frontmatter matches `lib/schemas.ts` (`description`, not `excerpt`; no `updated`)
+- [ ] Frontmatter matches `src/lib/schemas.ts` (`description`, not `excerpt`; no `updated`)
 - [ ] Slug does not collide with an existing file
 - [ ] Voice is first-person and evidence-backed
 - [ ] No `/post` links or invented metrics

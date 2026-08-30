@@ -47,7 +47,7 @@ Every Mastra neutral is a **pure grey — R = G = B**. There is no hue cast in t
 
 ### 2.1a Portfolio overrides
 
-The portfolio keeps Mastra's neutral ramp but uses a true-black page canvas. These are the live tokens in `app/globals.css`, not Mastra source values:
+The portfolio keeps Mastra's neutral ramp but uses a true-black page canvas. These are the live tokens in `src/app/globals.css`, not Mastra source values:
 
 | Portfolio token | Value | Role |
 |---|---|---|

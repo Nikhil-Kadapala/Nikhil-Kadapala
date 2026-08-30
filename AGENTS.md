@@ -4,8 +4,8 @@ Personal site for Nikhil Kadapala. Next.js App Router on Vercel.
 
 ## Stack (do not drift)
 
-- Tailwind v4. Tokens live once in `app/globals.css` (`@theme inline`). Colors, radii, and type sizes in UI must use those tokens. Values: `DESIGN.md`.
-- shadcn primitives on Radix in `components/ui/`.
+- Tailwind v4. Tokens live once in `src/app/globals.css` (`@theme inline`). Colors, radii, and type sizes in UI must use those tokens. Values: `DESIGN.md`.
+- shadcn primitives on Radix in `src/components/ui/`.
 - Long-form MDX is one pipeline under `content/writing/{case-studies,build-logs,research,teaching}/`, routed at `/writing/[slug]`, discriminated by frontmatter `type`. No headless CMS.
 - `/research` and `/projects` are catalogs (publications and shipped work), not a second essay tree.
 - A new page or post is a pull request: CI + Vercel preview, then merge.
@@ -46,13 +46,13 @@ bun run build
 
 ## 1. Design tokens, not raw values
 
-Use tokens from `app/globals.css` (`@theme inline`) and the measured values in `DESIGN.md`. Semantic colors, type scale, radii, and layout widths belong in the theme — not as one-off hex, rem, or arbitrary Tailwind values in components.
+Use tokens from `src/app/globals.css` (`@theme inline`) and the measured values in `DESIGN.md`. Semantic colors, type scale, radii, and layout widths belong in the theme — not as one-off hex, rem, or arbitrary Tailwind values in components.
 
-If a new value is genuinely needed, add it to `app/globals.css` once and reference the token everywhere else. No escape hatches sprinkled across files.
+If a new value is genuinely needed, add it to `src/app/globals.css` once and reference the token everywhere else. No escape hatches sprinkled across files.
 
 ## 2. Use `cn()` for conditional classes
 
-`cn()` from `lib/utils.ts` is the only way to build conditional classNames. No template-string class assembly.
+`cn()` from `src/lib/utils.ts` is the only way to build conditional classNames. No template-string class assembly.
 
 ```tsx
 // Good
