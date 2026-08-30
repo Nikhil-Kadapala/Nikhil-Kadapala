@@ -6,6 +6,61 @@ Newest first. Add an entry when something ships (merge to `main`, or a notable u
 
 ## Unreleased
 
+- Tracker docs reconciled to `main` @ `89479f4`: Fern waves 0–4 merged, foundation Waves 0–1 done, Wave 2 next
+
+## 2026-08-29 — Source under `src/`
+
+Next.js application code lives under `src/app`, `src/components`, and `src/lib`. Project plumbing, `content/`, `public/`, and docs stay at the repo root. `@/*` maps to `src/*`. `89479f4`.
+
+### Added
+
+- `src/app/error.tsx`, `src/app/not-found.tsx`, and `src/app/writing/[slug]/loading.tsx`
+- `generateMetadata` on `/research/[slug]` and `/projects/[slug]`; homepage `metadata` with `title` and `description`
+
+### Changed
+
+- Token and component paths in `AGENTS.md`, `CLAUDE.md`, and `DESIGN.md` now point at `src/`
+
+This also closes foundation Wave 1 (correctness gaps). The foundation plan is at `artifacts/codebase-foundation/`.
+
+## 2026-08-29 — Navbar scroll shell
+
+The header narrows on scroll. `ff27b45`.
+
+### Changed
+
+- Scrolled navbar: 58% width, `translateY(24px)`, 48px threshold. `DESIGN.md` matches the live CSS. Dead 66% rule removed.
+
+## 2026-08-29 — Homepage motion and writing type indexes
+
+Gradient canvas, per-block homepage motion, and type indexes at `/writing/type/[type]`. `b58bfd6`.
+
+### Added
+
+- `/writing/type/[type]` indexes. `middleware.ts` 308s `/writing?type=` to the new path. `/writing/type` redirects to `/writing`.
+- `UNLISTED_WRITING_TYPES`: `teaching` stays reachable by URL and is omitted from the writing index, public filters, sitemap, and RSS. Those pages send `noindex, nofollow`.
+- Shared motion helpers in `src/lib/animations.ts`. Homepage markup lives in `src/components/home/HomePage.tsx`.
+
+### Changed
+
+- Nav label Blog → Writing. Unified `--canvas-gradient` on `body`.
+
+## 2026-08-29 — Fern adoption wave 4
+
+Article chrome on `/writing/[slug]`. [PR #9](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/9), merge `e03804a`.
+
+### Added
+
+- TOC, progress ring, callouts, Shiki (three-token theme), tables, footnotes
+- Optional frontmatter `cover` (relative path under `content/assets/`), served at `/content-assets/...`
+
+### Changed
+
+- D10 green on small uppercase mono labels in the article chrome (TOC heading, callout label, table `th`, figure index, footnotes heading). Amber for TOC `.active`, links, footnote refs, copy hover, and focus.
+- `--radius-lg` stays 20px. Article chrome uses `--radius-md` 8px, `--radius-card` 12px, `--radius-xl` 14px.
+
+Catalog `/research/[slug]` stays a publication record. The design-handoff HTML was deleted after the port.
+
 ## 2026-08-29 — Fern adoption wave 3
 
 Two-accent color system and token reconciliation. [PR #6](https://github.com/Nikhil-Kadapala/Nikhil-Kadapala/pull/6).

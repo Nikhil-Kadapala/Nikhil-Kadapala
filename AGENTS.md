@@ -12,7 +12,7 @@ Personal site for Nikhil Kadapala. Next.js App Router on Vercel.
 
 ## Changelog
 
-Repo timeline: `CHANGELOG.md`. Fern adoption metrics: `artifacts/fern-template-adoption/CHANGELOG.md`.
+Repo timeline: `CHANGELOG.md`. Fern adoption metrics: `artifacts/fern-template-adoption/CHANGELOG.md`. Foundation waves: `artifacts/codebase-foundation/`.
 
 ## Before a task
 
@@ -29,6 +29,14 @@ Waves are separate PRs: plan → review → implement → test → PR → review
 Per-wave logs stay in `artifacts/fern-template-adoption/` (changelog + optional `notes/`). Do not publish a `/writing` series for each wave. One `case-study` after adoption is finished.
 
 Do not import Fern’s look, `/post` URLs, campaigns, or SEO factory.
+
+Waves 0–4 are merged. Wave 5 (optional skills) has not started. Post-Wave-4 site work is the foundation track, not a Fern wave.
+
+## Codebase foundation
+
+Tracker: `artifacts/codebase-foundation/plan.md`. Changelog: `artifacts/codebase-foundation/CHANGELOG.md`.
+
+Waves 0–1 are done (navbar shell; metadata + error/not-found/loading, landed with the `src/` move). **Next:** Wave 2 — component folder contract. One wave per PR.
 
 ## Commands
 
@@ -69,6 +77,7 @@ Every `page.tsx` exports `metadata` (or `generateMetadata` for dynamic routes) w
 These URLs are settled and indexed. Do not rename or restructure without explicit approval:
 
 - `/writing/[slug]` — long-form essays (not `/post/[slug]`)
+- `/writing/type/[type]` — type indexes (`teaching` is unlisted)
 - `/research/[slug]` — publication catalog records
 - `/projects/[slug]` — shipped-work catalog records
 - `/about`, `/github`

@@ -1,6 +1,6 @@
 ---
 title: Codebase foundation
-status: planned
+status: wave-2-next
 updated: 2026-08-29
 owner: Nikhil Kadapala
 changelog: ./CHANGELOG.md
@@ -18,62 +18,66 @@ Origin: a reference architecture review of `resalign/frontend` (306 TS/TSX files
 
 **Do not implement a wave in the same session that only planned it.** Fresh session after restore.
 
+Application code lives under `src/app`, `src/components`, and `src/lib` (`89479f4`). Fern adoption waves 0–4 are merged; this track is the post-Fern site work. Fern Wave 5 (optional skills) is a separate PR after this track's current wave, not folded in.
+
 ## Settled decisions
 
 | ID | Call | Meaning |
 |---|---|---|
-| D1 | Keep RSC-first | 6 client components today, all justified (SiteHeader, ArticleToc, CodeCopyButton, sheet, HomePage, KnowledgeGraph). New interactivity gets a leaf client component, never a client page. |
-| D2 | Keep tokens-once | `app/globals.css` (`@theme inline`) + `DESIGN.md` values are the only sources. Audit found zero raw hex, zero `text-[Npx]`, zero `any` — the guardrails in wave 3 keep it that way. |
+| D1 | Keep RSC-first | 6 client components, all justified (SiteHeader, ArticleToc, CodeCopyButton, sheet, HomePage, KnowledgeGraph). New interactivity gets a leaf client component, never a client page. |
+| D2 | Keep tokens-once | `src/app/globals.css` (`@theme inline`) + `DESIGN.md` values are the only sources. Audit found zero raw hex, zero `text-[Npx]`, zero `any` — the guardrails in wave 3 keep it that way. |
 | D3 | No second token file | No `designOS.ts`-style typed token object. ResAlign's sat unused while CSS vars did the work; two sources of truth guarantee drift. |
 | D4 | One writing pipeline + catalogs | Unchanged from the Fern plan. Catalogs (`content/research/`, `content/projects/`) are not essays. |
-| D5 | Small composed components | 163 lines is today's max. ResAlign's 1,011-line `LearningPathView` is the anti-pattern. Split along data-vs-presentational seams before a file crosses ~300 lines. |
-| D6 | `cn()` is the only className assembler | Already true here. ResAlign had 179 template-string classNames across 54 files; wave 3 lints against that ever starting. |
+| D5 | Small composed components | Split along data-vs-presentational seams before a file crosses ~300 lines. |
+| D6 | `cn()` is the only className assembler | Already true here. Wave 3 lints against template-string classNames ever starting. |
 | D7 | Wave-sized PRs | Each wave below is one PR. One unit of work at a time; no second atomic task until the current one is merged. |
 | D8 | No Storybook, no BFF patterns | `ui/` is 2 primitives; a registry is overkill. The only route handlers (`rss.xml`, `content-assets`) are fine as-is. |
+| D9 | `src/` layout | App Router source under `src/`. Config, `content/`, `public/`, and docs stay at the repo root. `@/*` → `src/*`. |
 
 ## Failure modes this plan inoculates against (from the ResAlign review)
 
-| ResAlign disease | Exposure here today |
+| ResAlign disease | Status here |
 |---|---|
-| 0/34 pages export metadata; 0 loading/error/not-found boundaries | 3 routes missing metadata (`app/page.tsx`, `research/[slug]`, `projects/[slug]`); no boundaries anywhere |
-| Flat `components/` root sprawl (17 loose files, mixed concerns) | 9 loose root files and three empty writing folders about to fill |
-| Conventions that aren't linted decay | `oxlint` runs with defaults only; no `.github/workflows/` despite CLAUDE.md claiming "CI + Vercel preview" |
-| Twin MDX pipelines drifting apart | Both `@mdx-js/loader` and `next-mdx-remote` installed |
-| Copy-paste helpers diverging | Not present — `lib/` modules are single-responsibility. Keep it. |
+| 0/34 pages export metadata; 0 loading/error/not-found boundaries | **Closed (Wave 1).** Homepage, catalog slugs, `error.tsx`, `not-found.tsx`, `writing/[slug]/loading.tsx` are on `main`. Some catalog pages still export `title` only; Wave 3 should require `description` too. |
+| Flat `components/` root sprawl | **Open (Wave 2).** 9 files at `src/components/` root. `article/` and `home/` already exist. |
+| Conventions that aren't linted decay | **Partly closed.** `.github/workflows/ci.yml` runs typecheck + lint + build on PRs and `main` (Fern Wave 0). `.oxlintrc.json` already enables typescript/react/nextjs plugins and the correctness category. Still missing: conventions check (no raw hex, no `text-[Npx]`, metadata required) and a PR template. |
+| Twin MDX pipelines drifting apart | **Open (Wave 4).** Writing uses `next-mdx-remote/rsc`. `@mdx-js/loader` and `@mdx-js/react` are installed and unused. |
+| Copy-paste helpers diverging | Not present — `src/lib/` modules are single-responsibility. Keep it. |
 
-## Wave 0 — Land in-flight work (prerequisite)
+## Wave 0 — Land in-flight work (done)
 
-The navbar scroll-motion changes (`DESIGN.md`, `app/globals.css`, `components/SiteHeader.tsx`) are uncommitted. Review in `bun dev` (66% width, 16px offset, desktop + mobile), then commit. Nothing else starts on a dirty tree.
+Navbar scroll-motion committed as `ff27b45`. Live values: 58% width, `translateY(24px)`, 48px threshold. `DESIGN.md` matches. Dead 66% rule removed.
 
-## Wave 1 — Correctness gaps (one PR)
+## Wave 1 — Correctness gaps (done)
 
-- Add `metadata` to `app/page.tsx` (homepage currently inherits only the root layout title).
-- Add `generateMetadata` to `app/research/[slug]/page.tsx` and `app/projects/[slug]/page.tsx` — `writing/[slug]` already has it; catalogs match.
-- Add `app/not-found.tsx` and `app/error.tsx`; add `loading.tsx` on `writing/[slug]` where MDX compilation is the slow path.
+Landed in `89479f4` with the `src/` move.
 
-## Wave 2 — Component folder contract (docs + light moves, one PR)
+- `metadata` on `src/app/page.tsx`
+- `generateMetadata` on `src/app/research/[slug]/page.tsx` and `src/app/projects/[slug]/page.tsx`
+- `src/app/not-found.tsx`, `src/app/error.tsx`, `src/app/writing/[slug]/loading.tsx`
 
-- Contract: `components/ui/` is shadcn primitives only (kebab-case); `components/<surface>/` groups feature components by route surface (`article/`, `home/` exist; add `writing/`, `research/`, `projects/`); root of `components/` is site chrome only (`SiteHeader`, `SiteFooter`).
-- Moves: `writing-list.tsx` → `writing/`, `ProjectCard.tsx` → `projects/`, `ResearchMap.tsx` + `KnowledgeGraph.tsx` → `research/`, `CodeWorkbench.tsx` → surface by usage.
+## Wave 2 — Component folder contract (next, one PR)
+
+- Contract: `src/components/ui/` is shadcn primitives only (kebab-case); `src/components/<surface>/` groups feature components by route surface (`article/`, `home/` exist; add `writing/`, `research/`, `projects/`); root of `src/components/` is site chrome only (`SiteHeader`, `SiteFooter`).
+- Moves: `writing-list.tsx` → `writing/`, `ProjectCard.tsx` → `projects/`, `ResearchMap.tsx` + `KnowledgeGraph.tsx` → `research/`. `CodeWorkbench.tsx` and `ResearchMap.tsx` currently have no importers; park under `research/` or drop in this PR.
 - Naming: PascalCase components, kebab-case `ui/`, one vocabulary (`Dialog`, never `Modal`). Codify in the AGENTS.md authoring rules.
 
 ## Wave 3 — Guardrails (one PR)
 
-- `oxlint` config enabling its correctness/react rulesets (defaults-only today).
-- `scripts/check-conventions.ts` (or grep-based CI step) for rules oxlint can't express: no raw hex in `.tsx`, no `text-[Npx]`, every `page.tsx` contains `metadata`/`generateMetadata`.
-- `.github/workflows/ci.yml`: `typecheck` + `lint` + conventions check + `build` on PRs — makes the "CI + Vercel preview, then merge" rule real.
+- Conventions check for rules oxlint does not express: no raw hex in `.tsx`, no `text-[Npx]`, every `page.tsx` contains `metadata`/`generateMetadata` with `description`.
 - PR template with the existing checklist.
+- Do not add a second CI workflow. Extend `.github/workflows/ci.yml` with the conventions step. oxlint plugins + correctness are already on.
 
 ## Wave 4 — Dependency hygiene (one PR)
 
-- Resolve the dual MDX stack: keep whichever of `@mdx-js/loader` + `@mdx-js/react` vs `next-mdx-remote` the writing pipeline actually uses; drop the other.
+- Keep `next-mdx-remote`. Drop unused `@mdx-js/loader` and `@mdx-js/react`.
 - "No new deps without asking" stays as-is.
 
 ## Wave 5 — Contributor docs (one PR)
 
-- Verify `README.md` exists; if not, write it: architecture map (routes, content pipeline, catalogs), how to add a post / page / catalog entry, commands block.
-- `DESIGN.md` stays token source of truth; AGENTS.md stays the agent contract. No third doc.
+- Root `README.md` is the GitHub profile bio. Add an architecture map (routes, content pipeline, catalogs), how to add a post / page / catalog entry, and the commands block — without turning it into a third source of design truth.
+- `DESIGN.md` stays token source of truth; AGENTS.md stays the agent contract.
 
 ## Sequencing
 
-Waves 1 and 2 are independent. Wave 3 lands before content volume grows (three empty `writing/` type folders). Waves 4–5 slot in whenever. Wave 0 gates everything.
+Waves 0–1 are on `main`. **Next is Wave 2.** Wave 3 lands before content volume grows. Waves 4–5 slot in whenever. Fern Wave 5 stays a separate PR.

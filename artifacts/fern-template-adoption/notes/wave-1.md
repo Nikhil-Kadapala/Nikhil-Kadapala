@@ -55,3 +55,9 @@ Four types on the public site: a one-off engineering post is `case-study`. A pap
 A side fix landed while the pipeline was still empty: Vercel refused production builds on CVE-2026-0969 in `next-mdx-remote` 5, so the package is at 6.0.0 before anything compiles MDX. That is not wave 1. It is the cost of a dependency sitting unused.
 
 The open question at the time: whether I would actually log spend and commit counts before later waves, or keep publishing estimates and "not logged" while telling myself the changelog is honest enough.
+
+## Later correction (2026-08-29)
+
+This note is the 24 August Wave 1 scrap. Do not rewrite the calls as they stood that day.
+
+Waves 0–4 later merged. `src/` shipped in `89479f4` as foundation work, not a Fern wave. Live tokens are `src/app/globals.css`. D6's "no `src/` move" was a Fern-adoption non-goal and was reversed. The public post should say that, not pretend D6 still forbids `src/`.
