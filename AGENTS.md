@@ -36,7 +36,7 @@ Waves 0–4 are merged. Wave 5 (optional skills) has not started. Post-Wave-4 si
 
 Tracker: `artifacts/codebase-foundation/plan.md`. Changelog: `artifacts/codebase-foundation/CHANGELOG.md`.
 
-Waves 0–1 are done (navbar shell; metadata + error/not-found/loading, landed with the `src/` move). **Next:** Wave 2 — component folder contract. One wave per PR.
+Waves 0–1 are done (navbar shell; metadata + error/not-found/loading, landed with the `src/` move). Wave 2 (component folder contract) is this PR. One wave per PR.
 
 ## Commands
 
@@ -96,6 +96,20 @@ Catalogs are not essays:
 - `content/projects/` — shipped work cards (status, repo, links)
 
 A writing post may link to a catalog entry. Do not duplicate a catalog record as an essay, and do not flatten papers or repos into `/writing`.
+
+## 6. Component folders follow the route surface
+
+| Location | Owns |
+|---|---|
+| `src/components/ui/` | shadcn primitives only, kebab-case (`button`, `sheet`) |
+| `src/components/home/` | `/` |
+| `src/components/writing/` | `/writing` indexes (list + type filters) |
+| `src/components/article/` | `/writing/[slug]` essay chrome (TOC, MDX blocks, copy button, MDX map) |
+| `src/components/research/` | `/research` catalog + home research viz |
+| `src/components/projects/` | `/projects` catalog cards |
+| `src/components/` root | Site chrome only: `SiteHeader`, `SiteFooter`, `icons` |
+
+New feature UI goes in the matching surface folder, not the component root. `ui/` stays primitives. Root stays chrome. PascalCase feature files (`WritingIndex.tsx`, `ProjectCard.tsx`). kebab-case only under `ui/`. One vocabulary (`Dialog`, never `Modal`).
 
 # Writing style
 

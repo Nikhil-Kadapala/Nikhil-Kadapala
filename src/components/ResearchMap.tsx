@@ -1,3 +1,0 @@
-import Link from "next/link";
-const nodes=[{label:"Intent",copy:"What did the person mean?",links:["Claim extraction","Agent evals"]},{label:"Memory",copy:"What does the system actually know?",links:["Knowledge bases","RAG"]},{label:"Evidence",copy:"Can a result be inspected and used?",links:["ResAlign AI","HarnessBox"]},{label:"Behavior",copy:"Did it do the thing it was meant to do?",links:["Agentic RAG","Evaluation"]}];
-export function ResearchMap(){return <div className="map" aria-label="Research map">{nodes.map(n=><div className="map-cell" key={n.label}><span className="mono" style={{color:"var(--accent-light)"}}>{n.label}</span><strong>{n.copy}</strong>{n.links.map((l,i)=><Link href={i%2?"/research":"/projects"} key={l}>{l} ↗</Link>)}</div>)}</div>}

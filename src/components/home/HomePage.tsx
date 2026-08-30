@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { projects, research } from "@/lib/content";
 import { fadeUpReveal, heroStagger, scrollReveal } from "@/lib/animations";
-import { KnowledgeGraph } from "@/components/KnowledgeGraph";
+import { KnowledgeGraph } from "@/components/research/KnowledgeGraph";
 
 const paper = research[0];
 

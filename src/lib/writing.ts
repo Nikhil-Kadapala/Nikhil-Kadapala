@@ -5,7 +5,7 @@ import matter from "gray-matter";
 import { cache } from "react";
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
-import { mdxComponents } from "@/components/mdx-components";
+import { mdxComponents } from "@/components/article/mdx-components";
 import { extractArticleHeadings, type ArticleHeading } from "@/lib/article-headings";
 import { remarkCodeFilename } from "@/lib/remark-code-filename";
 import {

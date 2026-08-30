@@ -1,4 +1,4 @@
-import { WritingIndexView, loadWritingListItems } from "@/components/writing-list";
+import { WritingIndexView, loadWritingListItems } from "@/components/writing/WritingIndex";
 
 export const metadata = {
   title: "Writing",

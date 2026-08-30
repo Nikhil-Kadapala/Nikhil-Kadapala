@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { WritingIndexView, loadWritingListItems } from "@/components/writing-list";
+import { WritingIndexView, loadWritingListItems } from "@/components/writing/WritingIndex";
 import {
   UNLISTED_PAGE_ROBOTS,
   WRITING_TYPES,

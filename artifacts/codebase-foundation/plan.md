@@ -1,6 +1,6 @@
 ---
 title: Codebase foundation
-status: wave-2-next
+status: wave-2-pr
 updated: 2026-08-29
 owner: Nikhil Kadapala
 changelog: ./CHANGELOG.md
@@ -33,13 +33,15 @@ Application code lives under `src/app`, `src/components`, and `src/lib` (`89479f
 | D7 | Wave-sized PRs | Each wave below is one PR. One unit of work at a time; no second atomic task until the current one is merged. |
 | D8 | No Storybook, no BFF patterns | `ui/` is 2 primitives; a registry is overkill. The only route handlers (`rss.xml`, `content-assets`) are fine as-is. |
 | D9 | `src/` layout | App Router source under `src/`. Config, `content/`, `public/`, and docs stay at the repo root. `@/*` → `src/*`. |
+| D10 | Folder contract | `ui/` primitives; surfaces `home/`, `writing/`, `article/`, `research/`, `projects/`; root is `SiteHeader`, `SiteFooter`, `icons`. Keep `article/` this wave. |
+| D11 | Drop dead home museum | Delete `CodeWorkbench` and `ResearchMap` plus unused inspector/map CSS. Do not park. Home viz is `KnowledgeGraph`. |
 
 ## Failure modes this plan inoculates against (from the ResAlign review)
 
 | ResAlign disease | Status here |
 |---|---|
 | 0/34 pages export metadata; 0 loading/error/not-found boundaries | **Closed (Wave 1).** Homepage, catalog slugs, `error.tsx`, `not-found.tsx`, `writing/[slug]/loading.tsx` are on `main`. Some catalog pages still export `title` only; Wave 3 should require `description` too. |
-| Flat `components/` root sprawl | **Open (Wave 2).** 9 files at `src/components/` root. `article/` and `home/` already exist. |
+| Flat `components/` root sprawl | **Closed (Wave 2).** Surfaces own their UI. Root is chrome only. |
 | Conventions that aren't linted decay | **Partly closed.** `.github/workflows/ci.yml` runs typecheck + lint + build on PRs and `main` (Fern Wave 0). `.oxlintrc.json` already enables typescript/react/nextjs plugins and the correctness category. Still missing: conventions check (no raw hex, no `text-[Npx]`, metadata required) and a PR template. |
 | Twin MDX pipelines drifting apart | **Open (Wave 4).** Writing uses `next-mdx-remote/rsc`. `@mdx-js/loader` and `@mdx-js/react` are installed and unused. |
 | Copy-paste helpers diverging | Not present — `src/lib/` modules are single-responsibility. Keep it. |
@@ -56,11 +58,15 @@ Landed in `89479f4` with the `src/` move.
 - `generateMetadata` on `src/app/research/[slug]/page.tsx` and `src/app/projects/[slug]/page.tsx`
 - `src/app/not-found.tsx`, `src/app/error.tsx`, `src/app/writing/[slug]/loading.tsx`
 
-## Wave 2 — Component folder contract (next, one PR)
+## Wave 2 — Component folder contract (this PR)
 
-- Contract: `src/components/ui/` is shadcn primitives only (kebab-case); `src/components/<surface>/` groups feature components by route surface (`article/`, `home/` exist; add `writing/`, `research/`, `projects/`); root of `src/components/` is site chrome only (`SiteHeader`, `SiteFooter`).
-- Moves: `writing-list.tsx` → `writing/`, `ProjectCard.tsx` → `projects/`, `ResearchMap.tsx` + `KnowledgeGraph.tsx` → `research/`. `CodeWorkbench.tsx` and `ResearchMap.tsx` currently have no importers; park under `research/` or drop in this PR.
-- Naming: PascalCase components, kebab-case `ui/`, one vocabulary (`Dialog`, never `Modal`). Codify in the AGENTS.md authoring rules.
+Detail: `artifacts/codebase-foundation/notes/wave-2.md`.
+
+- **D10 settled:** `ui/` is shadcn primitives (kebab-case). Surfaces: `home/`, `writing/` (indexes), `article/` (essay chrome + MDX map), `research/`, `projects/`. Root is chrome only: `SiteHeader`, `SiteFooter`, `icons`.
+- **D11 settled:** drop `CodeWorkbench` and `ResearchMap` plus unused inspector/map CSS. Do not park or remount.
+- Moves: `writing-list.tsx` → `writing/WritingIndex.tsx`; `ProjectCard.tsx` → `projects/`; `KnowledgeGraph.tsx` → `research/`; `mdx-components.tsx` → `article/`.
+- Keep `article/` this wave. Do not fold it into `writing/`.
+- Codify D10 as AGENTS.md authoring rule 6. No URL or dependency changes.
 
 ## Wave 3 — Guardrails (one PR)
 
@@ -80,4 +86,4 @@ Landed in `89479f4` with the `src/` move.
 
 ## Sequencing
 
-Waves 0–1 are on `main`. **Next is Wave 2.** Wave 3 lands before content volume grows. Waves 4–5 slot in whenever. Fern Wave 5 stays a separate PR.
+Waves 0–1 are on `main`. Wave 2 is this PR. Wave 3 lands before content volume grows. Waves 4–5 slot in whenever. Fern Wave 5 stays a separate PR.

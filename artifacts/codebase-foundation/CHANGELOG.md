@@ -12,3 +12,4 @@
 - `src/` move (`89479f4`): application code under `src/app`, `src/components`, `src/lib`. D9.
 - Wave 1 complete in the same commit: homepage metadata, catalog `generateMetadata`, `error.tsx`, `not-found.tsx`, `writing/[slug]/loading.tsx`.
 - Trackers reconciled to `main` @ `89479f4`. Next: Wave 2 (component folder contract).
+- Wave 2 implemented on `feat/foundation-wave-2-component-folders`: surface folders, D11 drop of `CodeWorkbench` / `ResearchMap` plus unused inspector/map CSS (`.live-dot` kept for home status), AGENTS.md / CLAUDE.md authoring rule 6.
