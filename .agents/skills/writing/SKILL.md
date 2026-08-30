@@ -116,7 +116,7 @@ Universal rules:
 - **Link catalogs, do not duplicate them.** Point to `/research/[slug]` or `/projects/[slug]` for records; explain in the essay.
 - **Close with action or an open question.** No recap paragraph.
 
-Write standard Markdown plus GitHub-Flavored Markdown (tables, strikethrough, autolinks via `remark-gfm`). The MDX registry in `src/components/mdx-components.tsx` maps `a` only: internal `/` paths use Next.js `Link`; `http(s)` links open in a new tab. Do not invent custom tags (`<Callout>`, `<Tweet>`, and so on).
+Write standard Markdown plus GitHub-Flavored Markdown (tables, strikethrough, autolinks via `remark-gfm`). The MDX registry in `src/components/article/mdx-components.tsx` maps `a` only: internal `/` paths use Next.js `Link`; `http(s)` links open in a new tab. Do not invent custom tags (`<Callout>`, `<Tweet>`, and so on).
 
 ### Internal link targets
 

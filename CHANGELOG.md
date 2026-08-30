@@ -6,7 +6,8 @@ Newest first. Add an entry when something ships (merge to `main`, or a notable u
 
 ## Unreleased
 
-- Tracker docs reconciled to `main` @ `89479f4`: Fern waves 0–4 merged, foundation Waves 0–1 done, Wave 2 next
+- Foundation Wave 2: feature UI grouped by route surface (`home/`, `writing/`, `article/`, `research/`, `projects/`). Root chrome only. Dead `CodeWorkbench` / `ResearchMap` removed. Authoring rule 6 in AGENTS.md.
+- Tracker docs reconciled to `main` @ `89479f4`: Fern waves 0–4 merged, foundation Waves 0–1 done
 
 ## 2026-08-29 — Source under `src/`
 
