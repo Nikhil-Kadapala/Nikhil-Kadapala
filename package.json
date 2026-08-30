@@ -7,7 +7,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "oxlint",
-        "typecheck": "tsc --noEmit"
+        "typecheck": "tsc --noEmit",
+        "check:agent-index": "bash scripts/check-agent-index.test.sh && bash scripts/check-agent-index.sh"
     },
     "dependencies": {
         "@fontsource/commit-mono": "^5.3.0",

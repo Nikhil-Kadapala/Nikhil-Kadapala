@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Agent index
+        run: |
+          bash scripts/check-agent-index.test.sh
+          bash scripts/check-agent-index.sh
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
