@@ -6,7 +6,7 @@ Tokens, classNames, and where UI files live. Read `DESIGN.md` first for measured
 
 Colors, radii, and type sizes in UI must use theme tokens from `src/app/globals.css` (`@theme inline`). Values are documented in `DESIGN.md`.
 
-If a new value is genuinely needed, add it to `src/app/globals.css` once and reference the token everywhere else. No one-off hex, rem, or arbitrary Tailwind values in components.
+If a new value is genuinely needed, add it to `src/app/globals.css` once and reference the token everywhere else. No one-off hex, rem, or arbitrary Tailwind values in components. CI fails `scripts/check-conventions.sh` if a `.tsx` file (not `.ts`) uses raw hex, `text-[Npx]`, or a string-built className.
 
 ## `cn()` only
 

@@ -1,6 +1,6 @@
 ---
 title: Codebase foundation
-status: wave-3-next
+status: wave-3-done
 updated: 2026-08-30
 owner: Nikhil Kadapala
 changelog: ./CHANGELOG.md
@@ -42,7 +42,7 @@ Application code lives under `src/app`, `src/components`, and `src/lib` (`89479f
 |---|---|
 | 0/34 pages export metadata; 0 loading/error/not-found boundaries | **Closed (Wave 1).** Homepage, catalog slugs, `error.tsx`, `not-found.tsx`, `writing/[slug]/loading.tsx` are on `main`. Some catalog pages still export `title` only; Wave 3 should require `description` too. |
 | Flat `components/` root sprawl | **Closed (Wave 2).** Surfaces own their UI. Root is chrome only. |
-| Conventions that aren't linted decay | **Partly closed.** `.github/workflows/ci.yml` runs typecheck + lint + build on PRs and `main` (Fern Wave 0). `.oxlintrc.json` already enables typescript/react/nextjs plugins and the correctness category. Still missing: conventions check (no raw hex, no `text-[Npx]`, metadata required) and a PR template. |
+| Conventions that aren't linted decay | **Closed (Wave 3).** `scripts/check-conventions.sh` fails raw hex, `text-[Npx]`, and string-built classNames in `.tsx`, and requires a non-empty `description` on every `page.tsx`. `.github/PULL_REQUEST_TEMPLATE.md` plus a CI step before `bun install`. |
 | Twin MDX pipelines drifting apart | **Open (Wave 4).** Writing uses `next-mdx-remote/rsc`. `@mdx-js/loader` and `@mdx-js/react` are installed and unused. |
 | Copy-paste helpers diverging | Not present — `src/lib/` modules are single-responsibility. Keep it. |
 
@@ -68,11 +68,28 @@ Detail: `artifacts/codebase-foundation/notes/wave-2.md`. Merged as PR #10.
 - Keep `article/`. Do not fold it into `writing/`.
 - D10 lives in `docs/authoring.md`; `AGENTS.md` only dispatches there.
 
-## Wave 3 — Guardrails (one PR)
+## Wave 3 — Guardrails (done)
 
-- Conventions check for rules oxlint does not express: no raw hex in `.tsx`, no `text-[Npx]`, every `page.tsx` contains `metadata`/`generateMetadata` with `description`.
-- PR template with the existing checklist.
-- Do not add a second CI workflow. Extend `.github/workflows/ci.yml` with the conventions step. oxlint plugins + correctness are already on.
+Visual brief: `artifacts/codebase-foundation/show-me-wave-3-plan.html`.
+Eng review (2026-08-30): scope A, scan 1B, CI order 2B, copy header 3B, grep set 4A, empty description 5A.
+
+- Conventions check cloned from `scripts/check-agent-index.sh` (copy `ROOT`/`fail`, do not extract a lib, do not edit the agent-index scripts).
+- Scan `src/**/*.tsx` for: raw hex, `text-[Npx]`, `className={\``, `className` string concat, `cn(\``. Hex in comments fails. Do not scan `.ts` (`src/lib/shiki.ts` stays legal).
+- Scan `src/app/**/page.tsx` for `metadata` or `generateMetadata` plus a non-empty `description` (whitespace-only fails).
+- Title-only pages that must gain `description` in this PR: `research/page.tsx`, `projects/page.tsx`, `github/page.tsx`, `about/page.tsx`.
+- Fixture tests in `scripts/check-conventions.test.sh` (every fail case above + clean pass + hex-only-in-`.ts` pass).
+- `package.json` script `check:conventions` (test then live). Document in `docs/stack.md`.
+- PR template with the existing checklist plus these conventions.
+- Same CI job, no second workflow. Run test+live **before** `bun install`, next to agent-index.
+- No oxlint JS plugins. No new npm deps.
+- Update this plan + `CHANGELOG.md` when the wave lands. Done in this PR.
+
+```
+PR / push → ci.yml job check
+  check-agent-index.test.sh + check-agent-index.sh
+  check-conventions.test.sh + check-conventions.sh
+  bun install → typecheck → lint → build
+```
 
 ## Wave 4 — Dependency hygiene (one PR)
 
@@ -85,4 +102,18 @@ Root `README.md` stays the GitHub profile bio. Add `docs/architecture.md` (route
 
 ## Sequencing
 
-Waves 0–2 are on `main`. Wave 5 (resolver + `docs/`) landed after Wave 2. Wave 3 (conventions lint + PR template) is next. Wave 4 (unused MDX deps) slots in whenever. Fern Wave 5 (optional skills) stays a separate PR.
+Waves 0–3 and 5 are on this branch. Wave 4 (unused MDX deps) is next. Fern Wave 5 (optional skills) stays a separate PR.
+
+## GSTACK REVIEW REPORT
+
+| Review | Trigger | Why | Runs | Status | Findings |
+|--------|---------|-----|------|--------|----------|
+| CEO Review | `/plan-ceo-review` | Scope & strategy | 0 | — | — |
+| Codex Review | `/codex review` | Independent 2nd opinion | 0 | — | — |
+| Eng Review | `/plan-eng-review` | Architecture & tests (required) | 1 | CLEAR | 5 issues resolved, 0 critical gaps, 0 unresolved |
+| Design Review | `/plan-design-review` | UI/UX gaps | 0 | — | — |
+
+- **OUTSIDE VOICE:** Claude subagent (Codex CLI blocked). Said drop the checker; user kept it (B).
+- **CROSS-MODEL:** Disagreed on building the bash check. Locked: keep the checker.
+- **UNRESOLVED:** 0
+- **VERDICT:** ENG CLEARED — ready to implement in a fresh session.

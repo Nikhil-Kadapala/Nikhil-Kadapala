@@ -8,7 +8,8 @@
         "start": "next start",
         "lint": "oxlint",
         "typecheck": "tsc --noEmit",
-        "check:agent-index": "bash scripts/check-agent-index.test.sh && bash scripts/check-agent-index.sh"
+        "check:agent-index": "bash scripts/check-agent-index.test.sh && bash scripts/check-agent-index.sh",
+        "check:conventions": "bash scripts/check-conventions.test.sh && bash scripts/check-conventions.sh"
     },
     "dependencies": {
         "@fontsource/commit-mono": "^5.3.0",

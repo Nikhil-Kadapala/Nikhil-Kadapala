@@ -11,9 +11,10 @@ bun run typecheck
 bun run lint
 bun run build
 bun run check:agent-index
+bun run check:conventions
 ```
 
-`check:agent-index` runs the fixture tests, then the live index check. GitHub Actions runs the same two scripts before `bun install`.
+`check:agent-index` runs the fixture tests, then the live index check. `check:conventions` runs fixture tests, then scans `src/**/*.tsx` (not `.ts`) for hex / `text-[Npx]` / string-built classNames, and requires a non-empty `description` on every `src/app/**/page.tsx`. GitHub Actions runs both checks before `bun install`.
 
 ## Approved stack
 
