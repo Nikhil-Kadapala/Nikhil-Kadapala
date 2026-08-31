@@ -12,6 +12,7 @@ Do not rename or restructure without explicit approval:
 - `/writing/type/[type]` — type indexes (`teaching` is unlisted)
 - `/research`, `/research/[slug]` — publication catalog
 - `/projects`, `/projects/[slug]` — shipped-work catalog
+- `/teaching`, `/teaching/[semester]/[course]` — TA office hours (unlisted: `robots: noindex`, not in nav or sitemap)
 - `/about`, `/github`
 
 ## Content layout
@@ -26,6 +27,8 @@ Catalogs are not essays:
 A writing post may link to a catalog entry. Do not duplicate a catalog record as an essay, and do not flatten papers or repos into `/writing`.
 
 Loaders: `src/lib/writing.ts` for essays (`compileMDX` from `next-mdx-remote/rsc`); catalog records via `src/lib/content.ts` (and related modules). Frontmatter schema: `src/lib/schemas.ts`. MDX is application data, not webpack modules.
+
+`/teaching` is a separate, non-essay route: course data lives in `src/lib/teaching.ts` (plain TS array, same pattern as `content.ts`), UI in `src/components/teaching/`. Not part of the writing pipeline — do not add teaching notes here as MDX.
 
 Application code lives under `src/app`, `src/components`, `src/lib`. Config, `content/`, `public/`, and `docs/` stay at the repo root.
 
