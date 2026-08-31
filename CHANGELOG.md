@@ -6,6 +6,7 @@ Newest first. Add an entry when something ships (merge to `main`, or a notable u
 
 ## Unreleased
 
+- Favicon uses the navbar Pursuit mark (`favicon.ico`, `icon.png`).
 - Buttons are the shadcn `Button` primitive (`default`, `quiet`, `ghost`, `link`). Navbar GitHub uses `quiet` with the same `--border-strong` as Card.
 - Catalog tiles use the official shadcn/Radix Card tree (`CardHeader` / `Title` / `Description` / `Action` / `Content` / `Footer`). No custom `card-link` API.
 - Rename site chrome: `SiteHeader` → `Navbar`, `SiteFooter` → `Footer`. Navbar/footer layout and scroll motion live on the components (Tailwind + React); tokens stay in `globals.css`.
