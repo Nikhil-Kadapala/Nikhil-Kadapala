@@ -52,7 +52,7 @@ export function Navbar() {
     >
       <div
         className={cn(
-          "mx-auto h-full w-full origin-top border-b border-(--border)",
+          "mx-auto h-full w-full origin-top border-b border-border",
           "bg-(image:--surface-header) backdrop-blur-(--navbar-blur)",
           "transition-[width,transform,border-radius,box-shadow] duration-(--dur) ease-out",
           scrolled &&
@@ -94,7 +94,7 @@ export function Navbar() {
               "max-narrow:gap-(--navbar-inner-gap-narrow)",
               !open && "max-compact:hidden",
               open &&
-                "max-compact:absolute max-compact:inset-x-0 max-compact:top-(--navbar-menu-offset) max-compact:flex max-compact:flex-col max-compact:gap-0 max-compact:border-b max-compact:border-(--border) max-compact:bg-(image:--surface-header)",
+                "max-compact:absolute max-compact:inset-x-0 max-compact:top-(--navbar-menu-offset) max-compact:flex max-compact:flex-col max-compact:gap-0 max-compact:border-b max-compact:border-border max-compact:bg-(image:--surface-header)",
             )}
           >
             {NAV_LINKS.map((link) => (
@@ -104,7 +104,7 @@ export function Navbar() {
                 onClick={close}
                 className={cn(
                   open &&
-                    "max-compact:border-t max-compact:border-(--border) max-compact:px-4 max-compact:py-(--navbar-menu-link-y)",
+                    "max-compact:border-t max-compact:border-border max-compact:px-4 max-compact:py-(--navbar-menu-link-y)",
                 )}
               >
                 {link.label}
