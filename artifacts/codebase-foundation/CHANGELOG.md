@@ -16,4 +16,5 @@
 
 ## 2026-08-30
 
-- Wave 5 (contributor docs): `AGENTS.md` is a ≤50-line resolver; how-to lives in `docs/stack.md`, `docs/architecture.md`, `docs/authoring.md`. `CLAUDE.md` is a one-line `@AGENTS.md` bridge. CI runs `scripts/check-agent-index.test.sh` then `scripts/check-agent-index.sh` before bun install. Root `README.md` stays the GitHub profile bio. Next: Wave 3 (conventions check + PR template).
+- Wave 3 (guardrails): `scripts/check-conventions.sh` (+ fixture tests) scans `src/**/*.tsx` for hex, `text-[Npx]`, and string-built classNames; every `src/app/**/page.tsx` needs a non-empty `description`. `check:conventions` in `package.json`. CI runs test+live after agent-index, before bun install. `.github/PULL_REQUEST_TEMPLATE.md`. Descriptions added on about, research, projects, github. Next: Wave 4 (`@mdx-js/*`).
+- Wave 5 (contributor docs): `AGENTS.md` is a ≤50-line resolver; how-to lives in `docs/stack.md`, `docs/architecture.md`, `docs/authoring.md`. `CLAUDE.md` is a one-line `@AGENTS.md` bridge. CI runs `scripts/check-agent-index.test.sh` then `scripts/check-agent-index.sh` before bun install. Root `README.md` stays the GitHub profile bio.

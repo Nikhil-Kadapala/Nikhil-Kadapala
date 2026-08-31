@@ -6,6 +6,7 @@ Newest first. Add an entry when something ships (merge to `main`, or a notable u
 
 ## Unreleased
 
+- Foundation Wave 3: `check:conventions` fails hex / `text-[Npx]` / string-built classNames in `.tsx` and requires a non-empty page `description`. PR template. CI runs it after agent-index, before bun install.
 - Foundation Wave 5: `AGENTS.md` is a short resolver; how-to lives in `docs/{stack,architecture,authoring}.md`. `CLAUDE.md` is `@AGENTS.md`. CI checks the index before bun install.
 - Foundation Wave 2: feature UI grouped by route surface (`home/`, `writing/`, `article/`, `research/`, `projects/`). Root chrome only. Dead `CodeWorkbench` / `ResearchMap` removed.
 - Tracker docs reconciled to `main` @ `89479f4`: Fern waves 0–4 merged, foundation Waves 0–1 done
