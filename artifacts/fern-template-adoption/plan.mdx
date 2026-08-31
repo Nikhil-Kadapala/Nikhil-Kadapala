@@ -1,7 +1,7 @@
 ---
 title: Fern template adoption
 status: wave-4-merged
-updated: 2026-08-29
+updated: 2026-08-30
 owner: Nikhil Kadapala
 html: ./migration-plan.html
 changelog: ./CHANGELOG.md
@@ -25,7 +25,7 @@ Living plan. Update this file when a decision, wave, or metric changes. The HTML
 | D2 | Existing URLs | `/writing`, `/writing/[slug]`, `/writing/type/[type]`, `/research`, `/projects`, `/about`, `/github`. Never `/post`. |
 | D3 | Dark only | No `next-themes`. Skip theme-provider. |
 | D4 | DESIGN.md wins values | Fern wins the no-escape-hatch rule. Wave 3 reconciled tokens in what is now `src/app/globals.css`. |
-| D5 | First-person research voice | Steal AGENTS.md structure. Rewrite every sentence. Em dashes stay if they earn their place. |
+| D5 | First-person research voice | Voice lives in `.agents/skills/writing/voice-nikhil.md`. `AGENTS.md` is a resolver, not a voice dump. Rewrite every sentence. Em dashes stay if they earn their place. |
 | D6 | bun + oxlint + Next 15 | No Next 16 as a template side effect. Zod in wave 2. `src/` was a Fern non-goal; reversed later by foundation commit `89479f4`, not a Fern wave. |
 | D7 | One writing pipeline + `type` | See taxonomy below. Not three equal MDX trees. |
 | D8 | Discard contradicting WIP | Restored app pages to `main`. Kept only infra that the waves will use. |
@@ -112,7 +112,7 @@ Optional `updated` field: **no**. Git history is enough. The schema rejects unkn
 - `campaigns/` and launch-campaign
 - SEO blog factory
 - Employee profiles
-- Vale/CI prose lint (write 3–4 voice rules in AGENTS.md instead)
+- Vale/CI prose lint (voice lives in the writing skill, not `AGENTS.md`)
 - Light theme
 - `src/` directory move as a Fern template side effect (reversed later by foundation `89479f4`; not a Fern wave)
 - Next 16 as a template side effect

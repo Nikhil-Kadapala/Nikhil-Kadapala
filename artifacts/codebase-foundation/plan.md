@@ -1,7 +1,7 @@
 ---
 title: Codebase foundation
-status: wave-2-pr
-updated: 2026-08-29
+status: wave-3-next
+updated: 2026-08-30
 owner: Nikhil Kadapala
 changelog: ./CHANGELOG.md
 ---
@@ -18,7 +18,7 @@ Origin: a reference architecture review of `resalign/frontend` (306 TS/TSX files
 
 **Do not implement a wave in the same session that only planned it.** Fresh session after restore.
 
-Application code lives under `src/app`, `src/components`, and `src/lib` (`89479f4`). Fern adoption waves 0–4 are merged; this track is the post-Fern site work. Fern Wave 5 (optional skills) is a separate PR after this track's current wave, not folded in.
+Application code lives under `src/app`, `src/components`, and `src/lib` (`89479f4`). Fern adoption waves 0–4 are merged; this track is the post-Fern site work. Fern Wave 5 (optional skills) is a separate PR, not folded into foundation waves.
 
 ## Settled decisions
 
@@ -33,7 +33,7 @@ Application code lives under `src/app`, `src/components`, and `src/lib` (`89479f
 | D7 | Wave-sized PRs | Each wave below is one PR. One unit of work at a time; no second atomic task until the current one is merged. |
 | D8 | No Storybook, no BFF patterns | `ui/` is 2 primitives; a registry is overkill. The only route handlers (`rss.xml`, `content-assets`) are fine as-is. |
 | D9 | `src/` layout | App Router source under `src/`. Config, `content/`, `public/`, and docs stay at the repo root. `@/*` → `src/*`. |
-| D10 | Folder contract | `ui/` primitives; surfaces `home/`, `writing/`, `article/`, `research/`, `projects/`; root is `SiteHeader`, `SiteFooter`, `icons`. Keep `article/` this wave. |
+| D10 | Folder contract | `ui/` primitives; surfaces `home/`, `writing/`, `article/`, `research/`, `projects/`; root is `SiteHeader`, `SiteFooter`, `icons`. Keep `article/`. Procedure lives in `docs/authoring.md`; `AGENTS.md` only dispatches there. |
 | D11 | Drop dead home museum | Delete `CodeWorkbench` and `ResearchMap` plus unused inspector/map CSS. Do not park. Home viz is `KnowledgeGraph`. |
 
 ## Failure modes this plan inoculates against (from the ResAlign review)
@@ -58,15 +58,15 @@ Landed in `89479f4` with the `src/` move.
 - `generateMetadata` on `src/app/research/[slug]/page.tsx` and `src/app/projects/[slug]/page.tsx`
 - `src/app/not-found.tsx`, `src/app/error.tsx`, `src/app/writing/[slug]/loading.tsx`
 
-## Wave 2 — Component folder contract (this PR)
+## Wave 2 — Component folder contract (done)
 
-Detail: `artifacts/codebase-foundation/notes/wave-2.md`.
+Detail: `artifacts/codebase-foundation/notes/wave-2.md`. Merged as PR #10.
 
 - **D10 settled:** `ui/` is shadcn primitives (kebab-case). Surfaces: `home/`, `writing/` (indexes), `article/` (essay chrome + MDX map), `research/`, `projects/`. Root is chrome only: `SiteHeader`, `SiteFooter`, `icons`.
 - **D11 settled:** drop `CodeWorkbench` and `ResearchMap` plus unused inspector/map CSS. Do not park or remount.
 - Moves: `writing-list.tsx` → `writing/WritingIndex.tsx`; `ProjectCard.tsx` → `projects/`; `KnowledgeGraph.tsx` → `research/`; `mdx-components.tsx` → `article/`.
-- Keep `article/` this wave. Do not fold it into `writing/`.
-- Codify D10 as AGENTS.md authoring rule 6. No URL or dependency changes.
+- Keep `article/`. Do not fold it into `writing/`.
+- D10 lives in `docs/authoring.md`; `AGENTS.md` only dispatches there.
 
 ## Wave 3 — Guardrails (one PR)
 
@@ -79,11 +79,10 @@ Detail: `artifacts/codebase-foundation/notes/wave-2.md`.
 - Keep `next-mdx-remote`. Drop unused `@mdx-js/loader` and `@mdx-js/react`.
 - "No new deps without asking" stays as-is.
 
-## Wave 5 — Contributor docs (one PR)
+## Wave 5 — Contributor docs (done)
 
-- Root `README.md` is the GitHub profile bio. Add an architecture map (routes, content pipeline, catalogs), how to add a post / page / catalog entry, and the commands block — without turning it into a third source of design truth.
-- `DESIGN.md` stays token source of truth; AGENTS.md stays the agent contract.
+Root `README.md` stays the GitHub profile bio. Add `docs/architecture.md` (routes, content pipeline, catalogs, how to add a post/page/catalog entry), `docs/stack.md` (commands, deps), and `docs/authoring.md` (tokens, `cn()`, folder contract). `AGENTS.md` is a short resolver into those files plus skills and artifacts — not a dump of the rules. `DESIGN.md` stays token source of truth. `CLAUDE.md` is a one-line `@AGENTS.md` bridge. CI: `scripts/check-agent-index.sh` (+ fixture tests) as the first job step.
 
 ## Sequencing
 
-Waves 0–1 are on `main`. Wave 2 is this PR. Wave 3 lands before content volume grows. Waves 4–5 slot in whenever. Fern Wave 5 stays a separate PR.
+Waves 0–2 are on `main`. Wave 5 (resolver + `docs/`) landed after Wave 2. Wave 3 (conventions lint + PR template) is next. Wave 4 (unused MDX deps) slots in whenever. Fern Wave 5 (optional skills) stays a separate PR.

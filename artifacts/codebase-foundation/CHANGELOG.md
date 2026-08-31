@@ -13,3 +13,7 @@
 - Wave 1 complete in the same commit: homepage metadata, catalog `generateMetadata`, `error.tsx`, `not-found.tsx`, `writing/[slug]/loading.tsx`.
 - Trackers reconciled to `main` @ `89479f4`. Next: Wave 2 (component folder contract).
 - Wave 2 implemented on `feat/foundation-wave-2-component-folders`: surface folders, D11 drop of `CodeWorkbench` / `ResearchMap` plus unused inspector/map CSS (`.live-dot` kept for home status), AGENTS.md / CLAUDE.md authoring rule 6.
+
+## 2026-08-30
+
+- Wave 5 (contributor docs): `AGENTS.md` is a ≤50-line resolver; how-to lives in `docs/stack.md`, `docs/architecture.md`, `docs/authoring.md`. `CLAUDE.md` is a one-line `@AGENTS.md` bridge. CI runs `scripts/check-agent-index.test.sh` then `scripts/check-agent-index.sh` before bun install. Root `README.md` stays the GitHub profile bio. Next: Wave 3 (conventions check + PR template).
