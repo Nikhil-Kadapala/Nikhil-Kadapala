@@ -18,7 +18,7 @@ bun run check:conventions
 
 ## Approved stack
 
-bun + Next 15 App Router + Tailwind v4 + shadcn/Radix + gray-matter. Do not add a dependency without asking: what it does that this stack does not, and why a small in-repo solution would not work.
+bun + Next 15 App Router + Tailwind v4 + shadcn/Radix + gray-matter. Essays compile with `next-mdx-remote/rsc` in `src/lib/writing.ts`. Do not add `@mdx-js/loader`, `@mdx-js/react`, or `@next/mdx`. Do not add a dependency without asking: what it does that this stack does not, and why a small in-repo solution would not work.
 
 ## Changelogs
 

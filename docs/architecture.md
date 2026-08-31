@@ -25,7 +25,7 @@ Catalogs are not essays:
 
 A writing post may link to a catalog entry. Do not duplicate a catalog record as an essay, and do not flatten papers or repos into `/writing`.
 
-Loaders: `src/lib/writing.ts` for essays; catalog records via `src/lib/content.ts` (and related modules). Frontmatter schema: `src/lib/schemas.ts`.
+Loaders: `src/lib/writing.ts` for essays (`compileMDX` from `next-mdx-remote/rsc`); catalog records via `src/lib/content.ts` (and related modules). Frontmatter schema: `src/lib/schemas.ts`. MDX is application data, not webpack modules.
 
 Application code lives under `src/app`, `src/components`, `src/lib`. Config, `content/`, `public/`, and `docs/` stay at the repo root.
 

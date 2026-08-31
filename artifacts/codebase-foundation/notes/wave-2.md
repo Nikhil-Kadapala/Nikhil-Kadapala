@@ -62,7 +62,7 @@ Mirror the same sentence in `CLAUDE.md` only if that file still duplicates the a
 ## Out of scope
 
 - Catalog pages that export `title` only (Wave 3).
-- Unused `@mdx-js/loader` / `@mdx-js/react` (Wave 4).
+- Unused `@mdx-js/loader` / `@mdx-js/react` (Wave 4, done).
 - Architecture map in README (Wave 5).
 - Untracked leftover `app/` and `components/` at the repo root on this machine. They are not in git. Do not edit them. Local delete is hygiene, not this PR.
 
