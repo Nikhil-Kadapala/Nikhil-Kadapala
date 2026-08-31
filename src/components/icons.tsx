@@ -11,9 +11,9 @@
  */
 export function PursuitMark({ size = 22 }: { size?: number }) {
   return (
-    <svg className="brand-mark" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-      <path className="brand-stem" d="M4.41 19.5L7.38 5.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-      <path className="brand-stem" d="M16.62 18.5L19.38 5.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+    <svg className="block shrink-0 text-current" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+      <path className="opacity-70 transition-opacity duration-(--dur) ease-out [@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100" d="M4.41 19.5L7.38 5.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+      <path className="opacity-70 transition-opacity duration-(--dur) ease-out [@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100" d="M16.62 18.5L19.38 5.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
       <path d="M7.38 5.5L16.62 18.5" stroke="var(--accent)" strokeWidth="3.2" strokeLinecap="round" />
       <circle cx="7.38" cy="5.5" r="2.4" fill="var(--bg)" stroke="currentColor" strokeWidth="1.4" />
       <circle cx="16.62" cy="18.5" r="2.4" fill="var(--bg)" stroke="currentColor" strokeWidth="1.4" />

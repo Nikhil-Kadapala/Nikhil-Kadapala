@@ -20,7 +20,7 @@ No URL changes. No new dependencies. No Wave 3 conventions check. No Fern Wave 5
 | `src/components/article/` | `/writing/[slug]` essay chrome (TOC, MDX blocks, copy button, MDX map) |
 | `src/components/research/` | `/research` catalog + home research viz |
 | `src/components/projects/` | `/projects` catalog cards |
-| `src/components/` root | Site chrome only: `SiteHeader`, `SiteFooter`, `icons` |
+| `src/components/` root | Site chrome only: `Navbar`, `Footer`, `icons` |
 
 Naming: PascalCase feature files (`WritingIndex.tsx`, `ProjectCard.tsx`). kebab-case only under `ui/`. One vocabulary (`Dialog`, never `Modal`).
 
@@ -35,7 +35,7 @@ Naming: PascalCase feature files (`WritingIndex.tsx`, `ProjectCard.tsx`). kebab-
 | `KnowledgeGraph.tsx` | `research/KnowledgeGraph.tsx` | `src/components/home/HomePage.tsx` |
 | `mdx-components.tsx` | `article/mdx-components.tsx` | `src/lib/writing.ts` |
 
-Stay put: `SiteHeader`, `SiteFooter`, `icons`, `home/HomePage`, `article/{ArticleToc,CodeCopyButton,blocks}`, `ui/*`.
+Stay put: `Navbar`, `Footer`, `icons`, `home/HomePage`, `article/{ArticleToc,CodeCopyButton,blocks}`, `ui/*`.
 
 Export names stay (`WritingIndexView`, `loadWritingListItems`, `ProjectCard`, `KnowledgeGraph`, `mdxComponents`). Only the path and the `writing-list` filename change.
 

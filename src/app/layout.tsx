@@ -6,8 +6,8 @@ import "@fontsource/commit-mono/latin-500.css";
 import "@fontsource/commit-mono/latin-600.css";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -26,9 +26,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     // (Next 16 requires it); suppressHydrationWarning covers the style Next writes.
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>
-        <SiteHeader />
+        <Navbar />
         <main>{children}</main>
-        <SiteFooter />
+        <Footer />
         <Analytics />
       </body>
     </html>
