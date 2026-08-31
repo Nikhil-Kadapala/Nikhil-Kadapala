@@ -1,2 +1,0 @@
-import Link from "next/link";
-export function SiteFooter(){return <footer className="footer"><div className="wrap footer-inner"><span className="mono muted">Nikhil Kadapala · 2026</span><div><Link href="https://github.com/Nikhil-Kadapala">GitHub</Link><Link href="https://www.linkedin.com/in/nikhil-kadapala">LinkedIn</Link><Link href="https://x.com/Nikhil_Kadapala">X</Link><Link href="/rss.xml">RSS</Link></div></div></footer>}

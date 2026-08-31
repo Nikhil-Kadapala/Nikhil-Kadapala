@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Error({
   reset,
@@ -13,13 +14,13 @@ export default function Error({
       <p className="eyebrow mono">Error</p>
       <h1>Something went wrong.</h1>
       <p>The page could not load. Try again or head back home.</p>
-      <p>
-        <button className="btn" type="button" onClick={() => reset()}>
+      <p className="flex flex-wrap items-center gap-3">
+        <Button type="button" onClick={() => reset()}>
           Try again
-        </button>{" "}
-        <Link className="link-arrow" href="/">
-          Back home
-        </Link>
+        </Button>
+        <Button variant="link" asChild>
+          <Link href="/">Back home</Link>
+        </Button>
       </p>
     </section>
   );

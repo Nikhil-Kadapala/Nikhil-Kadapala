@@ -194,7 +194,7 @@ Small, uppercase, lightly tracked mono does most of the "developer tool" work. N
 | Tag / chip | `#262626` fill, mono label, small radius |
 | Input | `#0f0f0f` fill, hairline border, focus → accent ring |
 
-The sticky navbar's container transitions to `width: 58%` and `translateY(24px)` after the page scrolls 48px, gaining a clear gap from the viewport edge and reading as a floating surface. Its contents remain at their original scale, and its corners use `--radius-md`. Reduced-motion users keep the full-width, flush layout.
+The sticky navbar's container transitions to `width: var(--navbar-scrolled-width)` (`58%`) and `translateY(var(--navbar-scrolled-y))` (`24px`) after the page scrolls `var(--navbar-scroll-threshold)` (`48px`), gaining a clear gap from the viewport edge and reading as a floating surface. Its contents remain at their original scale, and its corners use `--radius-md`. Reduced-motion users keep the full-width, flush layout. Layout and motion live on `src/components/Navbar.tsx`; the numbers live as tokens in `src/app/globals.css`.
 
 ---
 

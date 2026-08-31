@@ -24,7 +24,7 @@ Application code lives under `src/app`, `src/components`, and `src/lib` (`89479f
 
 | ID | Call | Meaning |
 |---|---|---|
-| D1 | Keep RSC-first | 6 client components, all justified (SiteHeader, ArticleToc, CodeCopyButton, sheet, HomePage, KnowledgeGraph). New interactivity gets a leaf client component, never a client page. |
+| D1 | Keep RSC-first | 6 client components, all justified (Navbar, ArticleToc, CodeCopyButton, sheet, HomePage, KnowledgeGraph). New interactivity gets a leaf client component, never a client page. |
 | D2 | Keep tokens-once | `src/app/globals.css` (`@theme inline`) + `DESIGN.md` values are the only sources. Audit found zero raw hex, zero `text-[Npx]`, zero `any` — the guardrails in wave 3 keep it that way. |
 | D3 | No second token file | No `designOS.ts`-style typed token object. ResAlign's sat unused while CSS vars did the work; two sources of truth guarantee drift. |
 | D4 | One writing pipeline + catalogs | Unchanged from the Fern plan. Catalogs (`content/research/`, `content/projects/`) are not essays. |
@@ -33,7 +33,7 @@ Application code lives under `src/app`, `src/components`, and `src/lib` (`89479f
 | D7 | Wave-sized PRs | Each wave below is one PR. One unit of work at a time; no second atomic task until the current one is merged. |
 | D8 | No Storybook, no BFF patterns | `ui/` is 2 primitives; a registry is overkill. The only route handlers (`rss.xml`, `content-assets`) are fine as-is. |
 | D9 | `src/` layout | App Router source under `src/`. Config, `content/`, `public/`, and docs stay at the repo root. `@/*` → `src/*`. |
-| D10 | Folder contract | `ui/` primitives; surfaces `home/`, `writing/`, `article/`, `research/`, `projects/`; root is `SiteHeader`, `SiteFooter`, `icons`. Keep `article/`. Procedure lives in `docs/authoring.md`; `AGENTS.md` only dispatches there. |
+| D10 | Folder contract | `ui/` primitives; surfaces `home/`, `writing/`, `article/`, `research/`, `projects/`; root is `Navbar`, `Footer`, `icons`. Keep `article/`. Procedure lives in `docs/authoring.md`; `AGENTS.md` only dispatches there. |
 | D11 | Drop dead home museum | Delete `CodeWorkbench` and `ResearchMap` plus unused inspector/map CSS. Do not park. Home viz is `KnowledgeGraph`. |
 
 ## Failure modes this plan inoculates against (from the ResAlign review)
@@ -62,7 +62,7 @@ Landed in `89479f4` with the `src/` move.
 
 Detail: `artifacts/codebase-foundation/notes/wave-2.md`. Merged as PR #10.
 
-- **D10 settled:** `ui/` is shadcn primitives (kebab-case). Surfaces: `home/`, `writing/` (indexes), `article/` (essay chrome + MDX map), `research/`, `projects/`. Root is chrome only: `SiteHeader`, `SiteFooter`, `icons`.
+- **D10 settled:** `ui/` is shadcn primitives (kebab-case). Surfaces: `home/`, `writing/` (indexes), `article/` (essay chrome + MDX map), `research/`, `projects/`. Root is chrome only: `Navbar`, `Footer`, `icons`.
 - **D11 settled:** drop `CodeWorkbench` and `ResearchMap` plus unused inspector/map CSS. Do not park or remount.
 - Moves: `writing-list.tsx` → `writing/WritingIndex.tsx`; `ProjectCard.tsx` → `projects/`; `KnowledgeGraph.tsx` → `research/`; `mdx-components.tsx` → `article/`.
 - Keep `article/`. Do not fold it into `writing/`.

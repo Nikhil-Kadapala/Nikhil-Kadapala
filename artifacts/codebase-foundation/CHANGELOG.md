@@ -22,3 +22,4 @@
 ## 2026-08-31
 
 - Wave 4 (dependency hygiene): removed unused `@mdx-js/loader` and `@mdx-js/react`. Kept `next-mdx-remote`. Writing MDX stays `fs` + Zod + `compileMDX` in `src/lib/writing.ts`. Did not add `@next/mdx`. Foundation numbered waves 0–5 are done.
+- Post-wave chrome rename: `SiteHeader` → `Navbar`, `SiteFooter` → `Footer`. Layout and scroll motion moved onto those components (Tailwind + React). Tokens stay in `globals.css`.

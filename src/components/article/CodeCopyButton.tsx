@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export function CodeCopyButton({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
 
   return (
-    <button
+    <Button
       type="button"
-      className="code-copy"
+      variant="quiet"
+      size="sm"
+      className="h-auto px-2.5 py-1.5 text-(length:--text-mono-xs) uppercase tracking-wider text-muted-foreground"
       aria-label={copied ? "Copied" : "Copy code"}
       onClick={() => {
         void navigator.clipboard.writeText(code);
@@ -17,6 +20,6 @@ export function CodeCopyButton({ code }: { code: string }) {
       }}
     >
       {copied ? "Copied" : "Copy"}
-    </button>
+    </Button>
   );
 }

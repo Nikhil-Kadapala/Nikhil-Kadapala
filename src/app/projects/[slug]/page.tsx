@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects } from "@/lib/content";
+import { Button } from "@/components/ui/button";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -37,16 +38,20 @@ export default async function Project({ params }: { params: Promise<{ slug: stri
           {project.status} · {project.tags.join(" · ")}
         </div>
         <p>{project.detail}</p>
-        <p>
-          <Link className="btn" href={project.href}>
-            Open project ↗
-          </Link>
-          {project.repo ? (
-            <Link className="btn" href={project.repo}>
-              GitHub ↗
+        <div className="flex flex-wrap gap-3">
+          <Button asChild>
+            <Link href={project.href}>
+              Open project ↗
             </Link>
+          </Button>
+          {project.repo ? (
+            <Button asChild>
+              <Link href={project.repo}>
+                GitHub ↗
+              </Link>
+            </Button>
           ) : null}
-        </p>
+        </div>
         <p>
           <Link className="link-arrow" href="/projects">
             Back to projects

@@ -1,1 +1,28 @@
-import { projects } from "@/lib/content"; import { ProjectCard } from "@/components/projects/ProjectCard"; export const metadata={title:"Projects",description:"Product, infrastructure, and research engineering—selected work with the context left in."}; export default function Projects(){return <><section className="page-head wrap"><p className="eyebrow mono">Projects</p><h1>Systems with a question behind them.</h1><p>Product, infrastructure, and research engineering—selected work with the context left in.</p></section><section className="section section-dark"><div className="wrap"><div className="grid-2">{projects.map(p=><ProjectCard key={p.slug} project={p} dark/>)}</div></div></section></>}
+import { projects } from "@/lib/content";
+import { ProjectCard } from "@/components/projects/ProjectCard";
+
+export const metadata = {
+  title: "Projects",
+  description: "Product, infrastructure, and research engineering—selected work with the context left in.",
+};
+
+export default function Projects() {
+  return (
+    <>
+      <section className="page-head wrap">
+        <p className="eyebrow mono">Projects</p>
+        <h1>Systems with a question behind them.</h1>
+        <p>Product, infrastructure, and research engineering—selected work with the context left in.</p>
+      </section>
+      <section className="section section-dark">
+        <div className="wrap">
+          <div className="grid-2">
+            {projects.map((p) => (
+              <ProjectCard key={p.slug} project={p} />
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

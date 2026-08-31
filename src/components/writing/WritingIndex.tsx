@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
   PUBLIC_WRITING_TYPES,
   WRITING_TYPE_LABELS,
   isUnlistedWritingType,
@@ -63,20 +71,26 @@ export function WritingIndexView({
       {visible.length === 0 ? (
         <p className="muted">No posts in this category yet.</p>
       ) : (
-        <div className="list">
+        <div className="list flex flex-col gap-4">
           {visible.map((post) => (
-            <Link className="list-item" href={`/writing/${post.slug}`} key={post.slug}>
-              <span className="mono muted">{post.date}</span>
-              <div>
-                <h3>{post.title}</h3>
-                <p>{post.description}</p>
-                <div className="mono muted list-tags">
-                  {post.draft ? "Draft · " : ""}
-                  {WRITING_TYPE_LABELS[post.type]}
-                  {post.tags.length ? ` · ${post.tags.join(" · ")}` : ""}
-                </div>
-              </div>
-              <span className="link-arrow">Read</span>
+            <Link key={post.slug} href={`/writing/${post.slug}`} className="block text-inherit no-underline">
+              <Card size="sm" className="cursor-pointer">
+                <CardHeader>
+                  <CardTitle>{post.title}</CardTitle>
+                  <CardDescription>{post.description}</CardDescription>
+                  <CardAction>
+                    <span className="link-arrow">Read</span>
+                  </CardAction>
+                </CardHeader>
+                <CardContent>
+                  <span className="mono muted">
+                    {post.date}
+                    {post.draft ? " · Draft" : ""}
+                    {` · ${WRITING_TYPE_LABELS[post.type]}`}
+                    {post.tags.length ? ` · ${post.tags.join(" · ")}` : ""}
+                  </span>
+                </CardContent>
+              </Card>
             </Link>
           ))}
         </div>

@@ -5,6 +5,15 @@ import { motion, useReducedMotion } from "framer-motion";
 import { projects, research } from "@/lib/content";
 import { fadeUpReveal, heroStagger, scrollReveal } from "@/lib/animations";
 import { KnowledgeGraph } from "@/components/research/KnowledgeGraph";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardAction,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const paper = research[0];
 
@@ -38,8 +47,12 @@ export function HomePage() {
             <h1>What does the agent actually know?</h1>
             <p className="hero-sub">I build AI systems that have to work on messy, real-world text, then I try to measure whether they actually do. My PhD is on agent evals: knowledge bases, retrieval, and memory.</p>
             <div className="hero-cta">
-              <Link className="btn" href="/research">Read the research <span>↗</span></Link>
-              <Link className="text-link" href="/projects">Browse systems <span>→</span></Link>
+              <Button asChild>
+                <Link href="/research">Read the research <span>↗</span></Link>
+              </Button>
+              <Button variant="link" asChild className="text-link">
+                <Link href="/projects">Browse systems <span>→</span></Link>
+              </Button>
             </div>
           </motion.div>
           <motion.div variants={fadeUpReveal}>
@@ -84,11 +97,25 @@ export function HomePage() {
             <Link className="link-arrow" href="/research">Research index</Link>
           </motion.div>
           <motion.div {...reveal(1)}>
-            <Link className="paper-card" href={`/research/${paper.slug}`}>
-              <div className="paper-meta mono"><span>{paper.year}</span><span>{paper.tags.join(" · ")}</span></div>
-              <h3>{paper.title}</h3>
-              <p>{paper.detail}</p>
-              <div className="paper-links mono">{paper.links.map(l => <span key={l.label}>{l.label} ↗</span>)}<em>Read the writeup →</em></div>
+            <Link href={`/research/${paper.slug}`} className="block text-inherit no-underline">
+              <Card className="cursor-pointer">
+                <CardHeader>
+                  <CardTitle>{paper.title}</CardTitle>
+                  <CardDescription>{paper.detail}</CardDescription>
+                  <CardAction>
+                    <span className="mono muted">
+                      {paper.year}
+                      {paper.tags.length ? ` · ${paper.tags.join(" · ")}` : ""}
+                    </span>
+                  </CardAction>
+                </CardHeader>
+                <CardFooter className="flex-wrap gap-3">
+                  {paper.links.map((l) => (
+                    <span key={l.label}>{l.label} ↗</span>
+                  ))}
+                  <em className="link-arrow">Read the writeup</em>
+                </CardFooter>
+              </Card>
             </Link>
           </motion.div>
         </div>
@@ -103,13 +130,23 @@ export function HomePage() {
             </div>
             <Link className="link-arrow" href="/projects">All systems</Link>
           </motion.div>
-          <div className="artifact-list">
+          <div className="artifact-list flex flex-col gap-4">
             {projects.filter(p => p.featured).map((p, index) => (
               <motion.div key={p.slug} {...reveal(index)}>
-                <Link className="artifact-row" href={`/projects/${p.slug}`}>
-                  <span className="artifact-number">0{index + 1}</span>
-                  <div><span className="tag">{p.kind}</span><h3>{p.name}</h3><p>{p.summary}</p></div>
-                  <div className="artifact-meta"><span>{p.status}</span><span>Open ↗</span></div>
+                <Link href={`/projects/${p.slug}`} className="block text-inherit no-underline">
+                  <Card size="sm" className="cursor-pointer">
+                    <CardHeader>
+                      <CardTitle>{p.name}</CardTitle>
+                      <CardDescription>{p.summary}</CardDescription>
+                      <CardAction>
+                        <span className="tag">{p.kind}</span>
+                      </CardAction>
+                    </CardHeader>
+                    <CardFooter className="justify-between">
+                      <span className="mono muted">0{index + 1} · {p.status}</span>
+                      <span className="link-arrow">Open</span>
+                    </CardFooter>
+                  </Card>
                 </Link>
               </motion.div>
             ))}
@@ -145,10 +182,22 @@ export function HomePage() {
             <h2>Got a weird eval problem?</h2>
             <p>Always happy to talk about research, agents, or evaluation that refuses to behave. LinkedIn or X is the easiest ping.</p>
           </motion.div>
-          <motion.div {...reveal(1)}>
-            <a className="btn" href="https://github.com/Nikhil-Kadapala">GitHub <span>↗</span></a>
-            <a className="btn btn-quiet" href="https://www.linkedin.com/in/nikhil-kadapala">LinkedIn <span>↗</span></a>
-            <a className="btn btn-quiet" href="https://x.com/Nikhil_Kadapala">X <span>↗</span></a>
+          <motion.div className="flex flex-wrap gap-3" {...reveal(1)}>
+            <Button asChild>
+              <a href="https://github.com/Nikhil-Kadapala" target="_blank" rel="noopener noreferrer">
+                GitHub <span>↗</span>
+              </a>
+            </Button>
+            <Button variant="quiet" asChild>
+              <a href="https://www.linkedin.com/in/nikhil-kadapala" target="_blank" rel="noopener noreferrer">
+                LinkedIn <span>↗</span>
+              </a>
+            </Button>
+            <Button variant="quiet" asChild>
+              <a href="https://x.com/Nikhil_Kadapala" target="_blank" rel="noopener noreferrer">
+                X <span>↗</span>
+              </a>
+            </Button>
           </motion.div>
         </div>
       </section>
