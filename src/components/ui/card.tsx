@@ -12,7 +12,9 @@ function Card({
       data-slot="card"
       data-size={size}
       className={cn(
-        "group/card flex min-h-(--card-min-height) flex-col justify-between gap-(--card-spacing) rounded-xl border border-border-strong bg-card py-(--card-spacing) text-card-foreground shadow-sm [--card-spacing:--spacing(8)]",
+        "group/card flex min-h-(--card-min-height) flex-col justify-between gap-(--card-spacing) rounded-xl border border-border bg-card py-(--card-spacing) text-card-foreground shadow-sm transition-[border-color,background-color,color] duration-(--dur) ease-out [--card-spacing:--spacing(8)]",
+        "[@media(hover:hover)_and_(pointer:fine)]:hover:border-border-strong [@media(hover:hover)_and_(pointer:fine)]:hover:bg-(--surface-2) [@media(hover:hover)_and_(pointer:fine)]:hover:text-(--text)",
+        "focus-within:border-border-strong focus-within:bg-(--surface-2) focus-within:text-(--text)",
         size === "sm" && "min-h-(--card-min-height-sm) text-sm [--card-spacing:--spacing(6)]",
         className
       )}
