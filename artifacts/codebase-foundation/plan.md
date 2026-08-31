@@ -1,7 +1,7 @@
 ---
 title: Codebase foundation
-status: wave-3-done
-updated: 2026-08-30
+status: wave-4-done
+updated: 2026-08-31
 owner: Nikhil Kadapala
 changelog: ./CHANGELOG.md
 ---
@@ -43,7 +43,7 @@ Application code lives under `src/app`, `src/components`, and `src/lib` (`89479f
 | 0/34 pages export metadata; 0 loading/error/not-found boundaries | **Closed (Wave 1).** Homepage, catalog slugs, `error.tsx`, `not-found.tsx`, `writing/[slug]/loading.tsx` are on `main`. Some catalog pages still export `title` only; Wave 3 should require `description` too. |
 | Flat `components/` root sprawl | **Closed (Wave 2).** Surfaces own their UI. Root is chrome only. |
 | Conventions that aren't linted decay | **Closed (Wave 3).** `scripts/check-conventions.sh` fails raw hex, `text-[Npx]`, and string-built classNames in `.tsx`, and requires a non-empty `description` on every `page.tsx`. `.github/PULL_REQUEST_TEMPLATE.md` plus a CI step before `bun install`. |
-| Twin MDX pipelines drifting apart | **Open (Wave 4).** Writing uses `next-mdx-remote/rsc`. `@mdx-js/loader` and `@mdx-js/react` are installed and unused. |
+| Twin MDX pipelines drifting apart | **Closed (Wave 4).** Writing uses `next-mdx-remote/rsc` as data (`fs` + Zod). Unused `@mdx-js/loader` and `@mdx-js/react` removed. Do not add `@next/mdx`. |
 | Copy-paste helpers diverging | Not present — `src/lib/` modules are single-responsibility. Keep it. |
 
 ## Wave 0 — Land in-flight work (done)
@@ -91,9 +91,10 @@ PR / push → ci.yml job check
   bun install → typecheck → lint → build
 ```
 
-## Wave 4 — Dependency hygiene (one PR)
+## Wave 4 — Dependency hygiene (done)
 
 - Keep `next-mdx-remote`. Drop unused `@mdx-js/loader` and `@mdx-js/react`.
+- Local `.mdx` is still compiled as data in `src/lib/writing.ts` (`compileMDX`), not as bundler modules. Do not add `@next/mdx`.
 - "No new deps without asking" stays as-is.
 
 ## Wave 5 — Contributor docs (done)
@@ -102,7 +103,7 @@ Root `README.md` stays the GitHub profile bio. Add `docs/architecture.md` (route
 
 ## Sequencing
 
-Waves 0–3 and 5 are on this branch. Wave 4 (unused MDX deps) is next. Fern Wave 5 (optional skills) stays a separate PR.
+Waves 0–5 are done. Fern Wave 5 (optional skills) stays a separate PR.
 
 ## GSTACK REVIEW REPORT
 
