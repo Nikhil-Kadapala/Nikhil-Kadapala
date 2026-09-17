@@ -1,5 +1,6 @@
 node_modules/
 # Host-specific agent/editor state. Track only the skills symlink in each.
+.codex/*
 .claude/*
 !.claude/skills
 .cursor/*
